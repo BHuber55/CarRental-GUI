@@ -55,7 +55,7 @@ public class Manager extends Employee {
     /**
      * This method will get the username of the manager.
      * 
-     * @retrun a String that contains the username of the manager.
+     * @return a String that contains the username of the manager.
      * 
      */
     public String getUsername(){
@@ -63,9 +63,9 @@ public class Manager extends Employee {
     }
         
     /**
-     * This method will get the bonus that the manager recieves.
+     * This method will get the bonus that the manager receives.
      * 
-     * @return a double that holds the bonus this manager recieves.
+     * @return a double that holds the bonus this manager receives.
      */
     public double getBonus(){
         return bonus;

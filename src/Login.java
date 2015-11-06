@@ -1,6 +1,7 @@
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -11,8 +12,8 @@ import javax.swing.JTextField;
 
 public class Login {
 	
-	public static void loginFrame(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
-		Customer CUSTOMER = null;
+	public static Customer loginFrame(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
+		final Customer C = new Customer();
 		// CREATING THE FRAME FOR LOGIN!!!
 		JFrame login = new JFrame("Car Rental Name");
 		
@@ -47,10 +48,21 @@ public class Login {
 				String username = username_text_field.getText();
 				String password = password_text_field.getText();
 				
-				Customer CUSTOMER = Login.login(customers, username, password);
-				// ^^^^^ that is the error. 
-				// "Local variable CUSTOMER defined in an enclosing scope must be final or effectively final"
-				// Driver.mainMenu(CUSTOMER, customers, employees, managers, reservations, cars);
+				Customer c = Login.login(customers, username, password);
+				
+//				for(Customer cus : customers) {
+//					if(cus.getUserName().equals(c.getUserName())){
+//						C.setName("Testing");
+//						C.setUsername(c.getUserName());
+//						C.setEmail(c.getEmail());
+//						C.setPassword(c.getPassword());
+//						C.setBirthday(c.getBirthday());
+//						C.setPhoneNumber(c.getPhoneNumber());
+//						C.setCreditCardNumber(c.getCreditCardNumber());
+//					}
+//				}
+				
+				
 			}
 		});
 		
@@ -61,7 +73,13 @@ public class Login {
 				Customer CUSTOMER = Customer.createNewCustomer(customers);				
 				// ^^^^^ that is the error. 
 				// "Local variable CUSTOMER defined in an enclosing scope must be final or effectively final"
-				// Driver.mainMenu(CUSTOMER, customers, employees, managers, reservations, cars);
+				try {
+					login.dispose();
+					Driver.mainMenu(CUSTOMER, cars, customers, employees, managers, reservations);
+				}
+				catch (IOException e1) {
+					// I don't know why we have this.
+				}
 			}
 		});
 		
@@ -79,14 +97,19 @@ public class Login {
 		login.setLocationRelativeTo(null);
 		login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		login.setVisible(true);
+		
+		return C;
 	}
 	
 	public static Customer login(ArrayList<Customer> customers, String username, String password) {
-
+		boolean found = false;
+		
 		Customer CUSTOMER = null;
 		
 		for(Customer customer : customers) {
 			if(customer.getUserName().equals(username)) {
+				found = true;
+
 				if(customer.getPassword().equals(password)) {
 					CUSTOMER = customer;
 				}
@@ -94,9 +117,10 @@ public class Login {
 					JOptionPane.showMessageDialog(null, "Password is incorrect", "Error", JOptionPane.WARNING_MESSAGE);
 				}
 			}
-			else {
-				JOptionPane.showMessageDialog(null, "Username was Not found", "Error", JOptionPane.WARNING_MESSAGE);
-			}
+		}
+		
+		if(!found) {
+			JOptionPane.showMessageDialog(null, "Username was not found.", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 		
 		// This was just quickly done just so I know what I want to do later.

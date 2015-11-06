@@ -21,6 +21,10 @@ public class Customer {
 	// we need this line below if we are going to create a history of customer reservations.
 	//private ArrayList<Reservation> prev_reservations;
 
+	public Customer() {
+		
+	}
+	
 	/**
 	 * 
 	 * @param name
@@ -112,7 +116,35 @@ public class Customer {
 	public String getCreditCardNumber() {
 		return creditCardNumber;
 	}
-
+	
+	public void setName(String n) {
+		name = n;
+	}
+	
+	public void setUsername(String u) {
+		username = u;
+	}
+	
+	public void setEmail(String e) {
+		email = e;
+	}
+	
+	public void setPassword(String p) {
+		password = p;
+	}
+	
+	public void setPhoneNumber(String p) {
+		phoneNumber = p;
+	}
+	
+	public void setBirthday(String b) {
+		birthday = b;
+	}
+	
+	public void setCreditCardNumber(String c) {
+		creditCardNumber = c;
+	}
+	
 	/**
 	 * This method calls the reservation's getQuote method.
 	 * 
