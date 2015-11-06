@@ -22,6 +22,10 @@ public class Manager extends Employee {
     private int salary;
     private double bonus;
     
+    public Manager() {
+    	
+    }
+    
     /**
      * This is the constructor, it will construct a manager with the given attributes.
      * 
@@ -78,7 +82,7 @@ public class Manager extends Employee {
      * 
      * @return an array list of customers that contains every customer, including the newly created one.
      */
-    public ArrayList<Customer> createCustomer(ArrayList<Customer> customers){
+    public void createCustomer(ArrayList<Customer> customers){
     	Scanner in = new Scanner(System.in);
     	
     	System.out.println("Please enter the name of the customer");
@@ -104,8 +108,6 @@ public class Manager extends Employee {
     	
         Customer customer = new Customer(name, username, email, password, phone, birthday, credit);
         customers.add(customer);
-        
-        return customers;
     }
     
     /**
@@ -115,7 +117,7 @@ public class Manager extends Employee {
      * 
      * @return an array list of employees that contains every employee, including the newly created one.
      */
-    public ArrayList<Employee> createEmployee(ArrayList<Employee> employees){
+    public void createEmployee(ArrayList<Employee> employees){
     	Scanner in = new Scanner(System.in);
     	
     	System.out.println("Please enter the name of the employee");
@@ -148,9 +150,6 @@ public class Manager extends Employee {
     	
     	Employee employee = new Employee(name, username, email, password, phone, birthday, credit, hire, salary);
         employees.add(employee);
-        
-     
-        return employees;
     }
     
     /**
@@ -163,7 +162,7 @@ public class Manager extends Employee {
      * 
      * @return
      */
-    public ArrayList<Manager> changePassword(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, String userName){
+    public void changePassword(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, String userName){
     	Manager m = null;
     	Employee e = null;
     	Customer c = null;
@@ -203,8 +202,6 @@ public class Manager extends Employee {
     	
     	customers.remove(c);
     	customers.add(customer);
-    	
-    	return managers;
     }
     
     /**
@@ -214,7 +211,7 @@ public class Manager extends Employee {
      * 
      * @return the newly updated array list of reservations
      */
-    public ArrayList<Reservation> cancelReservation(ArrayList<Reservation> reservations){
+    public void cancelReservation(ArrayList<Reservation> reservations){
     	boolean found = false;
     	
     	Scanner in = new Scanner(System.in);
@@ -233,7 +230,6 @@ public class Manager extends Employee {
     	
     	if(!found) {
     		System.out.println("Sorry that number was not found");
-    		return reservations;
     	}
 		
 		for(Reservation reservation : reservations) {
@@ -245,8 +241,6 @@ public class Manager extends Employee {
 		reservations.remove(resv);
 		
 		System.out.println("The reservation has been cancelled.");
-		
-		return reservations;
     }
     
     /**
@@ -257,7 +251,7 @@ public class Manager extends Employee {
      * 
      * @return an array list of reservations that contains all the reservations.
      */
-    public ArrayList<Reservation> updateReservation(ArrayList<Reservation> reservations, ArrayList<Car> cars){
+    public void updateReservation(ArrayList<Reservation> reservations, ArrayList<Car> cars){
     	Scanner in = new Scanner(System.in);
 
     	Reservation resv = null;
@@ -288,7 +282,6 @@ public class Manager extends Employee {
     	
     	if(!found) {
     		System.out.println("Sorry that number was not found");
-    		return reservations;
     	}
     	
     	System.out.println("Please enter the number of the information you would like to update");
@@ -368,8 +361,6 @@ public class Manager extends Employee {
 		reservations.add(resv);
 		
 		System.out.println("The reservation has been updated.");
-		
-		return reservations;
     }
     
 	/**

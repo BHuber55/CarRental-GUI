@@ -58,12 +58,14 @@ public class Driver<T> {
 	}
 	
 	public static void mainMenu(int index, ArrayList<Car> cars1, ArrayList<Customer> customers1, ArrayList<Employee> employees1, ArrayList<Manager> managers1, ArrayList<Reservation> reservations1) throws IOException {
+		int i = 1000;;
+		
 		String beg_emp = "E_";
 		String beg_man = "M_";
 		
-		Customer C = customers1.get(index);
-		Employee E = null;
-		Manager M = null;
+		final Customer C = customers1.get(index);
+		// employee is defined below
+		// manager is defined below.
 		
 		String username = C.getUserName();
 		
@@ -87,19 +89,23 @@ public class Driver<T> {
 			for (Employee employee : employees) {
 				if (employee.getUserName().equals(username)) {
 					// the user is an employee
-					E = employee;
+					i = employees.indexOf(employee);
 				}
 			}
 		}
+		
+		final Employee E = employees.get(i);
 		
 		if (beginning.equals(beg_man)) {
 			for (Manager manager : managers) {
 				if (manager.getUserName().equals(username)) {
 					// the user is a manager.
-					M = manager;
+					i = managers.indexOf(manager);
 				}
 			}
 		}
+		
+		final Manager M = managers.get(i);
 		
 		// Creating the frame and what not.
 		JFrame menu_frame = new JFrame("Main Menu");
@@ -149,10 +155,10 @@ public class Driver<T> {
 		b_c_update_profile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// remove the first customer.
-				customers.remove(C);
+				int index = customers.indexOf(C);
 				
 				// now we add the modified customer back to the list.
-				customers.add(C.updateProfile());
+				C.updateProfile(index, customers);
 			}
 		});
 
@@ -161,7 +167,7 @@ public class Driver<T> {
 		b_c_make_resv.setBorderPainted(false);
 		b_c_make_resv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reservations = C.makeReservation(cars, reservations);
+				C.makeReservation(cars, reservations);
 			}
 		});
 
@@ -171,10 +177,10 @@ public class Driver<T> {
 		b_e_new_vehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
-					cars = E.registerNewVehicle(cars);
+					E.registerNewVehicle(cars);
 				}
 				if (beginning.equals(beg_man)) {
-					cars = M.registerNewVehicle(cars);
+					M.registerNewVehicle(cars);
 				}
 			}
 		});
@@ -185,10 +191,10 @@ public class Driver<T> {
 		b_e_update_vehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
-					cars = E.updateVehicle(cars);
+					E.updateVehicle(cars);
 				}
 				if (beginning.equals(beg_man)) {
-					cars = M.updateVehicle(cars);
+					M.updateVehicle(cars);
 				}
 			}
 		});
@@ -199,10 +205,10 @@ public class Driver<T> {
 		b_e_delete_vehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
-					cars = E.deleteVehicle(cars);
+					E.deleteVehicle(cars);
 				}
 				if (beginning.equals(beg_man)) {
-					cars = M.deleteVehicle(cars);
+					M.deleteVehicle(cars);
 				}
 			}
 		});
@@ -213,10 +219,10 @@ public class Driver<T> {
 		b_e_display_customers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
-					customers = E.displayAllCustomers(customers);
+					E.displayAllCustomers(customers);
 				}
 				if (beginning.equals(beg_man)) {
-					customers = M.displayAllCustomers(customers);
+					M.displayAllCustomers(customers);
 				}
 			}
 		});
@@ -268,7 +274,7 @@ public class Driver<T> {
 		b_m_create_customer.setBorderPainted(false);
 		b_m_create_customer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				customers = M.createCustomer(customers);
+				M.createCustomer(customers);
 			}
 		});
 
@@ -277,7 +283,7 @@ public class Driver<T> {
 		b_m_create_employee.setBorderPainted(false);
 		b_m_create_employee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				employees = M.createEmployee(employees);
+				M.createEmployee(employees);
 			}
 		});
 
@@ -286,7 +292,7 @@ public class Driver<T> {
 		b_m_make_reservation.setBorderPainted(false);
 		b_m_make_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reservations = M.makeReservation(cars, reservations);
+				M.makeReservation(cars, reservations);
 			}
 		});
 
@@ -295,7 +301,7 @@ public class Driver<T> {
 		b_m_change_password.setBorderPainted(false);
 		b_m_change_password.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				managers = M.changePassword(customers, employees, managers, M.getUserName());
+				M.changePassword(customers, employees, managers, M.getUserName());
 			}
 		});
 
@@ -304,7 +310,7 @@ public class Driver<T> {
 		b_m_cancel_reservation.setBorderPainted(false);
 		b_m_cancel_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reservations = M.cancelReservation(reservations);
+				M.cancelReservation(reservations);
 			}
 		});
 
@@ -313,7 +319,7 @@ public class Driver<T> {
 		b_m_update_reservation.setBorderPainted(false);
 		b_m_update_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reservations = M.updateReservation(reservations, cars);
+				M.updateReservation(reservations, cars);
 			}
 		});
 		

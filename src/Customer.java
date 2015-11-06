@@ -238,7 +238,10 @@ public class Customer {
 	 * 
 	 * @return a Customer that is the newly upated customer.
 	 */
-	public Customer updateProfile() {
+	public void updateProfile(int index, ArrayList<Customer> customers) {
+		
+		customers.remove(index);
+		
 		Scanner input = new Scanner(System.in);
 
 		System.out.println("Please enter your new name");
@@ -264,7 +267,7 @@ public class Customer {
 
 		Customer customer = new Customer(new_name, new_username, new_email, new_password, new_phone, new_birthday, new_creditCardNumber);
 
-		return customer;
+		customers.add(customer);
 	}
 
 	/**
@@ -277,19 +280,14 @@ public class Customer {
 	 * 
 	 * @return the array list of reservtion that contains every reservation, including the newly made one.
 	 */
-	public ArrayList<Reservation> makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
+	public void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
 		// somehow make this point to reservation make reservation.
-		Reservation resv = Reservation.makeReservation(cars, reservations);
+		Reservation.makeReservation(cars, reservations);
 
-		// The below line will not be included until I figure out how to make
-		// the previous reservation array.
-		// prev_reservations.add(resv.getConfirmationNumber);
-		reservations.add(resv);
-
+		Reservation resv = reservations.get(reservations.size() - 1);
+		
 		System.out.println("Your reservation has been made.");
 		System.out.println("Your confirmation number is: " + resv.getConfirmationNumber());
-
-		return reservations;
 	}
 	
 	/**

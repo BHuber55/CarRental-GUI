@@ -23,6 +23,9 @@ public class Employee extends Customer {
 
 	ArrayList<Employee> employees = new ArrayList<Employee>();
 
+	public Employee() {
+		
+	}
 	/**
 	 * This is the constructor of Employee. It will construct a manager with the given attributes.
 	 * 
@@ -85,7 +88,7 @@ public class Employee extends Customer {
 	 * 
 	 * @return an array list of cars the contains every car, including the newly updated one.
 	 */
-	public ArrayList<Car> updateVehicle(ArrayList<Car> cars) {
+	public void updateVehicle(ArrayList<Car> cars) {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Please enter the ID of the car you wish to update.");
 		String car_id = in.nextLine();
@@ -138,8 +141,6 @@ public class Employee extends Customer {
 		}
 		
 		System.out.println("Car has been updated.");
-		
-		return cars;
 	}
 
 	/**
@@ -149,7 +150,7 @@ public class Employee extends Customer {
 	 * 
 	 * @return an array list of cars the contains every car, including the newly created one.
 	 */
-	public ArrayList<Car> registerNewVehicle(ArrayList<Car> cars) {
+	public void registerNewVehicle(ArrayList<Car> cars) {
 		Scanner in = new Scanner(System.in);
 		
 		System.out.println("Please enter the Model of the car");
@@ -190,8 +191,6 @@ public class Employee extends Customer {
 		cars.add(car);
 		
 		System.out.println("Vehicle has been registed.");
-		
-		return cars;
 	}
 
 	/**
@@ -201,7 +200,7 @@ public class Employee extends Customer {
 	 * 
 	 * @return  an array list of cars the contains every car, excluding the one that gets deleted.
 	 */
-	public ArrayList<Car> deleteVehicle(ArrayList<Car> cars) {
+	public void deleteVehicle(ArrayList<Car> cars) {
 		boolean found = false;
 		
 		Scanner in = new Scanner(System.in);
@@ -218,7 +217,6 @@ public class Employee extends Customer {
     	
     	if(found == false) {
     		System.out.println("Sorry that number was not found");
-    		return cars;
     	}
 		
 		for(Car car : cars) {
@@ -229,8 +227,6 @@ public class Employee extends Customer {
 		}
 		
 		System.out.println("Vehicle has been deleted.");
-		
-		return cars;
 	}
 
 	/**
@@ -240,13 +236,11 @@ public class Employee extends Customer {
 	 * 
 	 * @return  an array list of customers the contains every c, including the newly updated one.
 	 */
-	public ArrayList<Customer> displayAllCustomers(ArrayList<Customer> customers) {
+	public void displayAllCustomers(ArrayList<Customer> customers) {
 		
 		for(Customer customer : customers) {
 			System.out.println(customer.getAttributes());
 		}
-		
-		return customers;
 	}
 
 	/**

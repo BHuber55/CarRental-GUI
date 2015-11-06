@@ -141,7 +141,7 @@ public class Reservation {
 	 * 
 	 * @return a new reservation containing the information that the user inputed.
 	 */
-	public static Reservation makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
+	public static void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
 		Scanner in = new Scanner(System.in);
 
 		boolean insur = false;
@@ -190,7 +190,7 @@ public class Reservation {
 
 		Reservation resv = new Reservation(car_id, pdate, ddate, Reservation.makeConfirmationNumber(reservations), insur, String.valueOf(quotes));
 		
-		return resv;
+		reservations.add(resv);
 	}
 
 	/**
@@ -206,7 +206,7 @@ public class Reservation {
 	 * @return a list of reservation that holds every reservation, including the
 	 *         updated reservation.
 	 */
-	public ArrayList<Reservation> updateProfile(ArrayList<Car> cars, ArrayList<Reservation> reservations, int number) {
+	public void updateProfile(ArrayList<Car> cars, ArrayList<Reservation> reservations, int number) {
 		Reservation res = null;
 		for (Reservation reservation : reservations) {
 			if (reservation.getConfirmationNumber() == number) {
@@ -216,10 +216,7 @@ public class Reservation {
 		}
 
 		reservations.remove(res);
-		res = makeReservation(cars, reservations);
-		reservations.add(res);
-
-		return reservations;
+		makeReservation(cars, reservations);
 	}
 
 	// not used atm.. but maybe later.
