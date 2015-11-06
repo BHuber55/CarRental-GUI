@@ -35,20 +35,6 @@ import javax.swing.JFrame;
 public class Driver<T> {
 
 	public static void main(String args[]) throws IOException {
-		// various local variables used throughout main.
-		String username = "testing";
-		String beg_emp = "E_";
-		String beg_man = "M_";
-		int user_input = 0;
-		
-		// initializing a scanner for user input.
-		Scanner in = new Scanner(System.in);
-		
-		// This is to hold the information of the person using the system.
-		Customer CUSTOMER = null;
-		Employee EMPLOYEE = null;
-		Manager MANAGER = null;
-
 		// Defining the names of the files used.
 		final String FILE_CARS = "Cars.txt";
 		final String FILE_CUSTOMERS = "Customers.txt";
@@ -64,8 +50,6 @@ public class Driver<T> {
 		ArrayList<Reservation> reservations = readFile(FILE_RESERVATIONS);
 
 		Login.loginFrame(customers, employees, managers, reservations, cars);
-		
-		in.close();
 	}
 	
 	
