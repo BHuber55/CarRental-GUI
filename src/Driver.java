@@ -31,6 +31,22 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+/* OKAY NEW IDEA
+ * 
+ * I could make each of the array list a class.. and in that class create all of these methods we are using
+ * that way each method just replaces the array list with the modified ones, that way we don't have to return anything.
+ * 
+ * i.e.
+ * 
+ * reservations.makeReservations();
+ * 
+ * that will call the reservations class, will get the array list from its class' attributes and then modify it?
+ * 
+ * Maybe.
+ */
+
+
+
 
 public class Driver<T> {
 
@@ -52,20 +68,22 @@ public class Driver<T> {
 		Login.loginFrame(customers, employees, managers, reservations, cars);
 	}
 	
-	
-	
-	
-	public static void mainMenu(Customer customer, ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) throws IOException {
+	public static void mainMenu(Customer customer, ArrayList<Car> cars1, ArrayList<Customer> customers1, ArrayList<Employee> employees1, ArrayList<Manager> managers1, ArrayList<Reservation> reservations1) throws IOException {
 		int user_input = 1;
 		String beg_emp = "E_";
 		String beg_man = "M_";
 		
 		String username = customer.getUserName();
-		String password = customer.getPassword();
 		
 		Customer CUSTOMER = customer;
 		Employee EMPLOYEE = null;
 		Manager MANAGER = null;
+		
+		final ArrayList<Car> cars = cars1;
+		final ArrayList<Customer> customers = customers1;
+		final ArrayList<Employee> employees = employees1;
+		final ArrayList<Manager> managers = managers1;
+		final ArrayList<Reservation> reservations = reservations1;
 		
 		// Defining the names of the files used.
 		final String FILE_CARS = "Cars.txt";
@@ -125,7 +143,12 @@ public class Driver<T> {
 		// creating the action listener for these buttons.
 		b_c_logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				}
+				catch (IOException e1) {
+					// do something.. maybe.
+				}
 			}
 		});
 		
@@ -242,103 +265,8 @@ public class Driver<T> {
 		menu_frame.setSize(500, 300);
 		menu_frame.setVisible(true);
 		
-		
-		// START OF THE ACTUAL PROGRAM 
-		while (user_input != 0) {
-			
-			// display everything for customer
-			System.out.println();
-			System.out.println();
-			System.out.println("Do you want to:");
-
-			System.out.println("1. Logout");
-			System.out.println("2. Update Profile");
-			System.out.println("3. Make Reservation");
-
-			if ( !(beginning.equals(beg_emp)) && !(beginning.equals(beg_man))) {
-				user_input = in.nextInt();
-				
-				while (user_input > 3 || user_input < 0) {
-					System.out.println("Please choose one of the availible options");
-					
-					user_input = in.nextInt();
-				}
-			}
-
-			// if the start of the username is a E_ or M_ then they are an employee or manager
-			// and only they have access to these methods.
-			if (beginning.equals(beg_emp) || beginning.equals(beg_man)) {
-				// display employee methods
-				System.out.println("4. Register New Vehicle");
-				System.out.println("5. Update a Vehicle");
-				System.out.println("6. Delete Vehicle");
-				System.out.println("7. Display All Customers");
-				//System.out.println("7. View Customer Record");
-				System.out.println("8. Find Reservation by Confirmation Number");
-				System.out.println("9. Review Reservation");
-				
-				// if it begins with an 'E_' then they are an employee.
-				if (beginning.equals(beg_emp)) {
-					
-					user_input = in.nextInt();
-					// setting the current user as an employee.
-					for (Employee employee : employees) {
-
-						if (employee.getUserName().equals(username)) {
-							EMPLOYEE = employee;
-						}
-					}
-
-					while (user_input > 9 || user_input < 0) {
-						System.out.println("Please choose one of the availible options");
-						
-						user_input = in.nextInt();
-					}
-				}
-				
-				// if it begins with a 'M_' then they are a manger
-				if (beginning.equals(beg_man)) {
-					// display manager methods
-					System.out.println("10. Create Customer");
-					System.out.println("11. Create Employee");
-					System.out.println("12. Make Reservation For Customer");
-					System.out.println("13. Change Password");
-					System.out.println("14. Cancel Reservation");
-					System.out.println("15. Update Reservation");
-					System.out.println();
-					
-					user_input = in.nextInt();
-
-					while(user_input > 15 || user_input < 1) {
-						System.out.println("Plese choose one of the availible options");
-						
-						user_input = in.nextInt();
-					}
-					
-					// setting the current user as a manager.
-					for (Manager manager : managers) {
-						if (manager.getUserName().equals(CUSTOMER.getUserName())) {
-							MANAGER = manager;
-						}
-					}
-				}
-			}
-
-			if (user_input > 15 || user_input < 0) {
-				while (user_input > 15 || user_input < 0) {
-					System.out.println("Please choose one of the availible options");
-					user_input = in.nextInt();
-				}
-			}
-			
-			else if (user_input == 1) {
-				// then the user wants to logout.. so we need to save the information.
-				// writing each class and every attribute to a file.
-				writeFile(FILE_CARS, cars);
-				writeFile(FILE_CUSTOMERS, customers);
-				writeFile(FILE_EMPLOYEES, employees);
-				writeFile(FILE_MANAGERS, managers);
-				writeFile(FILE_RESERVATIONS, reservations);
+			if (user_input == 1) {
+				WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
 				
 				System.out.println("Thank you for using out rental service!");
 				
@@ -462,18 +390,18 @@ public class Driver<T> {
 			}
 			
 			// going to add this to write to file after each choice was selected and completed.
-			writeFile(FILE_CARS, cars);
-			writeFile(FILE_CUSTOMERS, customers);
-			writeFile(FILE_EMPLOYEES, employees);
-			writeFile(FILE_MANAGERS, managers);
-			writeFile(FILE_RESERVATIONS, reservations);
-		}
-		// outside the while loop.
+			WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+}
+	
+	
+	
+	public static <T> void WRITE(String FILE_CARS, String FILE_CUSTOMERS, String FILE_EMPLOYEES, String FILE_MANAGERS, String FILE_RESERVATIONS, ArrayList<Car> cars, ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations) throws IOException{
+		writeFile(FILE_CARS, cars);
+		writeFile(FILE_CUSTOMERS, customers);
+		writeFile(FILE_EMPLOYEES, employees);
+		writeFile(FILE_MANAGERS, managers);
+		writeFile(FILE_RESERVATIONS, reservations);
 	}
-	
-	
-	
-	
 	
 	// need to edit the employee and manager constructor here to include the information from the super classes.
 	public static <T> ArrayList<T> readFile(String file_name) throws NumberFormatException, IOException {
@@ -526,7 +454,7 @@ public class Driver<T> {
 	}
 
 	// Temporary permanent work around.
-	public static <T> void writeFile(String file_name, ArrayList<T> items) throws IOException {
+	private static <T> void writeFile(String file_name, ArrayList<T> items) throws IOException {
 		FileWriter fw = new FileWriter("./" + file_name);
 		BufferedWriter bw = new BufferedWriter(fw);
 
