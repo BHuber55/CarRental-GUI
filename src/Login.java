@@ -42,12 +42,20 @@ public class Login {
 				 * 
 				 * again should work however I am not 100% sure that is the way to go.
 				 */
+				
+				// okay so the initial way I tried
+				String username = username_text_field.getText();
+				String password = password_text_field.getText();
+				
+				CUSTOMER = Login.login(customers, username, password);
 			}
 		});
 		
 		create_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// if they choose to create a new account.. we do that.
+				
+				CUSTOMER = Customer.createNewCustomer(customers);
 			}
 		});
 		
@@ -70,9 +78,19 @@ public class Login {
 		return CUSTOMER;
 	}
 	
-	public static Customer login(JFrame login, ArrayList<Customer> customers, String username, String password) {
-		Customer customer = customers.get(0);
+	public static Customer login(ArrayList<Customer> customers, String username, String password) {
+		Customer CUSTOMER;
 		
-		return customer;
+		for(Customer customer : customers) {
+			if(customer.getUserName().equals(username)) {
+				if(customer.getPassword().equals(password))
+					CUSTOMER = customer;
+			}
+		}
+		
+		// will also have to check and see if the username/password is not found.
+		// that is just a rough go through.
+		
+		return CUSTOMER;
 	}
 }
