@@ -73,17 +73,18 @@ public class Driver<T> {
 		String beg_emp = "E_";
 		String beg_man = "M_";
 		
-		String username = customer.getUserName();
-		
 		Customer CUSTOMER = customer;
 		Employee EMPLOYEE = null;
 		Manager MANAGER = null;
 		
-		final ArrayList<Car> cars = cars1;
-		final ArrayList<Customer> customers = customers1;
-		final ArrayList<Employee> employees = employees1;
-		final ArrayList<Manager> managers = managers1;
-		final ArrayList<Reservation> reservations = reservations1;
+		String username = CUSTOMER.getUserName();
+
+		
+		ArrayList<Car> cars = cars1;
+		ArrayList<Customer> customers = customers1;
+		ArrayList<Employee> employees = employees1;
+		ArrayList<Manager> managers = managers1;
+		ArrayList<Reservation> reservations = reservations1;
 		
 		// Defining the names of the files used.
 		final String FILE_CARS = "Cars.txt";
@@ -137,6 +138,7 @@ public class Driver<T> {
 		JButton b_m_create_customer = new JButton("Create Customer");
 		JButton b_m_create_employee = new JButton("Create Employee");
 		JButton b_m_make_reservation = new JButton("Make Reservation for Customer");
+		JButton b_m_change_password = new JButton("Change Password");
 		JButton b_m_cancel_reservation = new JButton("Cancel a Reservation");
 		JButton b_m_update_reservation = new JButton("Update Reservation");
 		
@@ -154,85 +156,136 @@ public class Driver<T> {
 		
 		b_c_update_profile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// remove the first customer.
+				customers.remove(CUSTOMER);
 				
+				// then we modify the current customer
+				CUSTOMER = CUSTOMER.updateProfile();
+				
+				// now we add the modified customer back to the list.
+				customers.add(CUSTOMER);
 			}
 		});
 		
 		b_c_make_resv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				reservations = CUSTOMER.makeReservation(cars, reservations);
 			}
 		});
 		
 		b_e_new_vehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (beginning.equals(beg_emp)) {
+					cars = EMPLOYEE.registerNewVehicle(cars);
+				}
+				if (beginning.equals(beg_man)) {
+					cars = MANAGER.registerNewVehicle(cars);
+				}
 			}
 		});
 		
 		b_e_update_vehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (beginning.equals(beg_emp)) {
+					cars = EMPLOYEE.updateVehicle(cars);
+				}
+				if (beginning.equals(beg_man)) {
+					cars = MANAGER.updateVehicle(cars);
+				}
 			}
 		});
 		
 		b_e_delete_vehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (beginning.equals(beg_emp)) {
+					cars = EMPLOYEE.deleteVehicle(cars);
+				}
+				if (beginning.equals(beg_man)) {
+					cars = MANAGER.deleteVehicle(cars);
+				}
 			}
 		});
 		
 		b_e_display_customers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (beginning.equals(beg_emp)) {
+					customers = EMPLOYEE.displayAllCustomers(customers);
+				}
+				if (beginning.equals(beg_man)) {
+					customers = MANAGER.displayAllCustomers(customers);
+				}
 			}
 		});
 		
-		b_e_view_cust_record.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+//		b_e_view_cust_record.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//			if (beginning.equals(beg_emp)) {
+//				EMPLOYEE.viewCustomerRecord(customers);
+//			}
+//			if (beginning.equals(beg_man)) {
+//				MANAGER.viewCustomerRecord(customers);
+//			}
+//			}
+//		});
 		
 		b_e_find_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (beginning.equals(beg_emp)) {
+					EMPLOYEE.findByConfirmationNumber(reservations);
+				}
+				if (beginning.equals(beg_man)) {
+					MANAGER.findByConfirmationNumber(reservations);
+				}
 			}
 		});
 		
 		b_e_review_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (beginning.equals(beg_emp)) {
+					EMPLOYEE.reviewReservation(reservations, cars);
+				}
+				if (beginning.equals(beg_man)) {
+					MANAGER.reviewReservation(reservations, cars);
+				}
 			}
 		});
 		
 		b_m_create_customer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (beginning.equals(beg_man)) {
+					customers = MANAGER.createCustomer(customers);
+				}
 			}
 		});
 		
 		b_m_create_employee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (beginning.equals(beg_man)) {
+					employees = MANAGER.createEmployee(employees);
+				}
 			}
 		});
 		
 		b_m_make_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				reservations = MANAGER.makeReservation(cars, reservations);
+			}
+		});
+		b_m_change_password.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				managers = MANAGER.changePassword(customers, employees, managers, MANAGER.getUserName());
 			}
 		});
 		
 		b_m_cancel_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				reservations = MANAGER.cancelReservation(reservations);
 			}
 		});
 		
 		b_m_update_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				reservations = MANAGER.updateReservation(reservations, cars);
 			}
 		});
 		
@@ -264,133 +317,9 @@ public class Driver<T> {
 		menu_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu_frame.setSize(500, 300);
 		menu_frame.setVisible(true);
-		
-			if (user_input == 1) {
-				WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
-				
-				System.out.println("Thank you for using out rental service!");
-				
-				// exits the program.
-				return;
-			}
-			
-			else if (user_input == 2) {
-				// remove the first customer.
-				customers.remove(CUSTOMER);
-				
-				// then we modify the current customer
-				CUSTOMER = CUSTOMER.updateProfile();
-				
-				// now we add the modified customer back to the list.
-				customers.add(CUSTOMER);
-			}
-			
-			else if (user_input == 3) {
-				System.out.println("Customer attributes" +CUSTOMER.getAttributes());
-				reservations = CUSTOMER.makeReservation(cars, reservations);
-			}
-			
-			else if (user_input == 4) {
-				if (beginning.equals(beg_emp)) {
-					cars = EMPLOYEE.registerNewVehicle(cars);
-				}
-				if (beginning.equals(beg_man)) {
-					cars = MANAGER.registerNewVehicle(cars);
-				}
-			}
-			
-			else if (user_input == 5) {
-				if (beginning.equals(beg_emp)) {
-					cars = EMPLOYEE.updateVehicle(cars);
-				}
-				if (beginning.equals(beg_man)) {
-					cars = MANAGER.updateVehicle(cars);
-				}
-			}
-			
-			else if (user_input == 6) {
-				if (beginning.equals(beg_emp)) {
-					cars = EMPLOYEE.deleteVehicle(cars);
-				}
-				if (beginning.equals(beg_man)) {
-					cars = MANAGER.deleteVehicle(cars);
-				}
-			}
-			
-			else if (user_input == 7) {
-				if (beginning.equals(beg_emp)) {
-					customers = EMPLOYEE.displayAllCustomers(customers);
-				}
-				if (beginning.equals(beg_man)) {
-					customers = MANAGER.displayAllCustomers(customers);
-				}
-			}
-			
-//			else if (user_input == 7) {
-//				if (beginning.equals(beg_emp)) {
-//					EMPLOYEE.viewCustomerRecord(customers);
-//				}
-//				if (beginning.equals(beg_man)) {
-//					MANAGER.viewCustomerRecord(customers);
-//				}
-//			}
-			
-			else if (user_input == 8) {
-				if (beginning.equals(beg_emp)) {
-					EMPLOYEE.findByConfirmationNumber(reservations);
-				}
-				if (beginning.equals(beg_man)) {
-					MANAGER.findByConfirmationNumber(reservations);
-				}
-			}
-			
-			else if (user_input == 9) {
-				if (beginning.equals(beg_emp)) {
-					EMPLOYEE.reviewReservation(reservations, cars);
-				}
-				if (beginning.equals(beg_man)) {
-					MANAGER.reviewReservation(reservations, cars);
-				}
-			}
-			
-			else if (user_input == 10) {
-				if (beginning.equals(beg_man)) {
-					customers = MANAGER.createCustomer(customers);
-				}
-			}
-			
-			else if (user_input == 11) {
-				if (beginning.equals(beg_man)) {
-					employees = MANAGER.createEmployee(employees);
-				}
-			}
-			
-			else if (user_input == 12) {
-				if (beginning.equals(beg_man)) {
-					reservations = MANAGER.makeReservation(cars, reservations);
-				}
-			}
-			
-			else if (user_input == 13) {
-				if (beginning.equals(beg_man)) {
-					managers = MANAGER.changePassword(customers, employees, managers, MANAGER.getUserName());
-				}
-			}
-			
-			else if (user_input == 14) {
-				if (beginning.equals(beg_man)) {
-					reservations = MANAGER.cancelReservation(reservations);
-				}
-			}
-			
-			else if (user_input == 15) {
-				if (beginning.equals(beg_man)) {
-					reservations = MANAGER.updateReservation(reservations, cars);
-				}
-			}
-			
-			// going to add this to write to file after each choice was selected and completed.
-			WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+
+		// going to add this to write to file after each choice was selected and completed.
+		WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
 }
 	
 	
