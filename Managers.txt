@@ -1,0 +1,10 @@
+Loro
+M_loro
+email@gmail.com
+abc123
+xxx-xxx-xxxx
+1/1/2000
+xxxx-xxxx-xxxx-0000
+HireDate
+100000
+5000.0
