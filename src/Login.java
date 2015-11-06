@@ -48,6 +48,8 @@ public class Login {
 				String password = password_text_field.getText();
 				
 				CUSTOMER = Login.login(customers, username, password);
+				// ^^^^^ that is the error. 
+				// "Local variable CUSTOMER defined in an enclosing scope must be final or effectively final"
 			}
 		});
 		
@@ -55,7 +57,9 @@ public class Login {
 			public void actionPerformed(ActionEvent e) {
 				// if they choose to create a new account.. we do that.
 				
-				CUSTOMER = Customer.createNewCustomer(customers);
+				CUSTOMER = Customer.createNewCustomer(customers);				
+				// ^^^^^ that is the error. 
+				// "Local variable CUSTOMER defined in an enclosing scope must be final or effectively final"
 			}
 		});
 		
