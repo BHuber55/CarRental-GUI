@@ -18,33 +18,19 @@
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-/* OKAY NEW IDEA
- * 
- * I could make each of the array list a class.. and in that class create all of these methods we are using
- * that way each method just replaces the array list with the modified ones, that way we don't have to return anything.
- * 
- * i.e.
- * 
- * reservations.makeReservations();
- * 
- * that will call the reservations class, will get the array list from its class' attributes and then modify it?
- * 
- * Maybe.
- */
-
 
 // Might have to add WRITE() to the last line of every button ActionListener.
 
@@ -65,20 +51,21 @@ public class Driver<T> {
 		ArrayList<Manager> managers = readFile(FILE_MANAGERS);
 		ArrayList<Reservation> reservations = readFile(FILE_RESERVATIONS);
 
-		Login.loginFrame(customers, employees, managers, reservations, cars);
+		int index = Login.loginFrame(customers, employees, managers, reservations, cars);
+		Customer C = customers.get(index);
+		
+		//mainMenu(C, cars, customers, employees, managers, reservations);
 	}
 	
-	public static void mainMenu(Customer customer, ArrayList<Car> cars1, ArrayList<Customer> customers1, ArrayList<Employee> employees1, ArrayList<Manager> managers1, ArrayList<Reservation> reservations1) throws IOException {
-		int user_input = 1;
+	public static void mainMenu(int index, ArrayList<Car> cars1, ArrayList<Customer> customers1, ArrayList<Employee> employees1, ArrayList<Manager> managers1, ArrayList<Reservation> reservations1) throws IOException {
 		String beg_emp = "E_";
 		String beg_man = "M_";
 		
-		Customer CUSTOMER = customer;
-		Employee EMPLOYEE = null;
-		Manager MANAGER = null;
+		Customer C = customers1.get(index);
+		Employee E = null;
+		Manager M = null;
 		
-		String username = CUSTOMER.getUserName();
-
+		String username = C.getUserName();
 		
 		ArrayList<Car> cars = cars1;
 		ArrayList<Customer> customers = customers1;
@@ -93,27 +80,23 @@ public class Driver<T> {
 		final String FILE_MANAGERS = "Managers.txt";
 		final String FILE_RESERVATIONS = "Reservations.txt";
 		
-		Scanner in = new Scanner(System.in);
-		
 		// checking if user is an employee or manager
 		String beginning = username.substring(0, 2);
 		
 		if (beginning.equals(beg_emp)) {
-			
-			user_input = in.nextInt();
-			// setting the current user as an employee.
 			for (Employee employee : employees) {
-
 				if (employee.getUserName().equals(username)) {
-					EMPLOYEE = employee;
+					// the user is an employee
+					E = employee;
 				}
 			}
 		}
 		
 		if (beginning.equals(beg_man)) {
 			for (Manager manager : managers) {
-				if (manager.getUserName().equals(CUSTOMER.getUserName())) {
-					MANAGER = manager;
+				if (manager.getUserName().equals(username)) {
+					// the user is a manager.
+					M = manager;
 				}
 			}
 		}
@@ -144,194 +127,195 @@ public class Driver<T> {
 		
 		
 		// creating the action listener for these buttons.
-//		
-//		b_c_logout.setOpaque(false);
-//		b_c_logout.setContentAreaFilled(false);
-//		b_c_logout.setBorderPainted(false);
-//		b_c_logout.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e){
-//				try {
-//					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
-//				}
-//				catch (IOException e1) {
-//					// do something.. maybe.
-//				}
-//			}
-//		});
-//		
-//		b_c_update_profile.setOpaque(false);
-//		b_c_update_profile.setContentAreaFilled(false);
-//		b_c_update_profile.setBorderPainted(false);
-//		b_c_update_profile.addActionListener(new ActionListener() {
+		
+		b_c_logout.setOpaque(false);
+		b_c_logout.setContentAreaFilled(false);
+		b_c_logout.setBorderPainted(false);
+		b_c_logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+					menu_frame.dispose();
+				}
+				catch (IOException e1) {
+					// do something.. maybe.
+				}
+			}
+		});
+		
+		b_c_update_profile.setOpaque(false);
+		b_c_update_profile.setContentAreaFilled(false);
+		b_c_update_profile.setBorderPainted(false);
+		b_c_update_profile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// remove the first customer.
+				customers.remove(C);
+				
+				// now we add the modified customer back to the list.
+				customers.add(C.updateProfile());
+			}
+		});
+
+		b_c_make_resv.setOpaque(false);
+		b_c_make_resv.setContentAreaFilled(false);
+		b_c_make_resv.setBorderPainted(false);
+		b_c_make_resv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reservations = C.makeReservation(cars, reservations);
+			}
+		});
+
+		b_e_new_vehicle.setOpaque(false);
+		b_e_new_vehicle.setContentAreaFilled(false);
+		b_e_new_vehicle.setBorderPainted(false);
+		b_e_new_vehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (beginning.equals(beg_emp)) {
+					cars = E.registerNewVehicle(cars);
+				}
+				if (beginning.equals(beg_man)) {
+					cars = M.registerNewVehicle(cars);
+				}
+			}
+		});
+
+		b_e_update_vehicle.setOpaque(false);
+		b_e_update_vehicle.setContentAreaFilled(false);
+		b_e_update_vehicle.setBorderPainted(false);
+		b_e_update_vehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (beginning.equals(beg_emp)) {
+					cars = E.updateVehicle(cars);
+				}
+				if (beginning.equals(beg_man)) {
+					cars = M.updateVehicle(cars);
+				}
+			}
+		});
+
+		b_e_delete_vehicle.setOpaque(false);
+		b_e_delete_vehicle.setContentAreaFilled(false);
+		b_e_delete_vehicle.setBorderPainted(false);
+		b_e_delete_vehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (beginning.equals(beg_emp)) {
+					cars = E.deleteVehicle(cars);
+				}
+				if (beginning.equals(beg_man)) {
+					cars = M.deleteVehicle(cars);
+				}
+			}
+		});
+
+		b_e_display_customers.setOpaque(false);
+		b_e_display_customers.setContentAreaFilled(false);
+		b_e_display_customers.setBorderPainted(false);
+		b_e_display_customers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (beginning.equals(beg_emp)) {
+					customers = E.displayAllCustomers(customers);
+				}
+				if (beginning.equals(beg_man)) {
+					customers = M.displayAllCustomers(customers);
+				}
+			}
+		});
+
+		b_e_view_cust_record.setOpaque(false);
+		b_e_view_cust_record.setContentAreaFilled(false);
+		b_e_view_cust_record.setBorderPainted(false);
+//		b_e_view_cust_record.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
-//				// remove the first customer.
-//				customers.remove(CUSTOMER);
-//				
-//				// now we add the modified customer back to the list.
-//				customers.add(CUSTOMER.updateProfile());
+//			if (beginning.equals(beg_emp)) {
+//				E.viewCustomerRecord(customers);
+//			}
+//			if (beginning.equals(beg_man)) {
+//				M.viewCustomerRecord(customers);
+//			}
 //			}
 //		});
-//
-//		b_c_make_resv.setOpaque(false);
-//		b_c_make_resv.setContentAreaFilled(false);
-//		b_c_make_resv.setBorderPainted(false);
-//		b_c_make_resv.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				reservations = CUSTOMER.makeReservation(cars, reservations);
-//			}
-//		});
-//
-//		b_e_new_vehicle.setOpaque(false);
-//		b_e_new_vehicle.setContentAreaFilled(false);
-//		b_e_new_vehicle.setBorderPainted(false);
-//		b_e_new_vehicle.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (beginning.equals(beg_emp)) {
-//					cars = EMPLOYEE.registerNewVehicle(cars);
-//				}
-//				if (beginning.equals(beg_man)) {
-//					cars = MANAGER.registerNewVehicle(cars);
-//				}
-//			}
-//		});
-//
-//		b_e_update_vehicle.setOpaque(false);
-//		b_e_update_vehicle.setContentAreaFilled(false);
-//		b_e_update_vehicle.setBorderPainted(false);
-//		b_e_update_vehicle.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (beginning.equals(beg_emp)) {
-//					cars = EMPLOYEE.updateVehicle(cars);
-//				}
-//				if (beginning.equals(beg_man)) {
-//					cars = MANAGER.updateVehicle(cars);
-//				}
-//			}
-//		});
-//
-//		b_e_delete_vehicle.setOpaque(false);
-//		b_e_delete_vehicle.setContentAreaFilled(false);
-//		b_e_delete_vehicle.setBorderPainted(false);
-//		b_e_delete_vehicle.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (beginning.equals(beg_emp)) {
-//					cars = EMPLOYEE.deleteVehicle(cars);
-//				}
-//				if (beginning.equals(beg_man)) {
-//					cars = MANAGER.deleteVehicle(cars);
-//				}
-//			}
-//		});
-//
-//		b_e_display_customers.setOpaque(false);
-//		b_e_display_customers.setContentAreaFilled(false);
-//		b_e_display_customers.setBorderPainted(false);
-//		b_e_display_customers.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (beginning.equals(beg_emp)) {
-//					customers = EMPLOYEE.displayAllCustomers(customers);
-//				}
-//				if (beginning.equals(beg_man)) {
-//					customers = MANAGER.displayAllCustomers(customers);
-//				}
-//			}
-//		});
-//
-//		b_e_view_cust_record.setOpaque(false);
-//		b_e_view_cust_record.setContentAreaFilled(false);
-//		b_e_view_cust_record.setBorderPainted(false);
-////		b_e_view_cust_record.addActionListener(new ActionListener() {
-////			public void actionPerformed(ActionEvent e) {
-////			if (beginning.equals(beg_emp)) {
-////				EMPLOYEE.viewCustomerRecord(customers);
-////			}
-////			if (beginning.equals(beg_man)) {
-////				MANAGER.viewCustomerRecord(customers);
-////			}
-////			}
-////		});
-//
-//		b_e_find_reservation.setOpaque(false);
-//		b_e_find_reservation.setContentAreaFilled(false);
-//		b_e_find_reservation.setBorderPainted(false);
-//		b_e_find_reservation.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (beginning.equals(beg_emp)) {
-//					EMPLOYEE.findByConfirmationNumber(reservations);
-//				}
-//				if (beginning.equals(beg_man)) {
-//					MANAGER.findByConfirmationNumber(reservations);
-//				}
-//			}
-//		});
-//
-//		b_e_review_reservation.setOpaque(false);
-//		b_e_review_reservation.setContentAreaFilled(false);
-//		b_e_review_reservation.setBorderPainted(false);
-//		b_e_review_reservation.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (beginning.equals(beg_emp)) {
-//					EMPLOYEE.reviewReservation(reservations, cars);
-//				}
-//				if (beginning.equals(beg_man)) {
-//					MANAGER.reviewReservation(reservations, cars);
-//				}
-//			}
-//		});
-//
-//		b_m_create_customer.setOpaque(false);
-//		b_m_create_customer.setContentAreaFilled(false);
-//		b_m_create_customer.setBorderPainted(false);
-//		b_m_create_customer.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				customers = MANAGER.createCustomer(customers);
-//			}
-//		});
-//
-//		b_m_create_employee.setOpaque(false);
-//		b_m_create_employee.setContentAreaFilled(false);
-//		b_m_create_employee.setBorderPainted(false);
-//		b_m_create_employee.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				employees = MANAGER.createEmployee(employees);
-//			}
-//		});
-//
-//		b_m_make_reservation.setOpaque(false);
-//		b_m_make_reservation.setContentAreaFilled(false);
-//		b_m_make_reservation.setBorderPainted(false);
-//		b_m_make_reservation.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				reservations = MANAGER.makeReservation(cars, reservations);
-//			}
-//		});
-//
-//		b_m_change_password.setOpaque(false);
-//		b_m_change_password.setContentAreaFilled(false);
-//		b_m_change_password.setBorderPainted(false);
-//		b_m_change_password.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				managers = MANAGER.changePassword(customers, employees, managers, MANAGER.getUserName());
-//			}
-//		});
-//
-//		b_m_cancel_reservation.setOpaque(false);
-//		b_m_cancel_reservation.setContentAreaFilled(false);
-//		b_m_cancel_reservation.setBorderPainted(false);
-//		b_m_cancel_reservation.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				reservations = MANAGER.cancelReservation(reservations);
-//			}
-//		});
-//
-//		b_m_update_reservation.setOpaque(false);
-//		b_m_update_reservation.setContentAreaFilled(false);
-//		b_m_update_reservation.setBorderPainted(false);
-//		b_m_update_reservation.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				reservations = MANAGER.updateReservation(reservations, cars);
-//			}
-//		});
+
+		b_e_find_reservation.setOpaque(false);
+		b_e_find_reservation.setContentAreaFilled(false);
+		b_e_find_reservation.setBorderPainted(false);
+		b_e_find_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (beginning.equals(beg_emp)) {
+					E.findByConfirmationNumber(reservations);
+				}
+				if (beginning.equals(beg_man)) {
+					M.findByConfirmationNumber(reservations);
+				}
+			}
+		});
+
+		b_e_review_reservation.setOpaque(false);
+		b_e_review_reservation.setContentAreaFilled(false);
+		b_e_review_reservation.setBorderPainted(false);
+		b_e_review_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (beginning.equals(beg_emp)) {
+					E.reviewReservation(reservations, cars);
+				}
+				if (beginning.equals(beg_man)) {
+					M.reviewReservation(reservations, cars);
+				}
+			}
+		});
+
+		b_m_create_customer.setOpaque(false);
+		b_m_create_customer.setContentAreaFilled(false);
+		b_m_create_customer.setBorderPainted(false);
+		b_m_create_customer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				customers = M.createCustomer(customers);
+			}
+		});
+
+		b_m_create_employee.setOpaque(false);
+		b_m_create_employee.setContentAreaFilled(false);
+		b_m_create_employee.setBorderPainted(false);
+		b_m_create_employee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				employees = M.createEmployee(employees);
+			}
+		});
+
+		b_m_make_reservation.setOpaque(false);
+		b_m_make_reservation.setContentAreaFilled(false);
+		b_m_make_reservation.setBorderPainted(false);
+		b_m_make_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reservations = M.makeReservation(cars, reservations);
+			}
+		});
+
+		b_m_change_password.setOpaque(false);
+		b_m_change_password.setContentAreaFilled(false);
+		b_m_change_password.setBorderPainted(false);
+		b_m_change_password.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				managers = M.changePassword(customers, employees, managers, M.getUserName());
+			}
+		});
+
+		b_m_cancel_reservation.setOpaque(false);
+		b_m_cancel_reservation.setContentAreaFilled(false);
+		b_m_cancel_reservation.setBorderPainted(false);
+		b_m_cancel_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reservations = M.cancelReservation(reservations);
+			}
+		});
+
+		b_m_update_reservation.setOpaque(false);
+		b_m_update_reservation.setContentAreaFilled(false);
+		b_m_update_reservation.setBorderPainted(false);
+		b_m_update_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reservations = M.updateReservation(reservations, cars);
+			}
+		});
 		
 		// adding the buttons to the frame.
 		menu_frame.add(b_c_logout);
@@ -353,6 +337,7 @@ public class Driver<T> {
 			menu_frame.add(b_m_create_customer);
 			menu_frame.add(b_m_create_employee);
 			menu_frame.add(b_m_make_reservation);
+			menu_frame.add(b_m_change_password);
 			menu_frame.add(b_m_cancel_reservation);
 			menu_frame.add(b_m_update_reservation);
 		}
