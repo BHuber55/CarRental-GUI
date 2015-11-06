@@ -4,14 +4,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class Login {
 	
-	public static Customer loginFrame(ArrayList<Customer> customers) {
+	public static void loginFrame(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 		Customer CUSTOMER = null;
 		// CREATING THE FRAME FOR LOGIN!!!
 		JFrame login = new JFrame("Car Rental Name");
@@ -47,9 +47,10 @@ public class Login {
 				String username = username_text_field.getText();
 				String password = password_text_field.getText();
 				
-				CUSTOMER = Login.login(customers, username, password);
+				Customer CUSTOMER = Login.login(customers, username, password);
 				// ^^^^^ that is the error. 
 				// "Local variable CUSTOMER defined in an enclosing scope must be final or effectively final"
+				// Driver.mainMenu(CUSTOMER, customers, employees, managers, reservations, cars);
 			}
 		});
 		
@@ -57,9 +58,10 @@ public class Login {
 			public void actionPerformed(ActionEvent e) {
 				// if they choose to create a new account.. we do that.
 				
-				CUSTOMER = Customer.createNewCustomer(customers);				
+				Customer CUSTOMER = Customer.createNewCustomer(customers);				
 				// ^^^^^ that is the error. 
 				// "Local variable CUSTOMER defined in an enclosing scope must be final or effectively final"
+				// Driver.mainMenu(CUSTOMER, customers, employees, managers, reservations, cars);
 			}
 		});
 		
@@ -72,28 +74,32 @@ public class Login {
 		login.add(login_button);
 		login.add(create_button);
 		
-		
-
-		login.setVisible(true);
 		login.setSize(300, 200);
 		login.setLayout(new FlowLayout());
 		login.setLocationRelativeTo(null);
-
-		return CUSTOMER;
+		login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		login.setVisible(true);
 	}
 	
 	public static Customer login(ArrayList<Customer> customers, String username, String password) {
-		Customer CUSTOMER;
+
+		Customer CUSTOMER = null;
 		
 		for(Customer customer : customers) {
 			if(customer.getUserName().equals(username)) {
-				if(customer.getPassword().equals(password))
+				if(customer.getPassword().equals(password)) {
 					CUSTOMER = customer;
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Password is incorrect", "Error", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Username was Not found", "Error", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 		
-		// will also have to check and see if the username/password is not found.
-		// that is just a rough go through.
+		// This was just quickly done just so I know what I want to do later.
 		
 		return CUSTOMER;
 	}

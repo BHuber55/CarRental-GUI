@@ -15,6 +15,9 @@
  * 5. Convert the menu to frames.
  */
 
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -24,6 +27,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 
 public class Driver<T> {
@@ -57,25 +63,203 @@ public class Driver<T> {
 		ArrayList<Manager> managers = readFile(FILE_MANAGERS);
 		ArrayList<Reservation> reservations = readFile(FILE_RESERVATIONS);
 
-		CUSTOMER = Login.loginFrame(customers);
+		Login.loginFrame(customers, employees, managers, reservations, cars);
 		
-		System.out.println("WE HAVE GOTTEN HERE.. THE USERNAME OF SAID CUSTOMER IS " +CUSTOMER.getUserName());
+		in.close();
+	}
+	
+	
+	
+	
+	public static void mainMenu(Customer customer, ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) throws IOException {
+		int user_input = 1;
+		String beg_emp = "E_";
+		String beg_man = "M_";
 		
-//		if (user_input == 1) {
-//			CUSTOMER = login(customers);
-//			username = CUSTOMER.getUserName();
-//			// user has logged in.
-//		}
-//		
-//		if (user_input == 2) {
-//			CUSTOMER = Customer.createNewCustomer(customers);
-//			customers.add(CUSTOMER);
-//			username = CUSTOMER.getUserName();
-//		}
-
+		String username = customer.getUserName();
+		String password = customer.getPassword();
+		
+		Customer CUSTOMER = customer;
+		Employee EMPLOYEE = null;
+		Manager MANAGER = null;
+		
+		// Defining the names of the files used.
+		final String FILE_CARS = "Cars.txt";
+		final String FILE_CUSTOMERS = "Customers.txt";
+		final String FILE_EMPLOYEES = "Employees.txt";
+		final String FILE_MANAGERS = "Managers.txt";
+		final String FILE_RESERVATIONS = "Reservations.txt";
+		
+		Scanner in = new Scanner(System.in);
+		
 		// checking if user is an employee or manager
 		String beginning = username.substring(0, 2);
 		
+		if (beginning.equals(beg_emp)) {
+			
+			user_input = in.nextInt();
+			// setting the current user as an employee.
+			for (Employee employee : employees) {
+
+				if (employee.getUserName().equals(username)) {
+					EMPLOYEE = employee;
+				}
+			}
+		}
+		
+		if (beginning.equals(beg_man)) {
+			for (Manager manager : managers) {
+				if (manager.getUserName().equals(CUSTOMER.getUserName())) {
+					MANAGER = manager;
+				}
+			}
+		}
+		
+		// Creating the frame and what not.
+		JFrame menu_frame = new JFrame("Main Menu");
+		menu_frame.setLayout(new FlowLayout());
+		
+		// creating all of the buttons.
+		JButton b_c_logout = new JButton("Logout");
+		JButton b_c_update_profile = new JButton("Update Profile");
+		JButton b_c_make_resv = new JButton("Make Reservation");
+		
+		JButton b_e_new_vehicle = new JButton("Register New Vehicle");
+		JButton b_e_update_vehicle = new JButton("Update Vehicle");
+		JButton b_e_delete_vehicle = new JButton("Delete Vehicle");
+		JButton b_e_display_customers = new JButton("Display All Custmers");
+		JButton b_e_view_cust_record = new JButton("View Customer record");
+		JButton b_e_find_reservation = new JButton("Find Reservation");
+		JButton b_e_review_reservation = new JButton("Review Reservation");
+		
+		JButton b_m_create_customer = new JButton("Create Customer");
+		JButton b_m_create_employee = new JButton("Create Employee");
+		JButton b_m_make_reservation = new JButton("Make Reservation for Customer");
+		JButton b_m_cancel_reservation = new JButton("Cancel a Reservation");
+		JButton b_m_update_reservation = new JButton("Update Reservation");
+		
+		// creating the action listener for these buttons.
+		b_c_logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+
+			}
+		});
+		
+		b_c_update_profile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_c_make_resv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_e_new_vehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_e_update_vehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_e_delete_vehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_e_display_customers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_e_view_cust_record.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_e_find_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_e_review_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_m_create_customer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_m_create_employee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_m_make_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_m_cancel_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		b_m_update_reservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		// adding the buttons to the frame.
+		menu_frame.add(b_c_logout);
+		menu_frame.add(b_c_update_profile);
+		menu_frame.add(b_c_make_resv);
+
+		// if the user is an employee or manager we want these buttons added.
+		if (beginning.equals(beg_emp) || beginning.equals(beg_man)) {
+			menu_frame.add(b_e_new_vehicle);
+			menu_frame.add(b_e_update_vehicle);
+			menu_frame.add(b_e_delete_vehicle);
+			menu_frame.add(b_e_display_customers);
+			menu_frame.add(b_e_view_cust_record);
+			menu_frame.add(b_e_find_reservation);
+			menu_frame.add(b_e_review_reservation);
+		}
+		// if the employee is a manager then we want these buttons added.
+		if (beginning.equals(beg_man)) {
+			menu_frame.add(b_m_create_customer);
+			menu_frame.add(b_m_create_employee);
+			menu_frame.add(b_m_make_reservation);
+			menu_frame.add(b_m_cancel_reservation);
+			menu_frame.add(b_m_update_reservation);
+		}
+		
+		menu_frame.setLocationRelativeTo(null);
+		menu_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menu_frame.setSize(500, 300);
+		menu_frame.setVisible(true);
+		
+		
+		// START OF THE ACTUAL PROGRAM 
 		while (user_input != 0) {
 			
 			// display everything for customer
@@ -301,9 +485,11 @@ public class Driver<T> {
 			writeFile(FILE_RESERVATIONS, reservations);
 		}
 		// outside the while loop.
-		
-		in.close();
 	}
+	
+	
+	
+	
 	
 	// need to edit the employee and manager constructor here to include the information from the super classes.
 	public static <T> ArrayList<T> readFile(String file_name) throws NumberFormatException, IOException {
