@@ -23,9 +23,6 @@ public class Employee extends Customer {
 
 	ArrayList<Employee> employees = new ArrayList<Employee>();
 
-	public Employee() {
-		
-	}
 	/**
 	 * This is the constructor of Employee. It will construct a manager with the given attributes.
 	 * 

@@ -31,6 +31,9 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 // Might have to add WRITE() to the last line of every button ActionListener.
 
@@ -51,14 +54,15 @@ public class Driver<T> {
 		ArrayList<Manager> managers = readFile(FILE_MANAGERS);
 		ArrayList<Reservation> reservations = readFile(FILE_RESERVATIONS);
 
-		int index = Login.loginFrame(customers, employees, managers, reservations, cars);
-		Customer C = customers.get(index);
+		int index = loginFrame(customers, employees, managers, reservations, cars);
 		
-		//mainMenu(C, cars, customers, employees, managers, reservations);
+		//mainMenu(index, cars, customers, employees, managers, reservations);
 	}
 	
 	public static void mainMenu(int index, ArrayList<Car> cars1, ArrayList<Customer> customers1, ArrayList<Employee> employees1, ArrayList<Manager> managers1, ArrayList<Reservation> reservations1) throws IOException {
-		int i = 1000;;
+		int i = 1000;
+		
+		boolean check = false;
 		
 		String beg_emp = "E_";
 		String beg_man = "M_";
@@ -94,7 +98,12 @@ public class Driver<T> {
 			}
 		}
 		
-		final Employee E = employees.get(i);
+		if(i == 1000)
+		{
+			i = 0;
+		}
+		
+		final Employee E = employees.get(i);	
 		
 		if (beginning.equals(beg_man)) {
 			for (Manager manager : managers) {
@@ -104,7 +113,7 @@ public class Driver<T> {
 				}
 			}
 		}
-		
+
 		final Manager M = managers.get(i);
 		
 		// Creating the frame and what not.
@@ -358,6 +367,101 @@ public class Driver<T> {
 }
 	
 	
+	public static int loginFrame(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
+		int index = 0;
+		
+		// CREATING THE FRAME FOR LOGIN!!!
+		JFrame login = new JFrame("Car Rental Name");
+		
+		JLabel username_label = new JLabel("Username: ");
+		JLabel password_label = new JLabel("Password: ");
+		
+		JTextField username_text_field = new JTextField(15);
+		JTextField password_text_field = new JTextField(15);
+		
+		JButton login_button = new JButton("Login");
+		JButton create_button = new JButton("Create Account");
+		
+		login_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// if the user click 'login' we will check their information.
+				
+				String username = username_text_field.getText();
+				String password = password_text_field.getText();
+				
+				final int i = login(customers, username, password);
+				
+				if (i != -99) {
+					try {
+						login.dispose();
+						Driver.mainMenu(i, cars, customers, employees, managers, reservations);
+					}
+					catch (IOException e1) {
+						// do stuff.
+					}
+				}
+			}
+		});
+		
+		create_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// if they choose to create a new account.. we do that.
+				
+				Customer c = Customer.createNewCustomer(customers);				
+				customers.add(c);
+				
+				final int i = customers.indexOf(c);
+				
+				try {
+					login.dispose();
+					Driver.mainMenu(i, cars, customers, employees, managers, reservations);
+				}
+				catch (IOException e1) {
+					// do stuff.
+				}
+			}
+		});
+		
+		login.add(username_label);
+		login.add(username_text_field);
+		
+		login.add(password_label);
+		login.add(password_text_field);
+
+		login.add(create_button);
+		login.add(login_button);
+		
+		login.setSize(300, 200);
+		login.setLayout(new FlowLayout());
+		login.setLocationRelativeTo(null);
+		login.setVisible(true);
+		
+		return index;
+	}
+	
+	public static int login(ArrayList<Customer> customers, String username, String password) {
+		boolean found = false;
+		int index = -99;
+		
+		for(Customer customer : customers) {
+			if(customer.getUserName().equals(username)) {
+				found = true;
+
+				if(customer.getPassword().equals(password)) {
+					index = customers.indexOf(customer);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Password is incorrect", "Error", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		}
+		
+		if(!found) {
+			JOptionPane.showMessageDialog(null, "Username was not found.", "Error", JOptionPane.WARNING_MESSAGE);
+		}
+		
+		return index;
+	}
 	
 	public static <T> void WRITE(String FILE_CARS, String FILE_CUSTOMERS, String FILE_EMPLOYEES, String FILE_MANAGERS, String FILE_RESERVATIONS, ArrayList<Car> cars, ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations) throws IOException{
 		writeFile(FILE_CARS, cars);

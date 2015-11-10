@@ -1,6 +1,15 @@
 
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  * This is the Manager class, it holds the information that is used to create, and get information about a Manager.
@@ -21,10 +30,6 @@ public class Manager extends Employee {
     private String hire;
     private int salary;
     private double bonus;
-    
-    public Manager() {
-    	
-    }
     
     /**
      * This is the constructor, it will construct a manager with the given attributes.
@@ -83,31 +88,72 @@ public class Manager extends Employee {
      * @return an array list of customers that contains every customer, including the newly created one.
      */
     public void createCustomer(ArrayList<Customer> customers){
-    	Scanner in = new Scanner(System.in);
-    	
-    	System.out.println("Please enter the name of the customer");
-    	String name = in.nextLine();
-    	
-    	System.out.println("Please enter the username of the customers");
-    	String username = in.nextLine();
-    	
-    	System.out.println("Please enter the email of the customer");
-    	String email = in.nextLine();
-    	
-    	System.out.println("Please enter the password of the customer");
-    	String password = in.nextLine();
-    	
-    	System.out.println("Please enter the phone number of the customer");
-    	String phone = in.nextLine();
-    	
-    	System.out.println("Please enther the birthday of the customer");
-    	String birthday = in.nextLine();
-    	
-    	System.out.println("Please enter the credit card number of the customer");
-    	String credit = in.nextLine();
-    	
-        Customer customer = new Customer(name, username, email, password, phone, birthday, credit);
-        customers.add(customer);
+    	JFrame frame = new JFrame(); 
+		
+		frame.setTitle("Create Customer");
+
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+		final int TEXT_FIELD_SIZE = 20; 	
+		JLabel nameLabel = new JLabel("Name: ");
+		final JTextField nameField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel userNameLabel = new JLabel("Username: ");
+		final JTextField userNameField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel emailLabel = new JLabel("Email: ");
+		final JTextField emailField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel passwordLabel = new JLabel("Password: ");
+		final JTextField passwordField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel phoneLabel = new JLabel("Phone Number: ");
+		final JTextField phoneField = new JTextField(10); 
+		JLabel birthdayLabel = new JLabel("Birthday: ");
+		final JTextField birthdayField = new JTextField(8); 
+		JLabel creditLabel = new JLabel("Credit Card Number: ");
+		final JTextField creditField = new JTextField(16); 
+		JButton okButton = new JButton("Submit");
+		
+		frame.setLayout(new GridLayout(8,2));
+		frame.add(nameLabel);
+		frame.add(nameField);
+		frame.add(userNameLabel);
+		frame.add(userNameField);
+		frame.add(emailLabel);
+		frame.add(emailField);
+		frame.add(passwordLabel);
+		frame.add(passwordField);
+		frame.add(phoneLabel);
+		frame.add(phoneField);
+		frame.add(birthdayLabel);
+		frame.add(birthdayField);
+		frame.add(creditLabel);
+		frame.add(creditField);
+		frame.add(new JLabel(""));
+		frame.add(okButton);
+		
+		
+		frame.pack(); 
+		
+		okButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				String name = nameField.getText(); 
+				String userName = userNameField.getText(); 
+				String email = emailField.getText(); 
+				String password = passwordField.getText();
+				String phone = phoneField.getText(); 
+				String birthday = birthdayField.getText(); 
+				String credit = creditField.getText(); 
+				
+
+		        Customer customer = new Customer(name, userName, email, password, phone, birthday, credit);
+		        customers.add(customer);
+				
+				 JOptionPane.showMessageDialog(null," Name: "+ name + "\n Username: " + userName + "\n Email: " + email + "\n Password: " + 
+				 password + "\n Phone: " + phone + "\n Birthday: " + birthday + "\n Credit Card Number: " + credit, "Information saved",
+			  			 JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
     }
     
     /**
@@ -118,38 +164,81 @@ public class Manager extends Employee {
      * @return an array list of employees that contains every employee, including the newly created one.
      */
     public void createEmployee(ArrayList<Employee> employees){
-    	Scanner in = new Scanner(System.in);
-    	
-    	System.out.println("Please enter the name of the employee");
-    	String name = in.nextLine();
-    	
-    	System.out.println("Please enter the username of the employee");
-    	String username = in.nextLine();
-    	
-    	System.out.println("Please enter the email of the employee");
-    	String email = in.nextLine();
-    	
-    	System.out.println("Please enter the password of the employee");
-    	String password = in.nextLine();
-    	
-    	System.out.println("Please enter the phone number of the employee");
-    	String phone = in.nextLine();
-    	
-    	System.out.println("Please enther the birthday of the employee");
-    	String birthday = in.nextLine();
-    	
-    	System.out.println("Please enter the credit card number of the employee");
-    	String credit = in.nextLine();
-    	
-    	System.out.println("Please enther the hire date of the employee");
-    	String hire = in.nextLine();
+    	JFrame frame = new JFrame(); 
+		
+		frame.setTitle("Create Employee");
+		frame.setLocationRelativeTo(null);
+		frame.setLayout(new GridLayout(10,2));
+		frame.setVisible(true);
+		
+		final int TEXT_FIELD_SIZE = 20; 	
+		JLabel nameLabel = new JLabel("Name: "); 
+		final JTextField nameField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel userNameLabel = new JLabel("Username: ");
+		final JTextField userNameField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel emailLabel = new JLabel("Email: ");
+		final JTextField emailField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel passwordLabel = new JLabel("Password: ");
+		final JTextField passwordField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel phoneLabel = new JLabel("Phone Number: ");
+		final JTextField phoneField = new JTextField(10); 
+		JLabel birthdayLabel = new JLabel("Birthday: ");
+		final JTextField birthdayField = new JTextField(8); 
+		JLabel creditLabel = new JLabel("Credit Card Number: ");
+		final JTextField creditField = new JTextField(16); 
+		JLabel hireLabel = new JLabel("Hire Date: "); 
+		final JTextField hireField = new JTextField(8);
+		JLabel salaryLabel = new JLabel("Salary: "); 
+		final JTextField salaryField = new JTextField(8);
+		JButton okButton = new JButton("Submit");
+		
+		frame.add(nameLabel);
+		frame.add(nameField);
+		frame.add(userNameLabel);
+		frame.add(userNameField);
+		frame.add(emailLabel);
+		frame.add(emailField);
+		frame.add(passwordLabel);
+		frame.add(passwordField);
+		frame.add(phoneLabel);
+		frame.add(phoneField);
+		frame.add(birthdayLabel);
+		frame.add(birthdayField);
+		frame.add(creditLabel);
+		frame.add(creditField);
+		frame.add(hireLabel); 
+		frame.add(hireField); 
+		frame.add(salaryLabel);
+		frame.add(salaryField);
+		frame.add(new JLabel(""));
+		frame.add(okButton);
+		
+		
+		frame.pack(); 
+		
+		okButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				String name = nameField.getText(); 
+				String userName = userNameField.getText(); 
+				String email = emailField.getText(); 
+				String password = passwordField.getText();
+				String phone = phoneField.getText(); 
+				String birthday = birthdayField.getText(); 
+				String credit = creditField.getText(); 
+				String hire = hireField.getText(); 
+				int salary = Integer.parseInt(salaryField.getText());
 
-    	System.out.println("Please enter the salary of the employee");
-    	int salary = in.nextInt();
-    	
-    	
-    	Employee employee = new Employee(name, username, email, password, phone, birthday, credit, hire, salary);
-        employees.add(employee);
+		    	Employee emp = new Employee(name, userName, email, password, phone, birthday, credit, hire, salary);
+		    	
+		        employees.add(emp);
+				
+		        JOptionPane.showMessageDialog(null," Name: "+ name + "\n Username: " + userName + "\n Email: " + email + "\n Password: " + 
+						 password + "\n Phone: " + phone + "\n Birthday: " + birthday + "\n Credit Card Number: " + credit + "\n Hire Date: " + hire + "\n Salary: " + salary, "Information saved",
+					  			 JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
     }
     
     /**
@@ -160,48 +249,71 @@ public class Manager extends Employee {
      * @param managers is an array list of managers that contains every manager.
      * @param userName a String that contains the username of the manager.
      * 
-     * @return
      */
     public void changePassword(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, String userName){
-    	Manager m = null;
-    	Employee e = null;
-    	Customer c = null;
     	
-    	Scanner in = new Scanner(System.in);
-    	
-    	System.out.println("Please enter a new password");
-    	password = in.nextLine();
-    	
-    	for(Manager manager : managers) {
-    		if(manager.getUserName().equals(userName)){
-    			m = manager;
-    		}
-    	}
-    	
-    	for(Employee employee : employees) {
-    		if(employee.getUserName().equals(userName)){
-    			e = employee;
-    		}
-    	}
-    	
-    	for(Customer customer : customers) {
-    		if(customer.getUserName().equals(userName)){
-    			c = customer;
-    		}
-    	}
-    	
-    	Manager manager = new Manager(m.getName(), m.getUserName(), m.getEmail(), password, m.getPhoneNumber(), m.getBirthday(), m.getCreditCardNumber(), m.getHireDate(), m.getSalary(), m.getBonus());
-    	Employee employee = new Employee(e.getName(), e.getUserName(), e.getEmail(), password, e.getPhoneNumber(), e.getBirthday(), e.getCreditCardNumber(), e.getHireDate(), e.getSalary());
-    	Customer customer = new Customer(c.getName(), c.getUserName(), c.getEmail(), password, c.getPhoneNumber(), c.getBirthday(), c.getCreditCardNumber());
+    	JFrame frame = new JFrame("Change Password"); 
+		frame.setLayout(new FlowLayout());
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+		final int TEXT_FIELD_SIZE = 20; 
+		JLabel passLabel = new JLabel("Please enter your new password: "); 
+		final JTextField passField = new JTextField(TEXT_FIELD_SIZE); 
+		JButton okButton = new JButton("Submit");
+		
+		frame.add(passLabel);
+		frame.add(passField);
+		frame.add(new JLabel(""));
+		frame.add(okButton);
+		
+		frame.pack(); 
+		
+		okButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent a)
+			{
+				Manager m = null;
+				Employee e = null;
+				Customer c = null;
+				
+				String password1 = passField.getText();
+				
+		    	for(Manager manager : managers) {
+		    		if(manager.getUserName().equals(userName)){
+		    			m = manager;
+		    		}
+		    	}
+		    	
+		    	for(Employee employee : employees) {
+		    		if(employee.getUserName().equals(userName)){
+		    			e = employee;
+		    		}
+		    	}
+		    	
+		    	for(Customer customer : customers) {
+		    		if(customer.getUserName().equals(userName)){
+		    			c = customer;
+		    		}
+		    	}
+				
+		    	Manager manager = new Manager(m.getName(), m.getUserName(), m.getEmail(), password1, m.getPhoneNumber(), m.getBirthday(), m.getCreditCardNumber(), m.getHireDate(), m.getSalary(), m.getBonus());
+		    	Employee employee = new Employee(e.getName(), e.getUserName(), e.getEmail(), password1, e.getPhoneNumber(), e.getBirthday(), e.getCreditCardNumber(), e.getHireDate(), e.getSalary());
+		    	Customer customer = new Customer(c.getName(), c.getUserName(), c.getEmail(), password1, c.getPhoneNumber(), c.getBirthday(), c.getCreditCardNumber());
 
-    	managers.remove(m);
-    	managers.add(manager);
-    	
-    	employees.remove(e);
-    	employees.add(employee);
-    	
-    	customers.remove(c);
-    	customers.add(customer);
+		    	managers.remove(m);
+		    	managers.add(manager);
+		    	
+		    	employees.remove(e);
+		    	employees.add(employee);
+		    	
+		    	customers.remove(c);
+		    	customers.add(customer);
+				
+				 JOptionPane.showMessageDialog(null,"\n New Password: " + password1, "Information saved",
+			  			 JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
     }
     
     /**
@@ -209,38 +321,50 @@ public class Manager extends Employee {
      * 
      * @param reservations is an array list of reservations that contains every reservation.
      * 
-     * @return the newly updated array list of reservations
      */
     public void cancelReservation(ArrayList<Reservation> reservations){
-    	boolean found = false;
-    	
-    	Scanner in = new Scanner(System.in);
-    	
-    	Reservation resv = null;
-    	
-    	System.out.println("Please enter the confirmation number of the reservation you are looking for");
-    	int number = in.nextInt();
-    	
-    	// checking to see if the entered confirmation number is an actual reservation number.
-    	for(Reservation reservation : reservations) {
-    		if(reservation.getConfirmationNumber() == number) {
-    			found = true;
-    		}
-    	}
-    	
-    	if(!found) {
-    		System.out.println("Sorry that number was not found");
-    	}
+    	JFrame frame = new JFrame(); 
 		
-		for(Reservation reservation : reservations) {
-			if(reservation.getConfirmationNumber() == number) {
-				resv = reservation;
+		frame.setTitle("Cancel Reservation");
+
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		frame.setLayout(new GridLayout(2,2));
+		
+		final int TEXT_FIELD_SIZE = 20; 	
+		JLabel confirmLabel = new JLabel("Confirmation Number to cancel:  "); 
+		final JTextField confirmField = new JTextField(TEXT_FIELD_SIZE);
+		JButton okButton = new JButton("Submit");
+		
+		frame.add(confirmLabel);
+		frame.add(confirmField);
+		frame.add(new JLabel(""));
+		frame.add(okButton);
+		
+		frame.pack(); 
+		
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean found = false;
+				
+				int number = Integer.parseInt(confirmField.getText()); 
+				
+		    	// checking to see if the entered confirmation number is an actual reservation number.
+		    	for(Reservation reservation : reservations) {
+		    		if(reservation.getConfirmationNumber() == number) {
+		    			found = true;
+		    			
+		    			reservations.remove(reservation);
+		    			
+		    			 JOptionPane.showMessageDialog(null,"Reservation had been canceled.", "Information saved", JOptionPane.INFORMATION_MESSAGE);
+		    		}
+		    	}
+		    	
+		    	if(!found) {
+		    		 JOptionPane.showMessageDialog(null,"Sorry, Reservation not found. Try again", "Error", JOptionPane.ERROR_MESSAGE);
+		    	}
 			}
-		}
-		
-		reservations.remove(resv);
-		
-		System.out.println("The reservation has been cancelled.");
+		});
     }
     
     /**
@@ -251,118 +375,115 @@ public class Manager extends Employee {
      * 
      * @return an array list of reservations that contains all the reservations.
      */
-    public void updateReservation(ArrayList<Reservation> reservations, ArrayList<Car> cars){
-    	Scanner in = new Scanner(System.in);
+    public void updateReservation(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 
-    	Reservation resv = null;
-    	Reservation resv2 = null;
+		final int TEXT_FIELD_SIZE = 20;
     	
     	// various variables used throughout this method
-    	int test = 0;
-    	int user;
-    	boolean found = false;
-    	boolean tester = false;
-    	String car_id = null;
     	String ddate = null;
     	String pdate = null;
-    	Car user_car = null;
     	
-    	System.out.println("Please enter the confirmation number of the reservation you are looking for");
-    	int number = in.nextInt();
-    	
-    	// checking to see if the entered confirmation number is an actual reservation number.
-    	for(Reservation reservation : reservations) {
-    		if(reservation.getConfirmationNumber() == number) {
-    			found = true;
-    			System.out.println("The current reservation information is: ");
-    			System.out.println(reservation.getAttributes());
-    			System.out.println();
-    		}
-    	}
-    	
-    	if(!found) {
-    		System.out.println("Sorry that number was not found");
-    	}
-    	
-    	System.out.println("Please enter the number of the information you would like to update");
-    	
-    	System.out.println("1: Update car");
-    	System.out.println("2: Update pick up date");
-    	System.out.println("3: Update drop off date");
-    	System.out.println("4: Do you want insurance?");
-
-    	int user_input = in.nextInt();
-    	
-    	if(user_input == 1) {
-    		// choose car
-    		Car.displayVehicles(cars);
-    		System.out.println("Please enter the number of the car you would like");
-    		user = in.nextInt();
-    		
-    		user_car = cars.get(user - 1);
-    		car_id = user_car.getID();
-    		
-    		System.out.println("the car id of the car you want is " +car_id);
-    	}
-    	if(user_input == 2) {
-    		// choose a new date.. make sure it doesn't conflict.
-    		System.out.println("Please enter a new pick up date. Formatted 11/09/1994");
-    		pdate = in.nextLine();
-    		pdate = in.nextLine();
-    		
-    		System.out.println("New = " +pdate);
-    	}
-    	if(user_input == 3) {
-    		// choose new date.. make sure it doesn't conflict.
-    		System.out.println("Please enter a new drop off date. Formatted 11/09/1994");
-    		ddate = in.nextLine();
-    		ddate = in.nextLine();
-    		
-    		System.out.println("New = " +ddate);
-    	}
-    	if(user_input == 4) {
-    		System.out.println("Please enter 1 for yes, 2 for no");
-    		test = in.nextInt();
-    		
-    		while(test != 1 || test != 2) {
-    			System.out.println("Please choose one of the availible options.");
-    			test = in.nextInt();
-    		}
-    		
-    		if(test == 1) {
-    			tester = true;
-    		}
-    		else {
-    			tester = false;
-    		}
-    	}
+    	JFrame frame = new JFrame("Update Reservation"); 
+		frame.setLayout(new GridLayout(2,2));
+		frame.setLocationRelativeTo(null);
 		
-		for(Reservation reservation : reservations) {
-			if(reservation.getConfirmationNumber() == number) {
-				resv2 = reservation;
+		JLabel confirmLabel = new JLabel("Confirmation Number to update:  "); 
+		final JTextField confirmField = new JTextField(TEXT_FIELD_SIZE);
+		JButton okButton = new JButton("Submit");
+		
+		frame.add(confirmLabel);
+		frame.add(confirmField);
+		frame.add(new JLabel(""));
+		frame.add(okButton);
+		
+		frame.setVisible(true);
+		frame.pack(); 
+		
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean found = false;
+				int number = Integer.parseInt(confirmField.getText()); 
 				
-				if(user_input == 1) {
-					resv = new Reservation(car_id, reservation.getPickUpDate().toString(), reservation.getDropOffDate().toString(), reservation.getConfirmationNumber(), reservation.getInsurance(), String.valueOf(reservation.getQuote()));
-				}
-				else if(user_input == 2) {
-					resv = new Reservation(reservation.getCar(), pdate, reservation.getDropOffDate().toString(), reservation.getConfirmationNumber(), reservation.getInsurance(), String.valueOf(reservation.getQuote()));
-				}
-				else if(user_input == 3) {
-					resv = new Reservation(reservation.getCar(), reservation.getPickUpDate().toString(), ddate, reservation.getConfirmationNumber(), reservation.getInsurance(), String.valueOf(reservation.getQuote()));
-				}
-				else {
-					resv = new Reservation(reservation.getCar(), reservation.getPickUpDate().toString(), reservation.getDropOffDate().toString(), reservation.getConfirmationNumber(), tester, String.valueOf(reservation.getQuote()));
-				}
+		    	// checking to see if the entered confirmation number is an actual reservation number.
+		    	for(Reservation reservation : reservations) {
+		    		if(reservation.getConfirmationNumber() == number) {
+		    			found = true;
+		    			JOptionPane.showMessageDialog(null,"Reservation had been found.\n " + reservation.getAttributes(), "Reservation Information", JOptionPane.INFORMATION_MESSAGE);
+		    		
+		    			
+		    			frame.setTitle("Update Reservation Info");
+		    			
+		    			frame.setVisible(true);
+		    			 	
+		    			JLabel carLabel = new JLabel("Car: "); 
+		    			final JTextField carField = new JTextField(TEXT_FIELD_SIZE);
+		    			
+		    			JLabel pickUpLabel = new JLabel("Pick Up Date: ");
+		    			final JTextField pickUpField = new JTextField(TEXT_FIELD_SIZE); 
+		    			
+		    			JLabel dropOffLabel = new JLabel("Drop Off Date: ");
+		    			final JTextField dropOffField = new JTextField(TEXT_FIELD_SIZE); 
+		    			
+		    			JLabel insureLabel = new JLabel("Insurance: ");
+		    			final JTextField insureField = new JTextField(TEXT_FIELD_SIZE); 
+		    			
+		    			// modifying okay button to be an update button.
+		    			JButton updateButton = new JButton("Update");
+		    			
+		    			frame.setLayout(new GridLayout(8,2));
+		    			frame.add(carLabel);
+		    			frame.add(carField);
+		    			frame.add(pickUpLabel);
+		    			frame.add(pickUpField);
+		    			frame.add(insureLabel);
+		    			frame.add(insureField);
+		    			frame.add(new JLabel(""));
+		    			frame.add(updateButton);
+		    			frame.pack();
+		    			
+		    			updateButton.addActionListener(new ActionListener() {
+		    				public void actionPerformed(ActionEvent e) {
+		    					
+		    					String carID = carField.getText(); 
+		    					String pDate = pickUpField.getText(); 
+		    					String dDate = dropOffField.getText(); 
+		    					String insure = insureField.getText(); 
+		    					Day d1 = Reservation.stringToDay(pdate);
+		    					Day d2 = Reservation.stringToDay(ddate);
+		    					
+		    					Car c = null;
+		    					
+		    					for(Car car : cars) {
+		    						if(car.getID().equals(carID)) {
+		    							c = car;
+		    						}
+		    					}
+		    					
+		    					int days = d2.daysFrom(d1);
+		    					double quote = days * (c.getPrice()); 
+		    					
+		    					for(Reservation reservation : reservations) {
+		    						if(reservation.getConfirmationNumber() == number) {
+		    							Reservation resv = new Reservation(carID, pDate, dDate, number, Boolean.parseBoolean(insure), String.valueOf(quote));
+		    							
+		    							// we remove the original one, then add the one newly updated one.
+		    			    			reservations.remove(reservation);
+		    			    			reservations.add(resv);
+		    			    			
+		    			    			JOptionPane.showMessageDialog(null,"Reservation had been updated.\n " + resv.getAttributes(), "Reservation Information", JFrame.DO_NOTHING_ON_CLOSE);
+		    						}
+		    					}
+		    				}
+		    			});	
+		    		}
+		    	}
+		    	
+		    	if(!found) {
+		    		 JOptionPane.showMessageDialog(null,"Reservation was not found.\n ", "Reservation Information", JOptionPane.ERROR_MESSAGE);
+		    	}
 			}
-		}
-		
-		// we remove the original one, then add the one newly updated one.
-		reservations.remove(resv2);
-		reservations.add(resv);
-		
-		System.out.println("The reservation has been updated.");
-    }
-    
+		});
+	}
 	/**
 	 * Method that is used for the read and write file.
 	 * 

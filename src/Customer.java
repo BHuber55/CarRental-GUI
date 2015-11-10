@@ -20,10 +20,6 @@ public class Customer {
 	
 	// we need this line below if we are going to create a history of customer reservations.
 	//private ArrayList<Reservation> prev_reservations;
-
-	public Customer() {
-		
-	}
 	
 	/**
 	 * 
