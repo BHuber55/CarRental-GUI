@@ -54,7 +54,7 @@ public class Driver<T> {
 		ArrayList<Manager> managers = readFile(FILE_MANAGERS);
 		ArrayList<Reservation> reservations = readFile(FILE_RESERVATIONS);
 
-		int index = loginFrame(customers, employees, managers, reservations, cars);
+		int index = login(customers, employees, managers, reservations, cars);
 		
 		//mainMenu(index, cars, customers, employees, managers, reservations);
 	}
@@ -168,6 +168,12 @@ public class Driver<T> {
 				
 				// now we add the modified customer back to the list.
 				C.updateProfile(index, customers);
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -177,6 +183,12 @@ public class Driver<T> {
 		b_c_make_resv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				C.makeReservation(cars, reservations);
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -190,6 +202,12 @@ public class Driver<T> {
 				}
 				if (beginning.equals(beg_man)) {
 					M.registerNewVehicle(cars);
+				}
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
 				}
 			}
 		});
@@ -205,6 +223,12 @@ public class Driver<T> {
 				if (beginning.equals(beg_man)) {
 					M.updateVehicle(cars);
 				}
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -218,6 +242,12 @@ public class Driver<T> {
 				}
 				if (beginning.equals(beg_man)) {
 					M.deleteVehicle(cars);
+				}
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
 				}
 			}
 		});
@@ -233,6 +263,12 @@ public class Driver<T> {
 				if (beginning.equals(beg_man)) {
 					M.displayAllCustomers(customers);
 				}
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -241,12 +277,18 @@ public class Driver<T> {
 		b_e_view_cust_record.setBorderPainted(false);
 //		b_e_view_cust_record.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
-//			if (beginning.equals(beg_emp)) {
-//				E.viewCustomerRecord(customers);
-//			}
-//			if (beginning.equals(beg_man)) {
-//				M.viewCustomerRecord(customers);
-//			}
+//				if (beginning.equals(beg_emp)) {
+//					E.viewCustomerRecord(customers);
+//				}
+//				if (beginning.equals(beg_man)) {
+//					M.viewCustomerRecord(customers);
+//				}
+		
+//				try {
+//					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+//				} catch (IOException e1) {
+//					// Do Stuff
+//				}
 //			}
 //		});
 
@@ -260,6 +302,12 @@ public class Driver<T> {
 				}
 				if (beginning.equals(beg_man)) {
 					M.findByConfirmationNumber(reservations);
+				}
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
 				}
 			}
 		});
@@ -275,6 +323,12 @@ public class Driver<T> {
 				if (beginning.equals(beg_man)) {
 					M.reviewReservation(reservations, cars);
 				}
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -284,6 +338,12 @@ public class Driver<T> {
 		b_m_create_customer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.createCustomer(customers);
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -293,6 +353,12 @@ public class Driver<T> {
 		b_m_create_employee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.createEmployee(employees);
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -302,6 +368,12 @@ public class Driver<T> {
 		b_m_make_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.makeReservation(cars, reservations);
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -311,6 +383,12 @@ public class Driver<T> {
 		b_m_change_password.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.changePassword(customers, employees, managers, M.getUserName());
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -320,6 +398,12 @@ public class Driver<T> {
 		b_m_cancel_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.cancelReservation(reservations);
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
 			}
 		});
 
@@ -329,6 +413,12 @@ public class Driver<T> {
 		b_m_update_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.updateReservation(reservations, cars);
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}			
 			}
 		});
 		
@@ -367,7 +457,7 @@ public class Driver<T> {
 }
 	
 	
-	public static int loginFrame(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
+	public static int login(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 		int index = 0;
 		
 		// CREATING THE FRAME FOR LOGIN!!!
@@ -389,7 +479,7 @@ public class Driver<T> {
 				String username = username_text_field.getText();
 				String password = password_text_field.getText();
 				
-				final int i = login(customers, username, password);
+				final int i = loginCheck(customers, username, password);
 				
 				if (i != -99) {
 					try {
@@ -439,7 +529,7 @@ public class Driver<T> {
 		return index;
 	}
 	
-	public static int login(ArrayList<Customer> customers, String username, String password) {
+	public static int loginCheck(ArrayList<Customer> customers, String username, String password) {
 		boolean found = false;
 		int index = -99;
 		

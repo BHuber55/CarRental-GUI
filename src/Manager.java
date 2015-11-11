@@ -1,5 +1,6 @@
 
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,16 +20,7 @@ import javax.swing.JTextField;
  *
  */
 public class Manager extends Employee {
-    
-    private String name;
-    private String username;
-    private String email;
-    private String password;
-    private String phone;
-    private String birthday;
-    private String credit;
-    private String hire;
-    private int salary;
+
     private double bonus;
     
     /**
@@ -48,27 +40,8 @@ public class Manager extends Employee {
     public Manager(String name1, String username1, String email1, String password1, String phone1, String birthday1, String credit1, String hire1, int salary1, double bonus1) {
     	
         super(name1, username1, email1, password1, phone1, birthday1, credit1, hire1, salary1);
-        
-        name = name1;
-		username = username1;
-		email = email1;
-		password = password1;
-		phone = phone1;
-		birthday = birthday1;
-		credit = credit1;
-		hire = hire1;
-		salary = salary1;
+
 		bonus = bonus1;
-    }
-    
-    /**
-     * This method will get the username of the manager.
-     * 
-     * @return a String that contains the username of the manager.
-     * 
-     */
-    public String getUsername(){
-    	return username;
     }
         
     /**
@@ -88,9 +61,7 @@ public class Manager extends Employee {
      * @return an array list of customers that contains every customer, including the newly created one.
      */
     public void createCustomer(ArrayList<Customer> customers){
-    	JFrame frame = new JFrame(); 
-		
-		frame.setTitle("Create Customer");
+    	JFrame frame = new JFrame("Create Customer"); 
 
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -152,6 +123,8 @@ public class Manager extends Employee {
 				 JOptionPane.showMessageDialog(null," Name: "+ name + "\n Username: " + userName + "\n Email: " + email + "\n Password: " + 
 				 password + "\n Phone: " + phone + "\n Birthday: " + birthday + "\n Credit Card Number: " + credit, "Information saved",
 			  			 JOptionPane.INFORMATION_MESSAGE);
+				 
+				frame.dispose();
 			}
 		});
     }
@@ -164,11 +137,10 @@ public class Manager extends Employee {
      * @return an array list of employees that contains every employee, including the newly created one.
      */
     public void createEmployee(ArrayList<Employee> employees){
-    	JFrame frame = new JFrame(); 
-		
-		frame.setTitle("Create Employee");
-		frame.setLocationRelativeTo(null);
+    	JFrame frame = new JFrame("Create Employee"); 
+
 		frame.setLayout(new GridLayout(10,2));
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
 		final int TEXT_FIELD_SIZE = 20; 	
@@ -237,6 +209,8 @@ public class Manager extends Employee {
 		        JOptionPane.showMessageDialog(null," Name: "+ name + "\n Username: " + userName + "\n Email: " + email + "\n Password: " + 
 						 password + "\n Phone: " + phone + "\n Birthday: " + birthday + "\n Credit Card Number: " + credit + "\n Hire Date: " + hire + "\n Salary: " + salary, "Information saved",
 					  			 JOptionPane.INFORMATION_MESSAGE);
+		        
+				frame.dispose();
 			}
 		});
     }
@@ -253,31 +227,39 @@ public class Manager extends Employee {
     public void changePassword(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, String userName){
     	
     	JFrame frame = new JFrame("Change Password"); 
-		frame.setLayout(new FlowLayout());
+		frame.setLayout(new GridLayout(8, 3));
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
 		final int TEXT_FIELD_SIZE = 20; 
 		JLabel passLabel = new JLabel("Please enter your new password: "); 
 		final JTextField passField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel passLabel1 = new JLabel("Please enter your new password again: "); 
+		final JTextField passField1 = new JTextField(TEXT_FIELD_SIZE); 
 		JButton okButton = new JButton("Submit");
 		
 		frame.add(passLabel);
 		frame.add(passField);
-		frame.add(new JLabel(""));
+		frame.add(passLabel1);
+		frame.add(passField1);
 		frame.add(okButton);
 		
 		frame.pack(); 
 		
-		okButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent a)
-			{
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				
 				Manager m = null;
 				Employee e = null;
 				Customer c = null;
 				
 				String password1 = passField.getText();
+				String password2 = passField1.getText();
+				
+				if(!password1.equals(password2)){
+					JOptionPane.showMessageDialog(null, "Passwords are not equal", "Error", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 				
 		    	for(Manager manager : managers) {
 		    		if(manager.getUserName().equals(userName)){
@@ -310,8 +292,9 @@ public class Manager extends Employee {
 		    	customers.remove(c);
 		    	customers.add(customer);
 				
-				 JOptionPane.showMessageDialog(null,"\n New Password: " + password1, "Information saved",
-			  			 JOptionPane.INFORMATION_MESSAGE);
+				 JOptionPane.showMessageDialog(null,"\n New Password: " + password1, "Information saved", JOptionPane.INFORMATION_MESSAGE);
+				 
+				 frame.dispose();
 			}
 		});
     }
@@ -323,15 +306,15 @@ public class Manager extends Employee {
      * 
      */
     public void cancelReservation(ArrayList<Reservation> reservations){
-    	JFrame frame = new JFrame(); 
-		
-		frame.setTitle("Cancel Reservation");
 
+		final int TEXT_FIELD_SIZE = 20; 	
+		
+    	JFrame frame = new JFrame("Cancel Reservation"); 
+
+		frame.setLayout(new GridLayout(2,2));
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		frame.setLayout(new GridLayout(2,2));
 		
-		final int TEXT_FIELD_SIZE = 20; 	
 		JLabel confirmLabel = new JLabel("Confirmation Number to cancel:  "); 
 		final JTextField confirmField = new JTextField(TEXT_FIELD_SIZE);
 		JButton okButton = new JButton("Submit");
@@ -363,6 +346,8 @@ public class Manager extends Employee {
 		    	if(!found) {
 		    		 JOptionPane.showMessageDialog(null,"Sorry, Reservation not found. Try again", "Error", JOptionPane.ERROR_MESSAGE);
 		    	}
+		    	
+				frame.dispose();
 			}
 		});
     }
@@ -383,7 +368,7 @@ public class Manager extends Employee {
     	String ddate = null;
     	String pdate = null;
     	
-    	JFrame frame = new JFrame("Update Reservation"); 
+    	JFrame frame = new JFrame("Update Reservation Info"); 
 		frame.setLayout(new GridLayout(2,2));
 		frame.setLocationRelativeTo(null);
 		
@@ -409,9 +394,6 @@ public class Manager extends Employee {
 		    		if(reservation.getConfirmationNumber() == number) {
 		    			found = true;
 		    			JOptionPane.showMessageDialog(null,"Reservation had been found.\n " + reservation.getAttributes(), "Reservation Information", JOptionPane.INFORMATION_MESSAGE);
-		    		
-		    			
-		    			frame.setTitle("Update Reservation Info");
 		    			
 		    			frame.setVisible(true);
 		    			 	
@@ -473,6 +455,8 @@ public class Manager extends Employee {
 		    			    			JOptionPane.showMessageDialog(null,"Reservation had been updated.\n " + resv.getAttributes(), "Reservation Information", JFrame.DO_NOTHING_ON_CLOSE);
 		    						}
 		    					}
+		    					
+		    					frame.dispose();
 		    				}
 		    			});	
 		    		}

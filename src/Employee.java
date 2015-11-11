@@ -11,13 +11,6 @@ import java.util.Scanner;
  */
 public class Employee extends Customer {
 
-	private String name;
-	private String username;
-	private String email;
-	private String password;
-	private String phone;
-	private String birthday;
-	private String credit;
 	private int salary;
 	private String hire;
 
@@ -40,24 +33,8 @@ public class Employee extends Customer {
 		
 		super(name1, username1, email1, password1, phone1, birthday1, credit1);
 
-		name = name1;
-		username = username1;
-		email = email1;
-		password = password1;
-		phone = phone1;
-		birthday = birthday1;
-		credit = credit1;
 		salary = salary1;
 		hire = hire1;
-	}
-
-	/**
-	 * This method will get the username of this employee
-	 * 
-	 * @return a string containing the username of the employee
-	 */
-	public String getUsername() {
-		return username;
 	}
 	
 	/**
