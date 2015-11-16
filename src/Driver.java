@@ -2,17 +2,16 @@
  * Features that need to be added.
  * 
  * 1. Need to create the customer reservation history.
- * 		Store the confirmation number in an ArrayList<int>.
- * 		Then to find the information just look in reservations.
- * 		tbd on how to read that from a file though.
+ * 		going to jsut add a username to the reservation class.. will then loop through the list to find 
+ * 		if the said user has any reservations.
  * 
  * 2. Check the dates on the reservation to make sure that the cars are available for the customer selected dates.
+ * 					^^ probably not going to happen.
  * 
- * 3. Add a customer name to the reservation. As to link it to the reservations.
  * 
- * 4. Convert the day class to the Calendar class.
+ * 3. Convert the day class to the Calendar class.
+ * 					^^ not my job.. hopefully Will will take care of it.
  * 
- * 5. Convert the menu to frames.
  */
 
 import java.awt.FlowLayout;
@@ -142,8 +141,11 @@ public class Driver<T> {
 		
 		
 		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<TESTING DISPLAY ALL VEHICLES.
-		// it works! now to modify it and make sure that it adds every vechicle using all the for loops.. all of them.
+		// it works! now to modify it and make sure that it adds every vehicle using all the for loops.. all of them.
 		JButton display = new JButton("Display all vechicles");
+		display.setOpaque(false);
+		display.setContentAreaFilled(false);
+		display.setBorderPainted(false);
 		display.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				Car.advancedSearch(cars);
@@ -151,6 +153,7 @@ public class Driver<T> {
 		});
 		
 		menu_frame.add(display);
+		
 		// creating the action listener for these buttons.
 		
 		b_c_logout.setOpaque(false);
@@ -161,9 +164,10 @@ public class Driver<T> {
 				try {
 					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
 					menu_frame.dispose();
+					return;
 				}
 				catch (IOException e1) {
-					// do something.. maybe.
+					// do something.. maybe?
 				}
 			}
 		});
@@ -513,6 +517,9 @@ public class Driver<T> {
 					try {
 						login.dispose();
 						Driver.mainMenu(i, cars, customers, employees, managers, reservations);
+						
+						// kill the program after the menu is called.
+						return;
 					}
 					catch (IOException e1) {
 						// do stuff.
@@ -533,6 +540,9 @@ public class Driver<T> {
 				try {
 					login.dispose();
 					Driver.mainMenu(i, cars, customers, employees, managers, reservations);
+					
+					// kill the program after menu is called.
+					return;
 				}
 				catch (IOException e1) {
 					// do stuff.
