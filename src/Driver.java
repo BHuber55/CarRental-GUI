@@ -55,8 +55,7 @@ public class Driver<T> {
 		ArrayList<Reservation> reservations = readFile(FILE_RESERVATIONS);
 
 		int index = login(customers, employees, managers, reservations, cars);
-		
-		//mainMenu(index, cars, customers, employees, managers, reservations);
+		// Main menu is called after the user logs in.
 	}
 	
 	public static void mainMenu(int index, ArrayList<Car> cars1, ArrayList<Customer> customers1, ArrayList<Employee> employees1, ArrayList<Manager> managers1, ArrayList<Reservation> reservations1) throws IOException {
@@ -141,6 +140,16 @@ public class Driver<T> {
 		JButton b_m_update_reservation = new JButton("Update Reservation");
 		
 		
+		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<TESTING DISPLAY ALL VEHICLES.
+		// it works! now to modify it and make sure that it adds every vechicle using all the for loops.. all of them.
+		JButton display = new JButton("Display all vechicles");
+		display.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				Car.advancedSearch(cars);
+			}
+		});
+		
+		menu_frame.add(display);
 		// creating the action listener for these buttons.
 		
 		b_c_logout.setOpaque(false);
@@ -466,8 +475,10 @@ public class Driver<T> {
 		JLabel username_label = new JLabel("Username: ");
 		JLabel password_label = new JLabel("Password: ");
 		
-		JTextField username_text_field = new JTextField(15);
-		JTextField password_text_field = new JTextField(15);
+		JTextField username_text_field = new JTextField("M_loro");
+		JTextField password_text_field = new JTextField("abc123");
+//		JTextField username_text_field = new JTextField(15);
+//		JTextField password_text_field = new JTextField(15);
 		
 		JButton login_button = new JButton("Login");
 		JButton create_button = new JButton("Create Account");

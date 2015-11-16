@@ -13,6 +13,8 @@ import java.util.Scanner;
  */
 public class Reservation {
 	
+	private String username;
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	private String car;
 	private Day pickUpDate;
 	private Day dropOffDate;
@@ -37,9 +39,11 @@ public class Reservation {
 	 *            Must be a valid string that holds the price of the reservation.
 	 */
 	public Reservation(String car_id, String pickUpDate1, String dropOffDate1, int confirmationNumber1, boolean insurance1, String quote1) {
-		this.car = car_id;
-		this.confirmationNumber = confirmationNumber1;
-		this.insurance = insurance1;
+		username = "";
+		//^^^^^^^^^^^
+		car = car_id;
+		confirmationNumber = confirmationNumber1;
+		insurance = insurance1;
 
 		pickUpDate = Reservation.stringToDay(pickUpDate1);
 		dropOffDate = Reservation.stringToDay(dropOffDate1);
@@ -141,7 +145,7 @@ public class Reservation {
 	 * 
 	 * @return a new reservation containing the information that the user inputed.
 	 */
-	public static void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
+	public static Reservation makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
 		Scanner in = new Scanner(System.in);
 
 		boolean insur = false;
@@ -190,7 +194,7 @@ public class Reservation {
 
 		Reservation resv = new Reservation(car_id, pdate, ddate, Reservation.makeConfirmationNumber(reservations), insur, String.valueOf(quotes));
 		
-		reservations.add(resv);
+		return resv;
 	}
 
 	/**
@@ -206,7 +210,7 @@ public class Reservation {
 	 * @return a list of reservation that holds every reservation, including the
 	 *         updated reservation.
 	 */
-	public void updateProfile(ArrayList<Car> cars, ArrayList<Reservation> reservations, int number) {
+	public ArrayList<Reservation> updateProfile(ArrayList<Car> cars, ArrayList<Reservation> reservations, int number) {
 		Reservation res = null;
 		for (Reservation reservation : reservations) {
 			if (reservation.getConfirmationNumber() == number) {
@@ -216,7 +220,10 @@ public class Reservation {
 		}
 
 		reservations.remove(res);
-		makeReservation(cars, reservations);
+		res = makeReservation(cars, reservations);
+		reservations.add(res);
+
+		return reservations;
 	}
 
 	// not used atm.. but maybe later.

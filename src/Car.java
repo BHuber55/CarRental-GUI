@@ -1,5 +1,17 @@
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ListIterator;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 
 public class Car {
 
@@ -125,23 +137,49 @@ public class Car {
 	 * 
 	 * @return an array list of cars that contains the cars that match the customers constraints.
 	 */
-	public ArrayList<Car> searchByColor(ArrayList<Car> cars, String color) {
+	public static void searchByColor(ArrayList<Car> cars) {
 		ListIterator<Car> iter = cars.listIterator();
+		
+		String colors[] = { "Black", "Blue", "Green", "Orange", "Purple", "Red", "White", "Yellow" };
 
-		String car_color = "blue";
-		Car car = null;
-		ArrayList<Car> carsByColor = new ArrayList<>();
+		JFrame search_frame = new JFrame("Search by color");
+		
+		JLabel prompt = new JLabel("Please choose a color.");
+		
+		JComboBox<String> color_choices = new JComboBox<String>(colors);
+		
+		JButton select = new JButton("Select");
+		
+		select.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String car_color = (String) color_choices.getSelectedItem();
+				String color = "";
+				Car car = null;
+				ArrayList<Car> sorted_cars = new ArrayList<>();
 
-		while (iter.hasNext()) {
-			car = iter.next();
-			car_color = car.getModel();
+				while (iter.hasNext()) {
+					car = iter.next();
+					color = car.getColor();
 
-			if (car_color.equalsIgnoreCase(color)) {
-				carsByColor.add(car);
+					if (car_color.equalsIgnoreCase(color)) {
+						sorted_cars.add(car);
+					}
+				}
+				
+				Car.displayVehicles(sorted_cars);
 			}
-		}
-		return carsByColor;
+		
+		});
 
+		search_frame.add(prompt);
+		search_frame.add(color_choices);
+		search_frame.add(select);
+		
+		
+		search_frame.setSize(320, 200);
+		search_frame.setVisible(true);
+		search_frame.setLocationRelativeTo(null);
+		search_frame.setLayout(new FlowLayout());
 	}
 
 	/**
@@ -149,29 +187,53 @@ public class Car {
 	 * 
 	 * @param cars
 	 *            is the array list of cars that contains every car.
-	 * @param model
-	 *            is the model of car that the customer wants.
 	 * 
 	 * @return an array list of cars that contains the cars that match the customers constraints.
 	 */
-	public ArrayList<Car> searchByModel(ArrayList<Car> cars, String model) {
+	public static void searchByModel(ArrayList<Car> cars) {
 		ListIterator<Car> iter = cars.listIterator();
+		
+		// add to this list.
+		// maybe make it loop through the list and only display vehicle models that we have.
+		String models[] = { "blah", "blah", "blah", "blah" };
 
-		String car_model = "rio";
-		Car car = null;
-		ArrayList<Car> carsByModel = new ArrayList<>();
+		JFrame search_frame = new JFrame("Search by model");
+		
+		JLabel prompt = new JLabel("Please choose a model of car.");
+		
+		JComboBox<String> car_models = new JComboBox<String>(models);
+		
+		JButton select = new JButton("Select");
+		
+		select.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String car_model = (String) car_models.getSelectedItem();
+				String model = "";
+				Car car = null;
+				ArrayList<Car> sorted_cars = new ArrayList<>();
 
-		while (iter.hasNext()) {
-			car = iter.next();
-			car_model = car.getModel();
+				while (iter.hasNext()) {
+					car = iter.next();
+					model = car.getModel();
 
-			if (car_model.equalsIgnoreCase(model)) {
-				carsByModel.add(car);
+					if (car_model.equalsIgnoreCase(model)) {
+						sorted_cars.add(car);
+					}
+				}
+				
+				Car.displayVehicles(sorted_cars);
 			}
-		}
+		
+		});
 
-		return carsByModel;
-
+		search_frame.add(prompt);
+		search_frame.add(car_models);
+		search_frame.add(select);
+		
+		search_frame.setSize(320, 200);
+		search_frame.setVisible(true);
+		search_frame.setLocationRelativeTo(null);
+		search_frame.setLayout(new FlowLayout());
 	}
 
 	/**
@@ -179,27 +241,53 @@ public class Car {
 	 * 
 	 * @param cars
 	 *            is the array list of cars that contains every car.
-	 * @param make
-	 *            is the make of car that the customer wants
 	 * 
 	 * @return an array list of cars that contains the cars that match the customers constraints.
 	 */
-	public ArrayList<Car> searchByMake(ArrayList<Car> cars, String make) {
+	public static void searchByMake(ArrayList<Car> cars) {
 		ListIterator<Car> iter = cars.listIterator();
+		
+		// add to this list.
+		// maybe make it loop through the list and only display vehicle makes that we have.
+		String makes[] = { "Jeep", "Lamborghini", "Tesla", "Kia" };
 
-		String car_make = "kia";
-		Car car = null;
-		ArrayList<Car> carsByMake = new ArrayList<>();
+		JFrame search_frame = new JFrame("Search by model");
+		
+		JLabel prompt = new JLabel("Please choose a model of car.");
+		
+		JComboBox<String> car_makes = new JComboBox<String>(makes);
+		
+		JButton select = new JButton("Select");
+		
+		select.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String car_make = (String) car_makes.getSelectedItem();
+				String make = "";
+				Car car = null;
+				ArrayList<Car> sorted_cars = new ArrayList<>();
 
-		while (iter.hasNext()) {
-			car = iter.next();
-			car_make = car.getModel();
+				while (iter.hasNext()) {
+					car = iter.next();
+					make = car.getMake();
 
-			if (car_make.equalsIgnoreCase(make)) {
-				carsByMake.add(car);
+					if (car_make.equalsIgnoreCase(make)) {
+						sorted_cars.add(car);
+					}
+				}
+				
+				Car.displayVehicles(sorted_cars);
 			}
-		}
-		return carsByMake;
+		
+		});
+
+		search_frame.add(prompt);
+		search_frame.add(car_makes);
+		search_frame.add(select);
+		
+		search_frame.setSize(320, 200);
+		search_frame.setVisible(true);
+		search_frame.setLocationRelativeTo(null);
+		search_frame.setLayout(new FlowLayout());
 	}
 
 	/**
@@ -207,27 +295,53 @@ public class Car {
 	 * 
 	 * @param cars
 	 *            is the array list of cars that contains every car.
-	 * @param price
-	 *            is the price of the car that the customer wants.
 	 * 
 	 * @return an array list of cars that contains the cars that match the customers constraints.
 	 */
-	public ArrayList<Car> searchByPrice(ArrayList<Car> cars, double price) {
+	public static void searchByPrice(ArrayList<Car> cars) {
 		ListIterator<Car> iter = cars.listIterator();
+		
+		// add to this list.
+		// maybe make it loop through the list and only display vehicle prices that we have.
+		String prices[] = { "100", "200", "300", "400"};
 
-		double car_price = 120;
-		Car car = null;
-		ArrayList<Car> carsByPrice = new ArrayList<>();
+		JFrame search_frame = new JFrame("Search by model");
+		
+		JLabel prompt = new JLabel("Please choose a model of car.");
+		
+		JComboBox<String> car_prices = new JComboBox<String>(prices);
+		
+		JButton select = new JButton("Select");
+		
+		select.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				double car_price = (double) car_prices.getSelectedItem();
+				double price = 0;
+				Car car = null;
+				ArrayList<Car> sorted_cars = new ArrayList<>();
 
-		while (iter.hasNext()) {
-			car = iter.next();
-			car_price = car.getPrice();
+				while (iter.hasNext()) {
+					car = iter.next();
+					price = car.getPrice();
 
-			if (car_price == price) {
-				carsByPrice.add(car);
+					if (car_price == price) {
+						sorted_cars.add(car);
+					}
+				}
+				
+				Car.displayVehicles(sorted_cars);
 			}
-		}
-		return carsByPrice;
+		
+		});
+
+		search_frame.add(prompt);
+		search_frame.add(car_prices);
+		search_frame.add(select);
+		
+		search_frame.setSize(320, 200);
+		search_frame.setVisible(true);
+		search_frame.setLocationRelativeTo(null);
+		search_frame.setLayout(new FlowLayout());
 	}
 
 	/**
@@ -235,28 +349,53 @@ public class Car {
 	 * 
 	 * @param cars
 	 *            is the array list of cars that contains every car.
-	 * @param mileage
-	 *            is the mileage on the car that the customer wants.
 	 * 
 	 * @return an array list of cars that contains the cars that match the customers constraints.
 	 */
-	public ArrayList<Car> searchByMileage(ArrayList<Car> cars, int mileage) {
+	public static void searchByMileage(ArrayList<Car> cars) {
 		ListIterator<Car> iter = cars.listIterator();
+		
+		// add to this list.
+		// maybe make it loop through the list and only display vehicle models that we have.
+		String mileages[] = { "1000", "2000", "3000", "10000", "100000" };
 
-		int car_mileage = 12;
-		Car car = null;
-		ArrayList<Car> carsByMileage = new ArrayList<>();
+		JFrame search_frame = new JFrame("Search by model");
+		
+		JLabel prompt = new JLabel("Please choose a model of car.");
+		
+		JComboBox<String> car_mileages = new JComboBox<String>(mileages);
+		
+		JButton select = new JButton("Select");
+		
+		select.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int car_mileage = (int) car_mileages.getSelectedItem();
+				int mileage = 0;
+				Car car = null;
+				ArrayList<Car> sorted_cars = new ArrayList<>();
 
-		while (iter.hasNext()) {
-			car = iter.next();
-			car_mileage = car.getMileage();
+				while (iter.hasNext()) {
+					car = iter.next();
+					mileage = car.getMileage();
 
-			if (car_mileage == mileage) {
-				carsByMileage.add(car);
+					if (car_mileage == mileage) {
+						sorted_cars.add(car);
+					}
+				}
+				
+				Car.displayVehicles(sorted_cars);
 			}
-		}
+		
+		});
 
-		return carsByMileage;
+		search_frame.add(prompt);
+		search_frame.add(car_mileages);
+		search_frame.add(select);
+		
+		search_frame.setSize(320, 200);
+		search_frame.setVisible(true);
+		search_frame.setLocationRelativeTo(null);
+		search_frame.setLayout(new FlowLayout());
 	}
 
 	/**
@@ -269,22 +408,119 @@ public class Car {
 	 * 
 	 * @return an array list of cars that contains the cars that match the customers constraints.
 	 */
-	public ArrayList<Car> searchByMPG(ArrayList<Car> cars, int milesPerGallon) {
+	public static void searchByMPG(ArrayList<Car> cars) {
 		ListIterator<Car> iter = cars.listIterator();
+		
+		// add to this list.
+		// maybe make it loop through the list and only display vehicle models that we have.
+		String MPGs[] = { "10", "20", "30", "40"};
 
-		int car_MPG = 30;
-		Car car = null;
-		ArrayList<Car> carsByMPG = new ArrayList<>();
+		JFrame search_frame = new JFrame("Search by miles per gallon");
+		
+		JLabel prompt = new JLabel("Please select the miles per gallon your hope your car can get.");
+		
+		JComboBox<String> car_MPGs = new JComboBox<String>(MPGs);
+		
+		JButton select = new JButton("Select");
+		
+		select.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int car_MPG = (int) car_MPGs.getSelectedItem();
+				int MPG = 0;
+				Car car = null;
+				ArrayList<Car> sorted_cars = new ArrayList<>();
 
-		while (iter.hasNext()) {
-			car = iter.next();
-			car_MPG = car.getMPG();
+				while (iter.hasNext()) {
+					car = iter.next();
+					MPG = car.getMileage();
 
-			if (car_MPG == milesPerGallon) {
-				carsByMPG.add(car);
+					// will add cars that are as good or better than the selected MPG.
+					if (car_MPG <= MPG) {
+						sorted_cars.add(car);
+					}
+				}
+				
+				Car.displayVehicles(sorted_cars);
 			}
-		}
-		return carsByMPG;
+		
+		});
+
+		search_frame.add(prompt);
+		search_frame.add(car_MPGs);
+		search_frame.add(select);
+		
+		search_frame.setSize(320, 200);
+		search_frame.setVisible(true);
+		search_frame.setLocationRelativeTo(null);
+		search_frame.setLayout(new FlowLayout());
+	}
+	
+	public static void advancedSearch(ArrayList<Car> cars) {
+		JFrame adv_search = new JFrame("Advanced Search");
+		
+		JLabel label = new JLabel("What criteria would you like to search by");
+		
+		JButton color = new JButton("Color");
+		JButton make  = new JButton("Make");
+		JButton model = new JButton("Model");
+		JButton price = new JButton("Price");
+		JButton mileage = new JButton("Mileage");
+		JButton mpg = new JButton("MPG");
+		
+		color.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Car.searchByColor(cars);
+			}
+		
+		});
+		
+		make.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Car.searchByMake(cars);
+			}
+		
+		});
+		
+		model.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Car.searchByModel(cars);
+			}
+		
+		});
+		
+		price.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Car.searchByPrice(cars);
+			}
+		
+		});
+		
+		mileage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Car.searchByMileage(cars);
+			}
+		
+		});
+		
+		mpg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Car.searchByMPG(cars);
+			}
+		
+		});
+		
+		adv_search.add(label);
+		adv_search.add(color);
+		adv_search.add(make);
+		adv_search.add(model);
+		adv_search.add(price);
+		adv_search.add(mileage);
+		adv_search.add(mpg);
+		
+		adv_search.setSize(320, 200);
+		adv_search.setVisible(true);
+		adv_search.setLocationRelativeTo(null);
+		adv_search.setLayout(new FlowLayout());
 	}
 
 	/**
@@ -294,13 +530,49 @@ public class Car {
 	 *            is the array list of cars that contains every car.
 	 */
 	public static void displayVehicles(ArrayList<Car> cars) {
-		int count = 1;
-
-		for (Car car : cars) {
-			System.out.print(count + ": ");
-			System.out.println(car.getAttributes());
+		int count = 0;
+		
+		JFrame frame = new JFrame("Available vehicles");
+		
+		String header[] = { "Model", "Year", "Make", "Color", "Price", "Mileage", "MPG"};
+		Object data[][] = new Object[cars.size()][7];
+		String info = "";
+		List<String> list;
+		
+		for(Car car : cars) {
+			info = car.getAttributes();
+			list = Arrays.asList(info.split(", "));
+			
+			for(int j = 0; j < 7; j++) {
+				data[count][j] = list.get(j);
+			}
+			
 			count++;
 		}
+
+//		info = cars.get(0).getAttributes();
+//		list = Arrays.asList(info.split(", "));
+//		
+//		for(int i = 0; i < 7; i++) {
+//			data[0][i] = list.get(i);
+//		}
+		
+		
+		JTable table = new JTable(data, header) {
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }
+		};
+		
+		frame.add(table.getTableHeader());
+		frame.add(table);
+		
+		frame.setLayout(new GridLayout(3,3));
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		frame.pack();
 	}
 
 	/**
