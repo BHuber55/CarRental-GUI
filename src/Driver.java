@@ -455,9 +455,9 @@ public class Driver<T> {
 			menu_frame.add(b_m_cancel_reservation);
 			menu_frame.add(b_m_update_reservation);
 		}
-		
-		menu_frame.setLocationRelativeTo(null);
+
 		menu_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menu_frame.setLocationRelativeTo(null);
 		menu_frame.setSize(500, 300);
 		menu_frame.setVisible(true);
 

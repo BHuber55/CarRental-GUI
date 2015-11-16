@@ -41,7 +41,6 @@ public class Reservation {
 	public Reservation(String car_id, String pickUpDate1, String dropOffDate1, int confirmationNumber1, boolean insurance1, String quote1) {
 		username = "";
 		//^^^^^^^^^^^
-		car = car_id;
 		confirmationNumber = confirmationNumber1;
 		insurance = insurance1;
 
