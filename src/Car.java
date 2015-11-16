@@ -147,7 +147,10 @@ public class Car {
 		JComboBox<String> color_choices = new JComboBox<String>(colors);
 		
 		JButton select = new JButton("Select");
-		
+
+		select.setOpaque(false);
+		select.setContentAreaFilled(false);
+		select.setBorderPainted(false);
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String car_color = (String) color_choices.getSelectedItem();
@@ -194,8 +197,8 @@ public class Car {
 		ListIterator<Car> iter = cars.listIterator();
 		
 		// add to this list.
-		// maybe make it loop through the list and only display vehicle models that we have.
-		String models[] = { "Model S", "Wrangler", "Aventador", "F1" };
+		// maybe make it loop through the list and only display vehicle models that we have?
+		String models[] = { "Aventador","F1", "Model S", "Wrangler" };
 
 		JFrame search_frame = new JFrame("Search by model");
 		
@@ -204,7 +207,10 @@ public class Car {
 		JComboBox<String> car_models = new JComboBox<String>(models);
 		
 		JButton select = new JButton("Select");
-		
+
+		select.setOpaque(false);
+		select.setContentAreaFilled(false);
+		select.setBorderPainted(false);
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String car_model = (String) car_models.getSelectedItem();
@@ -225,6 +231,7 @@ public class Car {
 					Car.displayVehicles(sorted_cars);
 				} else {
 					JOptionPane.showMessageDialog(null,  "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					search_frame.dispose();
 				}
 			}
 		});
@@ -260,7 +267,10 @@ public class Car {
 		JComboBox<String> car_makes = new JComboBox<String>(makes);
 		
 		JButton select = new JButton("Select");
-		
+
+		select.setOpaque(false);
+		select.setContentAreaFilled(false);
+		select.setBorderPainted(false);
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String car_make = (String) car_makes.getSelectedItem();
@@ -281,6 +291,7 @@ public class Car {
 					Car.displayVehicles(sorted_cars);
 				} else {
 					JOptionPane.showMessageDialog(null,  "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					search_frame.dispose();
 				}
 			}
 		});
@@ -317,6 +328,9 @@ public class Car {
 
 		JButton select = new JButton("Select");
 
+		select.setOpaque(false);
+		select.setContentAreaFilled(false);
+		select.setBorderPainted(false);
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// car_price is the price that was in the combo box
@@ -339,6 +353,7 @@ public class Car {
 					Car.displayVehicles(sorted_cars);
 				} else {
 					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					search_frame.dispose();
 				}
 			}
 		});
@@ -374,6 +389,9 @@ public class Car {
 
 		JButton select = new JButton("Select");
 
+		select.setOpaque(false);
+		select.setContentAreaFilled(false);
+		select.setBorderPainted(false);
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// car_mileage is the mileage the came from the combo box.
@@ -395,6 +413,7 @@ public class Car {
 					Car.displayVehicles(sorted_cars);
 				} else {
 					JOptionPane.showMessageDialog(null,  "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					search_frame.dispose();
 				}
 			}
 		});
@@ -431,6 +450,9 @@ public class Car {
 		
 		JButton select = new JButton("Select");
 		
+		select.setOpaque(false);
+		select.setContentAreaFilled(false);
+		select.setBorderPainted(false);
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// car_mpg is the mpg that came from the combo box.
@@ -453,6 +475,7 @@ public class Car {
 					Car.displayVehicles(sorted_cars);
 				} else {
 					JOptionPane.showMessageDialog(null,  "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+					search_frame.dispose();
 				}
 			}
 		});

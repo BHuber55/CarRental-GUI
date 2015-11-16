@@ -228,6 +228,18 @@ public class Customer {
 
 		return found;
 	}
+	
+	public void displayUserReservations(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
+		ArrayList<Reservation> resv = new ArrayList<>();
+		
+		for(Reservation r : reservations) {
+			if(this.getUserName().equals(r.getUsername())) {
+				resv.add(r);
+			}
+		}
+		
+		Reservation.displayReservations(resv, cars);
+	}
 
 	/**
 	 * This method will update this customer profile inforamtion.

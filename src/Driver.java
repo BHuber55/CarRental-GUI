@@ -123,6 +123,7 @@ public class Driver<T> {
 		JButton b_c_logout = new JButton("Logout");
 		JButton b_c_update_profile = new JButton("Update Profile");
 		JButton b_c_make_resv = new JButton("Make Reservation");
+		JButton b_c_view_resv = new JButton("Review your Reservations");
 		
 		JButton b_e_new_vehicle = new JButton("Register New Vehicle");
 		JButton b_e_update_vehicle = new JButton("Update Vehicle");
@@ -192,6 +193,21 @@ public class Driver<T> {
 		b_c_make_resv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				C.makeReservation(cars, reservations);
+				
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
+			}
+		});	
+		
+		b_c_view_resv.setOpaque(false);
+		b_c_view_resv.setContentAreaFilled(false);
+		b_c_view_resv.setBorderPainted(false);
+		b_c_view_resv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				C.displayUserReservations(reservations, cars);	
 				
 				try {
 					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
@@ -435,6 +451,7 @@ public class Driver<T> {
 		menu_frame.add(b_c_logout);
 		menu_frame.add(b_c_update_profile);
 		menu_frame.add(b_c_make_resv);
+		menu_frame.add(b_c_view_resv);
 
 		// if the user is an employee or manager we want these buttons added.
 		if (beginning.equals(beg_emp) || beginning.equals(beg_man)) {

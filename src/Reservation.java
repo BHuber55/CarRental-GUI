@@ -49,6 +49,15 @@ public class Reservation {
 
 		quote = Double.parseDouble(quote1);
 	}
+	
+	/**
+	 * Will return the username of the person who made the reservation
+	 * 
+	 * @return a String that holds the username of the person who made this reservation.
+	 */
+	public String getUsername() {
+		return username;
+	}
 
 	/**
 	 * Will return the car ID of this reservation
@@ -292,6 +301,12 @@ public class Reservation {
 
 		return date;
 	}
+	
+	public static void displayReservations(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
+		for(Reservation r : reservations) {
+			makeReservationReport(r, cars);
+		}
+	}
 
 	/**
 	 * This method will print out a report displaying all the information of the reservation.
@@ -316,6 +331,7 @@ public class Reservation {
 		System.out.println("The confirmation number is " + aReservation.getConfirmationNumber());
 		System.out.println("Do you have insurance? " + aReservation.getInsurance());
 		System.out.println("The quote is " + aReservation.getQuote());
+		System.out.println();
 	}
 
 	/**
