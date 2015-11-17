@@ -15,15 +15,14 @@
  */
 
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +31,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 // Might have to add WRITE() to the last line of every button ActionListener.
@@ -58,12 +58,10 @@ public class Driver<T> {
 	}
 	
 	public static void mainMenu(int index, ArrayList<Car> cars1, ArrayList<Customer> customers1, ArrayList<Employee> employees1, ArrayList<Manager> managers1, ArrayList<Reservation> reservations1) throws IOException {
-		int i = 1000;
+		int i = -1;
 		
-		boolean check = false;
-		
-		String beg_emp = "E_";
-		String beg_man = "M_";
+		final String beg_emp = "E_";
+		final String beg_man = "M_";
 		
 		final Customer C = customers1.get(index);
 		// employee is defined below
@@ -85,8 +83,9 @@ public class Driver<T> {
 		final String FILE_RESERVATIONS = "Reservations.txt";
 		
 		// checking if user is an employee or manager
-		String beginning = username.substring(0, 2);
+		final String beginning = username.substring(0, 2);
 		
+		// if the beginning of the current user's username begins with E_ then we are setting him as an employee.
 		if (beginning.equals(beg_emp)) {
 			for (Employee employee : employees) {
 				if (employee.getUserName().equals(username)) {
@@ -96,13 +95,17 @@ public class Driver<T> {
 			}
 		}
 		
-		if(i == 1000)
-		{
+		// if the employee was not found, we will just set it as 0.
+		// because otherwise we will get out of bounds whenever we run,
+		// even if the user isnt an employee, we still need one defined.
+		if(i == -1) {
 			i = 0;
 		}
 		
+		// must have the below line as a final for some reason.
 		final Employee E = employees.get(i);	
 		
+		// if the beginning of the current user's username begins with M_ then we are setting him as a manager.
 		if (beginning.equals(beg_man)) {
 			for (Manager manager : managers) {
 				if (manager.getUserName().equals(username)) {
@@ -112,18 +115,22 @@ public class Driver<T> {
 			}
 		}
 
+		// still must have the below line as a final.
 		final Manager M = managers.get(i);
 		
 		// Creating the frame and what not.
 		JFrame menu_frame = new JFrame("Main Menu");
+		// we might want to use a different layout.. possibly grid.
 		menu_frame.setLayout(new FlowLayout());
 		
-		// creating all of the buttons.
+		// creating all of the buttons. all the buttons.
+		// creating the customer's buttons.
 		JButton b_c_logout = new JButton("Logout");
 		JButton b_c_update_profile = new JButton("Update Profile");
 		JButton b_c_make_resv = new JButton("Make Reservation");
 		JButton b_c_view_resv = new JButton("Review your Reservations");
 		
+		// creating the employee's buttons.
 		JButton b_e_new_vehicle = new JButton("Register New Vehicle");
 		JButton b_e_update_vehicle = new JButton("Update Vehicle");
 		JButton b_e_delete_vehicle = new JButton("Delete Vehicle");
@@ -132,16 +139,21 @@ public class Driver<T> {
 		JButton b_e_find_reservation = new JButton("Find Reservation");
 		JButton b_e_review_reservation = new JButton("Review Reservation");
 		
+		// creating the manager's buttons.
 		JButton b_m_create_customer = new JButton("Create Customer");
 		JButton b_m_create_employee = new JButton("Create Employee");
-		JButton b_m_make_reservation = new JButton("Make Reservation for Customer");
+		JButton b_m_make_reservation = new JButton("Make Customer Reservation");
 		JButton b_m_change_password = new JButton("Change Password");
 		JButton b_m_cancel_reservation = new JButton("Cancel a Reservation");
 		JButton b_m_update_reservation = new JButton("Update Reservation");
 		
 		
-		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<TESTING DISPLAY ALL VEHICLES.
-		// it works! now to modify it and make sure that it adds every vehicle using all the for loops.. all of them.
+		
+		
+		
+		
+		
+		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<TESTING DISPLAY ALL VEHICLES.
 		JButton display = new JButton("Display all vechicles");
 		display.setOpaque(false);
 		display.setContentAreaFilled(false);
@@ -152,10 +164,14 @@ public class Driver<T> {
 			}
 		});
 		
-		menu_frame.add(display);
 		
-		// creating the action listener for these buttons.
 		
+		
+
+		
+		
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_c_logout.setOpaque(false);
 		b_c_logout.setContentAreaFilled(false);
 		b_c_logout.setBorderPainted(false);
@@ -171,7 +187,9 @@ public class Driver<T> {
 				}
 			}
 		});
-		
+
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_c_update_profile.setOpaque(false);
 		b_c_update_profile.setContentAreaFilled(false);
 		b_c_update_profile.setBorderPainted(false);
@@ -191,6 +209,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_c_make_resv.setOpaque(false);
 		b_c_make_resv.setContentAreaFilled(false);
 		b_c_make_resv.setBorderPainted(false);
@@ -205,7 +225,9 @@ public class Driver<T> {
 				}
 			}
 		});	
-		
+
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_c_view_resv.setOpaque(false);
 		b_c_view_resv.setContentAreaFilled(false);
 		b_c_view_resv.setBorderPainted(false);
@@ -221,6 +243,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_e_new_vehicle.setOpaque(false);
 		b_e_new_vehicle.setContentAreaFilled(false);
 		b_e_new_vehicle.setBorderPainted(false);
@@ -241,6 +265,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_e_update_vehicle.setOpaque(false);
 		b_e_update_vehicle.setContentAreaFilled(false);
 		b_e_update_vehicle.setBorderPainted(false);
@@ -261,6 +287,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_e_delete_vehicle.setOpaque(false);
 		b_e_delete_vehicle.setContentAreaFilled(false);
 		b_e_delete_vehicle.setBorderPainted(false);
@@ -281,6 +309,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_e_display_customers.setOpaque(false);
 		b_e_display_customers.setContentAreaFilled(false);
 		b_e_display_customers.setBorderPainted(false);
@@ -301,6 +331,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_e_view_cust_record.setOpaque(false);
 		b_e_view_cust_record.setContentAreaFilled(false);
 		b_e_view_cust_record.setBorderPainted(false);
@@ -321,6 +353,8 @@ public class Driver<T> {
 //			}
 //		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_e_find_reservation.setOpaque(false);
 		b_e_find_reservation.setContentAreaFilled(false);
 		b_e_find_reservation.setBorderPainted(false);
@@ -341,6 +375,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_e_review_reservation.setOpaque(false);
 		b_e_review_reservation.setContentAreaFilled(false);
 		b_e_review_reservation.setBorderPainted(false);
@@ -361,6 +397,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_m_create_customer.setOpaque(false);
 		b_m_create_customer.setContentAreaFilled(false);
 		b_m_create_customer.setBorderPainted(false);
@@ -376,6 +414,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_m_create_employee.setOpaque(false);
 		b_m_create_employee.setContentAreaFilled(false);
 		b_m_create_employee.setBorderPainted(false);
@@ -391,6 +431,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_m_make_reservation.setOpaque(false);
 		b_m_make_reservation.setContentAreaFilled(false);
 		b_m_make_reservation.setBorderPainted(false);
@@ -406,6 +448,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_m_change_password.setOpaque(false);
 		b_m_change_password.setContentAreaFilled(false);
 		b_m_change_password.setBorderPainted(false);
@@ -421,6 +465,8 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_m_cancel_reservation.setOpaque(false);
 		b_m_cancel_reservation.setContentAreaFilled(false);
 		b_m_cancel_reservation.setBorderPainted(false);
@@ -436,70 +482,91 @@ public class Driver<T> {
 			}
 		});
 
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
 		b_m_update_reservation.setOpaque(false);
 		b_m_update_reservation.setContentAreaFilled(false);
 		b_m_update_reservation.setBorderPainted(false);
 		b_m_update_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.updateReservation(reservations, cars);
-				
+
 				try {
 					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
 				} catch (IOException e1) {
 					// Do Stuff
-				}			
+				}
 			}
 		});
 		
-		// adding the buttons to the frame.
-		menu_frame.add(b_c_logout);
-		menu_frame.add(b_c_update_profile);
-		menu_frame.add(b_c_make_resv);
-		menu_frame.add(b_c_view_resv);
+		menu_frame.setLayout(new GridLayout(6,1));
+		JPanel p1 = new JPanel();
+		
+		p1.add(b_c_update_profile);
+		p1.add(b_c_make_resv);
+		p1.add(b_c_view_resv);
+		
+		menu_frame.add(p1);
 
 		// if the user is an employee or manager we want these buttons added.
 		if (beginning.equals(beg_emp) || beginning.equals(beg_man)) {
-			menu_frame.add(b_e_new_vehicle);
-			menu_frame.add(b_e_update_vehicle);
-			menu_frame.add(b_e_delete_vehicle);
-			menu_frame.add(b_e_display_customers);
-			menu_frame.add(b_e_view_cust_record);
-			menu_frame.add(b_e_find_reservation);
-			menu_frame.add(b_e_review_reservation);
+			JPanel p2 = new JPanel();
+			JPanel p3 = new JPanel();
+			
+			p2.add(b_e_new_vehicle);
+			p2.add(b_e_update_vehicle);
+			p2.add(b_e_delete_vehicle);
+			p2.add(b_e_find_reservation);
+			p3.add(b_e_display_customers);
+			p3.add(b_e_view_cust_record);
+			p3.add(b_e_review_reservation);
+			
+			menu_frame.add(p2);
+			menu_frame.add(p3);
 		}
-		// if the employee is a manager then we want these buttons added.
+		// iff the user is a manager then we want these buttons added.
 		if (beginning.equals(beg_man)) {
-			menu_frame.add(b_m_create_customer);
-			menu_frame.add(b_m_create_employee);
-			menu_frame.add(b_m_make_reservation);
-			menu_frame.add(b_m_change_password);
-			menu_frame.add(b_m_cancel_reservation);
-			menu_frame.add(b_m_update_reservation);
+			JPanel p4 = new JPanel();
+			JPanel p5 = new JPanel();
+			
+			p4.add(b_m_create_customer);
+			p4.add(b_m_create_employee);
+			p4.add(b_m_make_reservation);
+			p4.add(b_m_change_password);
+			p5.add(b_m_cancel_reservation);
+			p5.add(b_m_update_reservation);
+			p5.add(display);
+			
+			menu_frame.add(p4);
+			menu_frame.add(p5);
 		}
+		
+		JPanel p6 = new JPanel();
+		p6.add(new JLabel(""));
+		p6.add(b_c_logout);
+		p6.add(new JLabel(""));
+		
+		menu_frame.add(p6);
 
 		menu_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu_frame.setLocationRelativeTo(null);
-		menu_frame.setSize(500, 300);
+		menu_frame.setSize(800, 300);
 		menu_frame.setVisible(true);
-
-		// going to add this to write to file after each choice was selected and completed.
-		WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
 }
 	
 	
 	public static int login(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 		int index = 0;
 		
-		// CREATING THE FRAME FOR LOGIN!!!
 		JFrame login = new JFrame("Car Rental Name");
 		
 		JLabel username_label = new JLabel("Username: ");
 		JLabel password_label = new JLabel("Password: ");
 		
-		JTextField username_text_field = new JTextField("M_loro");
-		JTextField password_text_field = new JTextField("abc123");
-//		JTextField username_text_field = new JTextField(15);
-//		JTextField password_text_field = new JTextField(15);
+		JTextField username_text_field = new JTextField(15);
+		JTextField password_text_field = new JTextField(15);
+		username_text_field.setText("M_loro");
+		password_text_field.setText("abc123");
 		
 		JButton login_button = new JButton("Login");
 		JButton create_button = new JButton("Create Account");
@@ -517,11 +584,10 @@ public class Driver<T> {
 					try {
 						login.dispose();
 						Driver.mainMenu(i, cars, customers, employees, managers, reservations);
-						
+			
 						// kill the program after the menu is called.
 						return;
-					}
-					catch (IOException e1) {
+					} catch (IOException e1) {
 						// do stuff.
 					}
 				}
@@ -543,8 +609,7 @@ public class Driver<T> {
 					
 					// kill the program after menu is called.
 					return;
-				}
-				catch (IOException e1) {
+				} catch (IOException e1) {
 					// do stuff.
 				}
 			}
@@ -577,8 +642,7 @@ public class Driver<T> {
 
 				if(customer.getPassword().equals(password)) {
 					index = customers.indexOf(customer);
-				}
-				else {
+				} else {
 					JOptionPane.showMessageDialog(null, "Password is incorrect", "Error", JOptionPane.WARNING_MESSAGE);
 				}
 			}
@@ -661,17 +725,13 @@ public class Driver<T> {
 			for (int j = 0; j < list.size(); j++) {
 				if (item instanceof Car) {
 					info = ((Car) item).getAttributes();
-				}
-				else if (item instanceof Customer) {
+				} else if (item instanceof Customer) {
 					info = ((Customer) item).getAttributes();
-				}
-				else if (item instanceof Employee) {
+				} else if (item instanceof Employee) {
 					info = ((Employee) item).getAttributes();
-				}
-				else if (item instanceof Manager) {
+				} else if (item instanceof Manager) {
 					info = ((Manager) item).getAttributes();
-				}
-				else {
+				} else {
 					info = ((Reservation) item).getAttributes();
 				}
 

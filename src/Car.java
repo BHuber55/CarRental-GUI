@@ -600,7 +600,7 @@ public class Car {
 		
 		JFrame frame = new JFrame("Available vehicles");
 		
-		String header[] = { "Model", "Year", "Make", "Color", "Price", "Mileage", "MPG"};
+		String header[] = { "Model", "Year", "Make", "Color", "Price", "Mileage", "MPG" };
 		Object data[][] = new Object[cars.size()][7];
 		String info = "";
 		List<String> list;

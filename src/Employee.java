@@ -218,25 +218,24 @@ public class Employee extends Customer {
 	}
 
 	/**
-	 * This will display the information about a customers previous reservations.
 	 * 
-	 * @param customers is an array list of customers that contains every customer.
+	 * @param customers
+	 * @param reservations
+	 * @param cars
 	 */
-//	public void viewCustomerRecord(ArrayList<Customer> customers) {
-//		Scanner in = new Scanner(System.in);
-//		
-//		System.out.println("Please enter the username of the customer you are looking for");
-//		String username = in.nextLine();
-//		
-//		for(Customer customer : customers) {
-//			if(customer.getUserName().equals(username)) {
-//				ArrayList<Reservation> reservations = customer.getReservations();
-//				for(Reservation reservation : reservations) {
-//					System.out.println(reservation.getAttributes());
-//				}
-//			}
-//		}
-//	}
+	public void viewCustomerRecord(ArrayList<Customer> customers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
+		Scanner in = new Scanner(System.in);
+		
+		System.out.println("Please enter the username of the customer you are looking for");
+		String username = in.nextLine();
+		
+		for(Customer customer : customers) {
+			if(customer.getUserName().equals(username)) {
+				customer.displayUserReservations(reservations, cars);
+				break;
+			}
+		}
+	}
 
 	/**
 	 * This method will find and print information about a certain reservation
