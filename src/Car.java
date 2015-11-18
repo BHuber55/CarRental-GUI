@@ -1062,6 +1062,7 @@ public class Car {
 		JPanel adv_search_panel = new JPanel();
 		adv_search_panel.setBackground(primary);
 		adv_search_panel.add(label);
+		adv_search_panel.add(color);
 		adv_search_panel.add(make);
 		adv_search_panel.add(model);
 		adv_search_panel.add(price);
@@ -1085,7 +1086,6 @@ public class Car {
 	 */
 	public static void displayVehicles(ArrayList<Car> cars) {
 		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
 		
 		int count = 0;
 
