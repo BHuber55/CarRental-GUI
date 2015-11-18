@@ -14,8 +14,14 @@
  * 
  */
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -27,12 +33,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 // Might have to add WRITE() to the last line of every button ActionListener.
 
@@ -59,6 +68,14 @@ public class Driver<T> {
 	
 	public static void mainMenu(int index, ArrayList<Car> cars1, ArrayList<Customer> customers1, ArrayList<Employee> employees1, ArrayList<Manager> managers1, ArrayList<Reservation> reservations1) throws IOException {
 		int i = -1;
+
+		// Creating the frame and what not.
+		JFrame menu_frame = new JFrame("Main Menu");
+		
+		final Color primary = new Color(55, 71, 79);
+		final Color secondary = new Color(236, 239, 241);
+		
+		final String font_name = "Harlow Solid Italic";
 		
 		final String beg_emp = "E_";
 		final String beg_man = "M_";
@@ -96,8 +113,7 @@ public class Driver<T> {
 		}
 		
 		// if the employee was not found, we will just set it as 0.
-		// because otherwise we will get out of bounds whenever we run,
-		// even if the user isnt an employee, we still need one defined.
+		// because otherwise we will get out of bounds whenever we run, even if the user isn't an employee, we still need one defined.
 		if(i == -1) {
 			i = 0;
 		}
@@ -118,12 +134,18 @@ public class Driver<T> {
 		// still must have the below line as a final.
 		final Manager M = managers.get(i);
 		
-		// Creating the frame and what not.
-		JFrame menu_frame = new JFrame("Main Menu");
-		// we might want to use a different layout.. possibly grid.
+		// setting the frame so that it is centered
 		menu_frame.setLayout(new FlowLayout());
-		
-		// creating all of the buttons. all the buttons.
+    	
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		int w = menu_frame.getSize().width;
+		int h = menu_frame.getSize().height;
+		int x = (dim.width - w) / 2;
+		int y = (dim.height - h) / 2;
+	   
+		// setting the frame so that it will be centered
+		menu_frame.setLocation(x, y);
+
 		// creating the customer's buttons.
 		JButton b_c_logout = new JButton("Logout");
 		JButton b_c_update_profile = new JButton("Update Profile");
@@ -134,7 +156,7 @@ public class Driver<T> {
 		JButton b_e_new_vehicle = new JButton("Register New Vehicle");
 		JButton b_e_update_vehicle = new JButton("Update Vehicle");
 		JButton b_e_delete_vehicle = new JButton("Delete Vehicle");
-		JButton b_e_display_customers = new JButton("Display All Custmers");
+		JButton b_e_display_customers = new JButton("Display All Customers");
 		JButton b_e_view_cust_record = new JButton("View Customer record");
 		JButton b_e_find_reservation = new JButton("Find Reservation");
 		JButton b_e_review_reservation = new JButton("Review Reservation");
@@ -146,35 +168,15 @@ public class Driver<T> {
 		JButton b_m_change_password = new JButton("Change Password");
 		JButton b_m_cancel_reservation = new JButton("Cancel a Reservation");
 		JButton b_m_update_reservation = new JButton("Update Reservation");
-		
-		
-		
-		
-		
-		
-		
-		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<TESTING DISPLAY ALL VEHICLES.
-		JButton display = new JButton("Display all vechicles");
-		display.setOpaque(false);
-		display.setContentAreaFilled(false);
-		display.setBorderPainted(false);
-		display.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				Car.advancedSearch(cars);
-			}
-		});
-		
-		
-		
-		
-
-		
+		JButton display = new JButton("Display all vehicles");
 		
 		// creating the action listener for the button.
 		// also setting the buttons to look good.
 		b_c_logout.setOpaque(false);
 		b_c_logout.setContentAreaFilled(false);
 		b_c_logout.setBorderPainted(false);
+		b_c_logout.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_c_logout.setForeground(secondary);
 		b_c_logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				try {
@@ -193,6 +195,8 @@ public class Driver<T> {
 		b_c_update_profile.setOpaque(false);
 		b_c_update_profile.setContentAreaFilled(false);
 		b_c_update_profile.setBorderPainted(false);
+		b_c_update_profile.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_c_update_profile.setForeground(secondary);
 		b_c_update_profile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// remove the first customer.
@@ -214,6 +218,8 @@ public class Driver<T> {
 		b_c_make_resv.setOpaque(false);
 		b_c_make_resv.setContentAreaFilled(false);
 		b_c_make_resv.setBorderPainted(false);
+		b_c_make_resv.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_c_make_resv.setForeground(secondary);
 		b_c_make_resv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				C.makeReservation(cars, reservations);
@@ -231,6 +237,8 @@ public class Driver<T> {
 		b_c_view_resv.setOpaque(false);
 		b_c_view_resv.setContentAreaFilled(false);
 		b_c_view_resv.setBorderPainted(false);
+		b_c_view_resv.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_c_view_resv.setForeground(secondary);
 		b_c_view_resv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				C.displayUserReservations(reservations, cars);	
@@ -248,6 +256,8 @@ public class Driver<T> {
 		b_e_new_vehicle.setOpaque(false);
 		b_e_new_vehicle.setContentAreaFilled(false);
 		b_e_new_vehicle.setBorderPainted(false);
+		b_e_new_vehicle.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_e_new_vehicle.setForeground(secondary);
 		b_e_new_vehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
@@ -270,6 +280,8 @@ public class Driver<T> {
 		b_e_update_vehicle.setOpaque(false);
 		b_e_update_vehicle.setContentAreaFilled(false);
 		b_e_update_vehicle.setBorderPainted(false);
+		b_e_update_vehicle.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_e_update_vehicle.setForeground(secondary);
 		b_e_update_vehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
@@ -292,6 +304,8 @@ public class Driver<T> {
 		b_e_delete_vehicle.setOpaque(false);
 		b_e_delete_vehicle.setContentAreaFilled(false);
 		b_e_delete_vehicle.setBorderPainted(false);
+		b_e_delete_vehicle.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_e_delete_vehicle.setForeground(secondary);
 		b_e_delete_vehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
@@ -314,6 +328,8 @@ public class Driver<T> {
 		b_e_display_customers.setOpaque(false);
 		b_e_display_customers.setContentAreaFilled(false);
 		b_e_display_customers.setBorderPainted(false);
+		b_e_display_customers.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_e_display_customers.setForeground(secondary);
 		b_e_display_customers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
@@ -336,6 +352,8 @@ public class Driver<T> {
 		b_e_view_cust_record.setOpaque(false);
 		b_e_view_cust_record.setContentAreaFilled(false);
 		b_e_view_cust_record.setBorderPainted(false);
+		b_e_view_cust_record.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_e_view_cust_record.setForeground(secondary);
 //		b_e_view_cust_record.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
 //				if (beginning.equals(beg_emp)) {
@@ -358,6 +376,8 @@ public class Driver<T> {
 		b_e_find_reservation.setOpaque(false);
 		b_e_find_reservation.setContentAreaFilled(false);
 		b_e_find_reservation.setBorderPainted(false);
+		b_e_find_reservation.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_e_find_reservation.setForeground(secondary);
 		b_e_find_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
@@ -380,6 +400,8 @@ public class Driver<T> {
 		b_e_review_reservation.setOpaque(false);
 		b_e_review_reservation.setContentAreaFilled(false);
 		b_e_review_reservation.setBorderPainted(false);
+		b_e_review_reservation.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_e_review_reservation.setForeground(secondary);
 		b_e_review_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
@@ -402,6 +424,8 @@ public class Driver<T> {
 		b_m_create_customer.setOpaque(false);
 		b_m_create_customer.setContentAreaFilled(false);
 		b_m_create_customer.setBorderPainted(false);
+		b_m_create_customer.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_m_create_customer.setForeground(secondary);
 		b_m_create_customer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.createCustomer(customers);
@@ -419,6 +443,8 @@ public class Driver<T> {
 		b_m_create_employee.setOpaque(false);
 		b_m_create_employee.setContentAreaFilled(false);
 		b_m_create_employee.setBorderPainted(false);
+		b_m_create_employee.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_m_create_employee.setForeground(secondary);
 		b_m_create_employee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.createEmployee(employees);
@@ -436,6 +462,8 @@ public class Driver<T> {
 		b_m_make_reservation.setOpaque(false);
 		b_m_make_reservation.setContentAreaFilled(false);
 		b_m_make_reservation.setBorderPainted(false);
+		b_m_make_reservation.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_m_make_reservation.setForeground(secondary);
 		b_m_make_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.makeReservation(cars, reservations);
@@ -453,6 +481,8 @@ public class Driver<T> {
 		b_m_change_password.setOpaque(false);
 		b_m_change_password.setContentAreaFilled(false);
 		b_m_change_password.setBorderPainted(false);
+		b_m_change_password.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_m_change_password.setForeground(secondary);
 		b_m_change_password.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.changePassword(customers, employees, managers, M.getUserName());
@@ -470,6 +500,8 @@ public class Driver<T> {
 		b_m_cancel_reservation.setOpaque(false);
 		b_m_cancel_reservation.setContentAreaFilled(false);
 		b_m_cancel_reservation.setBorderPainted(false);
+		b_m_cancel_reservation.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_m_cancel_reservation.setForeground(secondary);
 		b_m_cancel_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.cancelReservation(reservations);
@@ -487,6 +519,8 @@ public class Driver<T> {
 		b_m_update_reservation.setOpaque(false);
 		b_m_update_reservation.setContentAreaFilled(false);
 		b_m_update_reservation.setBorderPainted(false);
+		b_m_update_reservation.setFont(new Font(font_name, Font.PLAIN, 18));
+		b_m_update_reservation.setForeground(secondary);
 		b_m_update_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				M.updateReservation(reservations, cars);
@@ -499,14 +533,53 @@ public class Driver<T> {
 			}
 		});
 		
-		menu_frame.setLayout(new GridLayout(6,1));
+		// creating the action listener for the button.
+		// also setting the buttons to look good.
+		display.setOpaque(false);
+		display.setContentAreaFilled(false);
+		display.setBorderPainted(false);
+		display.setFont(new Font(font_name, Font.PLAIN, 18));
+		display.setForeground(secondary);
+		display.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				Car.advancedSearch(cars);
+			}
+		});
+		
+		// okay so the below is adding the images to the menu.
+		// I tried to clean up the below lines.
+		// will continue to work on this.
+		menu_frame.setLayout(new BorderLayout());
+		menu_frame.setUndecorated(true);
+		
+		Container c = menu_frame.getContentPane();
+		ImageIcon img = new ImageIcon("./Car.jpg");
+		JLabel headerLabel = new JLabel(new ImageIcon("./headermm.jpg"));
+		JPanel menu_Panel = new JPanel(); 
+		JPanel panel = new JPanel();
+		
+		c.setBackground(primary);
+		
+		menu_frame.setIconImage(img.getImage()); 
+		
+		menu_Panel.setLayout(new GridLayout(6,1));
+	
+		panel.add(headerLabel); 	
+		panel.setSize(img.getIconWidth(),img.getIconHeight());
+
+        menu_frame.add(panel, BorderLayout.NORTH);
+        
+        
+        // creating a panel to hold the buttons.
 		JPanel p1 = new JPanel();
+		p1.setBackground(primary);
 		
 		p1.add(b_c_update_profile);
 		p1.add(b_c_make_resv);
 		p1.add(b_c_view_resv);
 		
-		menu_frame.add(p1);
+		// adding the panel holding the buttons to the frame.
+		menu_Panel.add(p1);
 
 		// if the user is an employee or manager we want these buttons added.
 		if (beginning.equals(beg_emp) || beginning.equals(beg_man)) {
@@ -521,8 +594,11 @@ public class Driver<T> {
 			p3.add(b_e_view_cust_record);
 			p3.add(b_e_review_reservation);
 			
-			menu_frame.add(p2);
-			menu_frame.add(p3);
+			p2.setBackground(primary);
+			p3.setBackground(primary);
+			
+			menu_Panel.add(p2);
+			menu_Panel.add(p3);
 		}
 		// iff the user is a manager then we want these buttons added.
 		if (beginning.equals(beg_man)) {
@@ -537,39 +613,87 @@ public class Driver<T> {
 			p5.add(b_m_update_reservation);
 			p5.add(display);
 			
-			menu_frame.add(p4);
-			menu_frame.add(p5);
+			p5.setBackground(primary);
+			p4.setBackground(primary);
+			
+			menu_Panel.add(p4);
+			menu_Panel.add(p5);
 		}
+	
 		
 		JPanel p6 = new JPanel();
 		p6.add(new JLabel(""));
 		p6.add(b_c_logout);
 		p6.add(new JLabel(""));
+		p6.setBackground(primary);
 		
-		menu_frame.add(p6);
+		menu_Panel.add(p6);
+		menu_frame.add(menu_Panel);
 
 		menu_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu_frame.setLocationRelativeTo(null);
-		menu_frame.setSize(800, 300);
+		menu_frame.setSize(800, 500);
 		menu_frame.setVisible(true);
-}
-	
+	}
 	
 	public static int login(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 		int index = 0;
 		
-		JFrame login = new JFrame("Car Rental Name");
+		final Color primary = new Color(55, 71, 79);
+		final Color secondary = new Color(236, 239, 241);
+		
+		final String font_name = "Harlow Solid Italic";
+		
+		JFrame login = new JFrame();
+		login.setUndecorated(true);
+		
+		ImageIcon img = new ImageIcon("./Car.jpg");
+		login.setIconImage(img.getImage());
+		
+		login.setVisible(true);
+		
+		JLabel headerLabel = new JLabel(new ImageIcon("./headermm.jpg"));
+        login.add(headerLabel, BorderLayout.PAGE_START);
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		login.setLocation(((dim.width/2)-400), ((dim.height/2)-125));
+        
+		JPanel login_Panel = new JPanel(); 
+		login_Panel.setLayout(new FlowLayout());
+		login_Panel.setSize(100,100);
+		login_Panel.setBackground(primary);
 		
 		JLabel username_label = new JLabel("Username: ");
-		JLabel password_label = new JLabel("Password: ");
+		username_label.setBackground(primary); 
+		username_label.setForeground(secondary);
+		username_label.setFont(new Font(font_name, Font.PLAIN, 16));
 		
-		JTextField username_text_field = new JTextField(15);
-		JTextField password_text_field = new JTextField(15);
+		JLabel password_label = new JLabel("Password: ");
+		password_label.setBackground(primary); 
+		password_label.setForeground(secondary);
+		password_label.setFont(new Font(font_name, Font.PLAIN, 16));
+		
+		JTextField username_text_field = new JTextField(10);
+		JTextField password_text_field = new JTextField(10);
 		username_text_field.setText("M_loro");
+		username_text_field.setBackground(Color.GRAY);
+		username_text_field.setForeground(Color.WHITE);
+		username_text_field.setFont(new Font("High Tower Text", Font.PLAIN, 16));
+		
 		password_text_field.setText("abc123");
+		password_text_field.setBackground(Color.GRAY);
+		password_text_field.setForeground(Color.WHITE);
+		password_text_field.setFont(new Font("High Tower Text", Font.PLAIN, 16));
 		
 		JButton login_button = new JButton("Login");
+		login_button.setBackground(primary); 
+		login_button.setForeground(secondary);
+		login_button.setFont(new Font(font_name, Font.PLAIN, 18));
+		
 		JButton create_button = new JButton("Create Account");
+		create_button.setBackground(primary); 
+		create_button.setForeground(secondary);
+		create_button.setFont(new Font(font_name, Font.PLAIN, 18));
 		
 		login_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -614,19 +738,18 @@ public class Driver<T> {
 				}
 			}
 		});
+		login_Panel.add(username_label);
+		login_Panel.add(username_text_field);
 		
-		login.add(username_label);
-		login.add(username_text_field);
-		
-		login.add(password_label);
-		login.add(password_text_field);
+		login_Panel.add(password_label);
+		login_Panel.add(password_text_field);
 
-		login.add(create_button);
-		login.add(login_button);
+		login_Panel.add(create_button);
+		login_Panel.add(login_button);
+
 		
-		login.setSize(300, 200);
-		login.setLayout(new FlowLayout());
-		login.setLocationRelativeTo(null);
+		login.add(login_Panel, BorderLayout.CENTER);
+		login.pack();
 		login.setVisible(true);
 		
 		return index;
@@ -636,6 +759,9 @@ public class Driver<T> {
 		boolean found = false;
 		int index = -99;
 		
+		final Color primary = Color.BLACK;
+		final Color secondary = Color.RED;
+		
 		for(Customer customer : customers) {
 			if(customer.getUserName().equals(username)) {
 				found = true;
@@ -643,12 +769,20 @@ public class Driver<T> {
 				if(customer.getPassword().equals(password)) {
 					index = customers.indexOf(customer);
 				} else {
+					UIManager UI=new UIManager();
+					 UI.put("OptionPane.background", Color.DARK_GRAY);
+					 UI.put("Panel.background", secondary);
+					 UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13))); 
 					JOptionPane.showMessageDialog(null, "Password is incorrect", "Error", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		}
 		
 		if(!found) {
+			UIManager UI=new UIManager();
+			 UI.put("OptionPane.background", Color.DARK_GRAY);
+			 UI.put("Panel.background", secondary);
+			 UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13))); 
 			JOptionPane.showMessageDialog(null, "Username was not found.", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 		
