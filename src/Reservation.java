@@ -28,7 +28,7 @@ import javax.swing.plaf.FontUIResource;
  * @author Loro Dumo, Brennan Huber, William Thompson, Peter Way
  *
  */
-public class Reservation {
+public class Reservation extends format{
 	
 	private String username;
 	private String car;
@@ -217,27 +217,18 @@ public class Reservation {
 		// all the formatting that one could ever need.
 		frame.setBackground(Color.BLACK);
 
-		carLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-		carLabel.setForeground(Color.DARK_GRAY);
-		carField.setBackground(Color.DARK_GRAY);
-		carField.setForeground(Color.WHITE);
-		pickUpDateLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-		pickUpDateLabel.setForeground(Color.GRAY);
-		pickUpDateField.setBackground(Color.DARK_GRAY);
-		pickUpDateField.setForeground(Color.WHITE);
-		dropOffDateLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-		dropOffDateLabel.setForeground(Color.DARK_GRAY);
-		dropOffDateField.setBackground(Color.DARK_GRAY);
-		dropOffDateField.setForeground(Color.WHITE);
-		insuranceLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-		insuranceLabel.setForeground(Color.GRAY);
-		insuranceField.setBackground(Color.DARK_GRAY);
-		insuranceField.setForeground(Color.WHITE);
-		okButton.setBackground(Color.RED);
+		format(carLabel);
+		format(carField);
+		format(pickUpDateLabel);
+		format(pickUpDateField);
+		format(dropOffDateLabel);
+		format(dropOffDateField);
+		format(insuranceLabel);
+		format(insuranceField);
+		format(okButton);
 
 		// change this to wherever your workspace is.
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		frame.add(headerLabel, BorderLayout.NORTH);
+		addHeader(frame);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(8, 2));
@@ -271,10 +262,8 @@ public class Reservation {
 				Reservation resv = new Reservation(username1, car, pickupDate, dropOffDate, number, Boolean.parseBoolean(insurance), quote);
 				reservations.add(resv);
 
-				UIManager UI = new UIManager();
-				UI.put("OptionPane.background", Color.DARK_GRAY);
-				UI.put("Panel.background", Color.RED);
-				UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13)));
+				JOptionPane pane = new JOptionPane(); 
+				format(pane);
 
 				JOptionPane.showMessageDialog(null,
 						" Car: " + car + "\n Pick Up Date: " + pickupDate
@@ -285,40 +274,7 @@ public class Reservation {
 			}
 		});
 
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
 
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
 		// we remove the original one, then add the one newly updated one.
 
 	}
@@ -356,11 +312,8 @@ public class Reservation {
 		JFrame frame = new JFrame(); 
 		
 		frame.setTitle("Reservation Report");
-		
-		frame.setLayout(new BorderLayout());
-
-		
-		frame.setVisible(true);
+		format(frame); 
+		addHeader(frame); 
 		
 		//change this to wherever your workspace is
 		ImageIcon img = new ImageIcon("./Car.jpg");
@@ -380,27 +333,16 @@ public class Reservation {
 		//all the formatting that one could ever need.
 		frame.setBackground(Color.BLACK);
          
-		carLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-		carLabel.setForeground(Color.DARK_GRAY);
-		carField.setBackground(Color.DARK_GRAY);
-		carField.setForeground(Color.WHITE);
-		pickUpDateLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-		pickUpDateLabel.setForeground(Color.GRAY);
-		pickUpDateField.setBackground(Color.DARK_GRAY);
-		pickUpDateField.setForeground(Color.WHITE);
-		dropOffDateLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-		dropOffDateLabel.setForeground(Color.DARK_GRAY);
-		dropOffDateField.setBackground(Color.DARK_GRAY);
-		dropOffDateField.setForeground(Color.WHITE);
-		insuranceLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-		insuranceLabel.setForeground(Color.GRAY);
-		insuranceField.setBackground(Color.DARK_GRAY);
-		insuranceField.setForeground(Color.WHITE);
-		okButton.setBackground(Color.RED);
+		format(carLabel);
+		format(carField);
+		format(pickUpDateLabel);
+		format(pickUpDateField);
+		format(dropOffDateLabel);
+		format(dropOffDateField);
+		format(insuranceLabel);
+		format(insuranceField);
+		format(okButton);
          
-        //change this to wherever your workspace is. 
-        JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-        frame.add(headerLabel, BorderLayout.NORTH);
          
         JPanel panel = new JPanel(); 
         panel.setLayout(new GridLayout(8,2));
@@ -428,10 +370,8 @@ public class Reservation {
 				String dropOffDate = dropOffDateField.getText(); 
 				String insurance = insuranceField.getText();
 				
-				UIManager UI=new UIManager();
-				UI.put("OptionPane.background", Color.DARK_GRAY);
-				UI.put("Panel.background", Color.RED);
-				UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13))); 
+				JOptionPane pane = new JOptionPane(); 
+				format(pane);
 
 				JOptionPane.showMessageDialog(null," Car: "+ car
 						+ "\n Pick Up Date: " + pickupDate
@@ -439,47 +379,10 @@ public class Reservation {
 						+ "\n Insurance: " + insurance,
 						"Information Saved",
 			  			JOptionPane.INFORMATION_MESSAGE, img);
-			} 	
-		});
-		
-		
-		
-		headerLabel.addMouseListener(new MouseListener() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-				int x=e.getX();
-				int y=e.getY();
-				
-				//this is where it picks up on the menu button. 
-				if(x > 670 && x < 800 && y > 226 && y < 250) {
-					//Originally had the x and y printed out to make sure i had the dimensions right
-					//System.out.println(x+ " " + y);
-					
-					//just change this line of code to match the frame you want closed. 
-					//For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					frame.dispose();
-				}
-		    }
-		    
-	    	//Eclipse was freaking out when I didn't have these methods listed, for whatever reason. 
-			@Override	public void mouseEntered(MouseEvent e) {
-				
 			}
+			}); 	
+		}
 	
-			@Override	public void mouseExited(MouseEvent e) {
-				
-			}
-	
-			@Override	public void mousePressed(MouseEvent e) {
-				
-			}
-	
-			@Override	public void mouseReleased(MouseEvent e) {
-				
-			}
-		});
-	}
-
 	/**
 	 * Method that is used for the read and write file.
 	 * 
@@ -490,6 +393,7 @@ public class Reservation {
 		
 		return info;
 	}
-}
+		}
+
 
 
