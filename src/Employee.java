@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -378,7 +379,7 @@ public class Employee extends Customer {
 					info = C.getAttributes();
 					list = Arrays.asList(info.split(", "));
 
-					for (int j = 0; j < 7; j++) {
+					for (int j = 0; j < 5; j++) {
 						data[count][j] = list.get(j);
 					}
 
@@ -392,6 +393,7 @@ public class Employee extends Customer {
 						return false;
 					}
 				};
+				Color primary = new Color(75, 75, 75);
 
 				JPanel panel = new JPanel();
 				panel.setLayout(new GridLayout(3, 3));
@@ -412,7 +414,8 @@ public class Employee extends Customer {
 	/**
 	 * This method will find and print information about a certain reservation
 	 * 
-	 * @param reservations is an array list of reservations that contains every reservation.
+	 * @param reservations
+	 *            is an array list of reservations that contains every reservation.
 	 */
 	public void findByConfirmationNumber(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 
@@ -466,9 +469,45 @@ public class Employee extends Customer {
 				user_history.add(R);
 			}
 		}
+
+		String header[] = { "Name", "Username", "Car", "Pick Up Date", "Drop Off Date", "Confirmation Number", "Quote" };
+		Object data[][] = new Object[reservations.size()][7];
+		String info = "";
+		List<String> list;
+		int count = 0;
+
+		for (Reservation R : reservations) {
+			info = R.getAttributes();
+			list = Arrays.asList(info.split(", "));
+
+			for (int j = 0; j < 7; j++) {
+				data[count][j] = list.get(j);
+			}
+
+			count++;
+		}
 		
-		// now we display that new list. probably by means of a table.
-		...
+		JTable table = new JTable(data, header) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		};
+		Color primary = new Color(75, 75, 75);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(3, 3));
+		panel.setBackground(primary);
+
+		Container c = frame.getContentPane();
+		c.setBackground(primary);
+		panel.add(table.getTableHeader());
+		panel.add(table);
+		frame.add(panel);
+		frame.setLocationRelativeTo(null);
+		frame.setSize(800, 500);
+		frame.setVisible(true);
 		
 	}
 	
