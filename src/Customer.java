@@ -290,6 +290,8 @@ public class Customer {
 	
 					Customer customer = new Customer(name, userName, email, pass, phone, birth, credit);
 					customers.add(customer);
+					
+					//final public static int index = customers.indexOf(customer);
 				        
 					 JOptionPane.showMessageDialog(null,
 							 " Name: "+ name
@@ -307,6 +309,8 @@ public class Customer {
 				}
 			}
 		});
+		
+		//return index;
 		
         headerLabel.addMouseListener(new MouseListener() {
     	    @Override
@@ -559,7 +563,9 @@ public class Customer {
 	 * 
 	 */
 	public void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
-		Reservation.makeReservation(cars, reservations);
+		String username = this.getUserName();
+		
+		Reservation.makeReservation(cars, reservations, username);
 	}
 
 	public void displayReservationHistory(ArrayList<Reservation> reservations) {

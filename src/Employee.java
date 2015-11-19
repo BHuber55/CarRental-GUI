@@ -1,14 +1,19 @@
 
+import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
@@ -326,10 +331,7 @@ public class Employee extends Customer {
 				}
 
 				if (!found) {
-					System.out.println("Sorry that number was not found");
-
-					JOptionPane.showMessageDialog(null, "The car ID is not found", "\n ",
-							JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "The car ID is not found", "\n ", JOptionPane.INFORMATION_MESSAGE);
 
 					return;
 
@@ -365,16 +367,44 @@ public class Employee extends Customer {
 
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String header[] = { "Name", "Username", "Email", "Phone Number", "Birthday" };
+				Object data[][] = new Object[customers.size()][5];
+				String info = "";
+				List<String> list;
+				int count = 0;
 
-				for (Customer customer : customers) {
-					System.out.println(customer.getAttributes());
+				for (Customer C : customers) {
+					info = C.getAttributes();
+					list = Arrays.asList(info.split(", "));
 
-					...
-					// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< should probably make a table out of this.
-					JOptionPane.showMessageDialog(null, "All customers displayed \n " + customer.getAttributes(), "\n", JOptionPane.INFORMATION_MESSAGE);
+					for (int j = 0; j < 7; j++) {
+						data[count][j] = list.get(j);
+					}
 
-					frame.dispose();
+					count++;
 				}
+				
+				JTable table = new JTable(data, header) {
+					@Override
+					public boolean isCellEditable(int row, int column) {
+						// all cells false
+						return false;
+					}
+				};
+
+				JPanel panel = new JPanel();
+				panel.setLayout(new GridLayout(3, 3));
+				panel.setBackground(primary);
+
+				Container c = frame.getContentPane();
+				c.setBackground(primary);
+				panel.add(table.getTableHeader());
+				panel.add(table);
+				frame.add(panel);
+				frame.setLocationRelativeTo(null);
+				frame.setSize(800, 500);
+				frame.setVisible(true);
 			}
 		});
 	}
@@ -441,36 +471,6 @@ public class Employee extends Customer {
 		...
 		
 	}
-
-//	// still by reservation number, but this one displays it while the one above returns it to be modified.
-//	/**
-//	 * This method will find a certain reservation and print the information.
-//	 * 
-//	 * @param reservations reservations is an array list of reservations that contains every reservation.
-//	 * @param cars cars is an array list of cars that contains every car.
-//	 */
-//	public void reviewReservation(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
-//		boolean found = false;
-//
-//		// checking to see if the entered confirmation number is an actual reservation number.
-//		for (Reservation reservation : reservations) {
-//			if (reservation.getConfirmationNumber() == number) {
-//				found = true;
-//			}
-//		}
-//
-//		if (!found) {
-//			System.out.println("Sorry that number was not found");
-//			return;
-//		}
-//
-//		for (Reservation reservation : reservations) {
-//			if (reservation.getConfirmationNumber() == number) {
-//				// System.out.println(reservation.getAttributes());
-//				reservation.makeReservationReport(cars);
-//			}
-//		}
-//	}
 	
 	/**
 	 * Method that is used for the read and write file.

@@ -827,7 +827,9 @@ public class Manager extends Employee {
 						frame.dispose();
 
 						// make reservation no longer returns something. so yeah.
-						Reservation.makeReservation(cars, reservations);
+						String username = reservation.getUserName();
+						
+						Reservation.makeReservation(cars, reservations, username);
 						reservations.remove(reservation);
 					}
 				}
