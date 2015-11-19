@@ -1,6 +1,15 @@
 
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  * This is the Employee class, it holds the information that is used to create, and get information about a employee.
@@ -58,183 +67,316 @@ public class Employee extends Customer {
 	/**
 	 * This method will allow the employee to update one aspect of the car.
 	 * 
-	 * @param cars is the array list of cars that contains every car.
+	 * @param cars
+	 * 			is the array list of cars that contains every car.
 	 * 
-	 * @return an array list of cars the contains every car, including the newly updated one.
 	 */
 	public void updateVehicle(ArrayList<Car> cars) {
-		Scanner in = new Scanner(System.in);
-		System.out.println("Please enter the ID of the car you wish to update.");
-		String car_id = in.nextLine();
-		
-		System.out.println("What would you like to update?");
-		System.out.println("1: Car Model");
-		System.out.println("2: Car Year");
-		System.out.println("3: Car Make");
-		System.out.println("4: Car Color");
-		System.out.println("5: Car Price");
-		System.out.println("6: Car Mileage");
-		System.out.println("7: Car MPG");
-		int user = in.nextInt();
-		
-		System.out.println("Pleas enter the new information");
-		String new_info = in.nextLine();
-		new_info = in.nextLine();
-		
-		Car new_car = null;
-		
-		for(Car car : cars) {
-			if(car.getID().equals(car_id)) {
-				// remove this car and 
-				cars.remove(car);
-				if(user == 1) {
-					new_car = new Car(new_info, car.getYear(), car.getMake(), car.getColor(), car.getPrice(), car.getMileage(), car.getMPG(), car.getID());
-				}
-				else if(user == 2) {
-					new_car = new Car(car.getModel(), Integer.parseInt(new_info), car.getMake(), car.getColor(), car.getPrice(), car.getMileage(), car.getMPG(), car.getID());
-				}
-				else if(user == 3) {
-					new_car = new Car(car.getModel(), car.getYear(), new_info, car.getColor(), car.getPrice(), car.getMileage(), car.getMPG(), car.getID());
-				}
-				else if(user == 4) {
-					new_car = new Car(car.getModel(), car.getYear(), car.getMake(), new_info, car.getPrice(), car.getMileage(), car.getMPG(), car.getID());
-				}
-				else if(user == 5) {
-					new_car = new Car(car.getModel(), car.getYear(), car.getMake(), car.getColor(), Integer.parseInt(new_info), car.getMileage(), car.getMPG(), car.getID());
-				}
-				else if(user == 6) {
-					new_car = new Car(car.getModel(), car.getYear(), car.getMake(), car.getColor(), car.getPrice(), Integer.parseInt(new_info), car.getMPG(), car.getID());
-				}
-				else {
-					new_car = new Car(car.getModel(), car.getYear(), car.getMake(), car.getColor(), car.getPrice(), car.getMileage(), Integer.parseInt(new_info), car.getID());
+
+		JFrame frame = new JFrame();
+		frame.setTitle("Update Vehicle");
+		frame.setVisible(true);
+
+		final int TEXT_FIELD_SIZE = 20;
+		JLabel IDNumber = new JLabel("ID number");
+		final JTextField idField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carModel = new JLabel("Car model");
+		final JTextField carModelField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carYear = new JLabel("Car Year");
+		final JTextField carYearField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carMake = new JLabel("Car Make");
+		final JTextField carMakeField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carColor = new JLabel("Car Color");
+		final JTextField carColorField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carPrice = new JLabel("Car Price");
+		final JTextField carPriceField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carMilage = new JLabel("Car Milage");
+		final JTextField carMilageField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carMPG = new JLabel("Car MPG");
+		final JTextField carMPGField = new JTextField(TEXT_FIELD_SIZE);
+
+		JButton submitButton = new JButton("Submit");
+
+		frame.setLayout(new GridLayout(10, 2));
+
+		frame.add(IDNumber);
+		frame.add(idField);
+		frame.add(carModel);
+		frame.add(carModelField);
+		frame.add(carYear);
+		frame.add(carYearField);
+		frame.add(carMake);
+		frame.add(carMakeField);
+		frame.add(carColor);
+		frame.add(carColorField);
+		frame.add(carPrice);
+		frame.add(carPriceField);
+		frame.add(carMilage);
+		frame.add(carMilageField);
+		frame.add(carMPG);
+		frame.add(carMPGField);
+		frame.add(submitButton);
+
+		frame.pack();
+
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Car OG = null;
+				
+				String carID = idField.getText();
+				
+				for(Car c : cars) {
+					if(c.getID().equals(carID)) {
+						OG = c;
+						break;
+					}
 				}
 				
+				String model = carModelField.getText();
+				String year = carYearField.getText();
+				String make = carMakeField.getText();
+				String color = carColorField.getText();
+				String price = carPriceField.getText();
+				String mileage = carMilageField.getText();
+				String MPG = carMPGField.getText();
+				
+				if (model.equals(null)) {
+					model = OG.getModel();
+				}
+				if(year.equals(null)) {
+					year = String.valueOf(OG.getYear());
+				}
+				if(make.equals(null)) {
+					make = OG.getMake();
+				}
+				if(color.equals(null)) {
+					color = OG.getColor();
+				}
+				if(price.equals(null)) {
+					price = String.valueOf(OG.getPrice());
+				}
+				if(mileage.equals(null)) {
+					mileage = String.valueOf(OG.getMileage());
+				}
+				if(MPG.equals(null)) {
+					MPG = String.valueOf(OG.getMPG());
+				}
+				
+				Car new_car = new Car(model, Integer.parseInt(year), make, color, Double.parseDouble(price), Integer.parseInt(mileage), Integer.parseInt(MPG), carID);
+				
 				cars.add(new_car);
-				break;
+				
+				JOptionPane.showMessageDialog(null,
+						" Model: " + model
+						+ "\n Year " + year
+						+ "\n Make " + make
+						+ "\n Color " + color
+						+ "\n Price " + price
+						+ "\n Milage " + mileage
+						+ "\n MPG " + MPG,
+						"Information saved", JOptionPane.INFORMATION_MESSAGE);	
+				
+				frame.dispose();
 			}
-		}
-		
-		System.out.println("Car has been updated.");
+
+		});
+
 	}
 
 	/**
 	 * This method will allow the employee to add a new vehicle to the list of vehicles.
 	 * 
-	 * @param cars is the array list of cars that contains every car.
+	 * @param cars
+	 * 			is the array list of cars that contains every car.
 	 * 
-	 * @return an array list of cars the contains every car, including the newly created one.
 	 */
 	public void registerNewVehicle(ArrayList<Car> cars) {
-		Scanner in = new Scanner(System.in);
-		
-		System.out.println("Please enter the Model of the car");
-		String model = in.nextLine();
-		
-		System.out.println("Please enter the Year of the car");
-		int year = in.nextInt();
-		
-		System.out.println("Please enter the Make of the car");
-		String make = in.nextLine();
-		make = in.nextLine();
-		
-		System.out.println("Please enter the color of the car");
-		String color = in.nextLine();
-		
-		System.out.println("Please enter the Price of the car");
-		int price = in.nextInt();
-		
-		System.out.println("Please enter the mileage of the car");
-		int mileage = in.nextInt();
-		
-		System.out.println("Please enter the MPG of the car");
-		int mpg = in.nextInt();
-		
-		System.out.println("Please enter the ID of the car");
-		String id = in.nextLine();
-		id = in.nextLine();
-		
-	   	for(Car car : cars) {
-    		while(car.getID() == id) {
-    			System.out.println("Sorry that number is already in use. Please enter another");
-    			id = in.nextLine();
-    		}
-    	}
-		
-		Car car = new Car(model, year, make, color, price, mileage, mpg, id);
-		
-		cars.add(car);
-		
-		System.out.println("Vehicle has been registed.");
+
+		JFrame frame = new JFrame();
+		frame.setTitle("Register New Vehicle");
+		frame.setVisible(true);
+
+		final int TEXT_FIELD_SIZE = 20;
+		JLabel carModel = new JLabel("Car model");
+		final JTextField carModelField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carYear = new JLabel("Car Year");
+		final JTextField carYearField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carMake = new JLabel("Car Make");
+		final JTextField carMakeField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carColor = new JLabel("Car Color");
+		final JTextField carColorField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carPrice = new JLabel("Car Price");
+		final JTextField carPriceField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carMilage = new JLabel("Car Milage");
+		final JTextField carMilageField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carMPG = new JLabel("Car MPG");
+		final JTextField carMPGField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel IDNumber = new JLabel("ID number");
+		final JTextField idField = new JTextField(TEXT_FIELD_SIZE);
+
+		JButton submitButton = new JButton("Submit");
+
+		frame.setLayout(new GridLayout(10, 2));
+
+		frame.add(IDNumber);
+		frame.add(idField);
+		frame.add(carModel);
+		frame.add(carModelField);
+		frame.add(carYear);
+		frame.add(carYearField);
+		frame.add(carMake);
+		frame.add(carMakeField);
+		frame.add(carColor);
+		frame.add(carColorField);
+		frame.add(carPrice);
+		frame.add(carPriceField);
+		frame.add(carMilage);
+		frame.add(carMilageField);
+		frame.add(carMPG);
+		frame.add(carMPGField);
+		frame.add(submitButton);
+
+		frame.pack();
+
+		submitButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				boolean found = false;
+				
+				String model = carModelField.getText();
+				String year = carYearField.getText();
+				String make = carMakeField.getText();
+				String color = carColorField.getText();
+				String price = carPriceField.getText();
+				String mileage = carMilageField.getText();
+				String MPG = carMPGField.getText();
+				String carID = idField.getText();
+				
+				for(Car c : cars) {
+					if(c.getID().equals(carID)) {
+						found = true;
+						
+						JOptionPane.showMessageDialog(null, "That Car ID is already in use, please choose another", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+
+				if(!found) {
+					Car new_car = new Car(model, Integer.parseInt(year), make, color, Double.parseDouble(price), Integer.parseInt(mileage), Integer.parseInt(MPG), carID);
+	
+					cars.add(new_car);
+					
+					JOptionPane.showMessageDialog(null,
+							"The vehicles"
+							+ " Model: " + model
+							+ "\n Year " + year
+							+ "\n Make " + make 
+							+ "\n Color " + color
+							+ "\n Price " + price
+							+ "\n Milage " + mileage
+							+ "\n MPG " + MPG,
+							"Information saved",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+				frame.dispose();
+			}
+		}); 
 	}
 
 	/**
-	 * This method will remove a selcted car from the list of cars
+	 * This method will remove a selected car from the list of cars
 	 * 
-	 * @param cars an array list of cars the contains every car
+	 * @param cars
+	 * 			an array list of cars the contains every car
 	 * 
-	 * @return  an array list of cars the contains every car, excluding the one that gets deleted.
 	 */
 	public void deleteVehicle(ArrayList<Car> cars) {
-		boolean found = false;
-		
-		Scanner in = new Scanner(System.in);
-		
-		System.out.println("Please enter the ID of the car you wish to delete.");
-		String number = in.nextLine();
-		
-    	// checking to see if the entered  number is an actual id number.
-    	for(Car car : cars) {
-    		if(car.getID() == number) {
-    			found = true;
-    		}
-    	}
-    	
-    	if(found == false) {
-    		System.out.println("Sorry that number was not found");
-    	}
-		
-		for(Car car : cars) {
-			if(car.getID().equals(number)) {
-				cars.remove(car);
-				break;
-			}
-		}
-		
-		System.out.println("Vehicle has been deleted.");
-	}
 
+		JFrame frame = new JFrame("Delete Vehicle");
+		frame.setLayout(new GridLayout(10, 2));
+
+		frame.setVisible(true);
+
+		final int TEXT_FIELD_SIZE = 20;
+		JLabel IDNumber = new JLabel("ID number of vehicle to delete");
+		final JTextField idField = new JTextField(TEXT_FIELD_SIZE);
+
+		JButton submitButton = new JButton("Submit");
+
+		frame.add(IDNumber);
+		frame.add(idField);
+		frame.add(submitButton);
+
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean found = false;
+				
+				String carID = idField.getText();
+				// checking to see if the entered number is an actual id number.
+				for (Car car : cars) {
+					if (car.getID().equals(carID)) {
+						found = true;
+						
+						cars.remove(car);
+						
+						JOptionPane.showMessageDialog(null, "The car is removed", "\n ", JOptionPane.INFORMATION_MESSAGE);
+
+						break;
+					}
+				}
+
+				if (!found) {
+					System.out.println("Sorry that number was not found");
+
+					JOptionPane.showMessageDialog(null, "The car ID is not found", "\n ",
+							JOptionPane.INFORMATION_MESSAGE);
+
+					return;
+
+				}
+			}
+		});
+	}
+        
 	/**
 	 * This method will display every customer in the list.
 	 * 
-	 * @param customers  an array list of customers the contains every customer.
+	 * @param customers 
+	 * 			an array list of customers the contains every customer.
 	 * 
-	 * @return  an array list of customers the contains every c, including the newly updated one.
 	 */
 	public void displayAllCustomers(ArrayList<Customer> customers) {
-		
-		for(Customer customer : customers) {
-			System.out.println(customer.getAttributes());
-		}
-	}
 
-	/**
-	 * 
-	 * @param customers
-	 * @param reservations
-	 * @param cars
-	 */
-	public void viewCustomerRecord(ArrayList<Customer> customers, ArrayList<Reservation> reservations, ArrayList<Car> cars) {
-		Scanner in = new Scanner(System.in);
-		
-		System.out.println("Please enter the username of the customer you are looking for");
-		String username = in.nextLine();
-		
-		for(Customer customer : customers) {
-			if(customer.getUserName().equals(username)) {
-				customer.displayUserReservations(reservations, cars);
-				break;
+		JFrame frame = new JFrame("Display all Customers");
+		frame.setVisible(true);
+		frame.setLayout(new GridLayout(10, 2));
+
+		final int TEXT_FIELD_SIZE = 20;
+		JLabel allCustomers = new JLabel("All customers");
+		final JTextField Customers = new JTextField(TEXT_FIELD_SIZE);
+
+		JButton submitButton = new JButton("Submit");
+
+		frame.add(allCustomers);
+		frame.add(Customers);
+		frame.add(submitButton);
+
+		frame.pack();
+
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				for (Customer customer : customers) {
+					System.out.println(customer.getAttributes());
+
+					...
+					// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< should probably make a table out of this.
+					JOptionPane.showMessageDialog(null, "All customers displayed \n " + customer.getAttributes(), "\n", JOptionPane.INFORMATION_MESSAGE);
+
+					frame.dispose();
+				}
 			}
-		}
+		});
 	}
 
 	/**
@@ -242,65 +384,93 @@ public class Employee extends Customer {
 	 * 
 	 * @param reservations is an array list of reservations that contains every reservation.
 	 */
-	public void findByConfirmationNumber(ArrayList<Reservation> reservations) {
-		boolean found = false;
-    	Scanner in = new Scanner(System.in);
-    	
-    	System.out.println("Please enter the confirmation number of the reservation you are looking for");
-    	int number = in.nextInt();
+	public void findByConfirmationNumber(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 
-    	// checking to see if the entered confirmation number is an actual reservation number.
-    	for(Reservation reservation : reservations) {
-    		if(reservation.getConfirmationNumber() == number) {
-    			found = true;
-    		}
-    	}
-    	
-    	if(!found) {
-    		System.out.println("Sorry that number was not found");
-    		return;
-    	}
-    	
-		for(Reservation reservation : reservations) {
-			if(reservation.getConfirmationNumber() == number) {
-				System.out.println(reservation.getAttributes());
+		JFrame frame = new JFrame("Find confirmation number");
+		frame.setVisible(true);
+		frame.setLayout(new GridLayout(10, 2));
+
+		final int TEXT_FIELD_SIZE = 20;
+		JLabel confirmationNumber = new JLabel("Confirmation number your trying find");
+		final JTextField confirmationNumberField = new JTextField(TEXT_FIELD_SIZE);
+		JButton submitButton = new JButton("Submit");
+
+		frame.add(confirmationNumber);
+		frame.add(confirmationNumberField);
+		frame.add(submitButton);
+
+		frame.pack();
+		
+		submitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean found = false;
+				int number = Integer.parseInt(confirmationNumberField.getText());
+				
+				// checking to see if the entered confirmation number is an actual
+				// reservation number.
+				for (Reservation reservation : reservations) {
+					if (reservation.getConfirmationNumber() == number) {
+						found = true;
+						
+						reservation.makeReservationReport(cars);
+					}
+				}
+
+				if(!found) {
+					JOptionPane.showMessageDialog(null, "Sorry that Reservation was not found.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+	}
+	
+	public static void viewCustomerHistory(ArrayList<Reservation> reservations, String username) {
+		ArrayList<Reservation> user_history = new ArrayList<Reservation>();
+		
+		JFrame frame = new JFrame("Customer History");
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		frame.setLayout(new FlowLayout());
+		
+		for(Reservation R : reservations) {
+			if(R.getUserName().equals(username)) {
+				user_history.add(R);
 			}
 		}
+		
+		// now we display that new list. probably by means of a table.
+		...
+		
 	}
 
-	// still by reservation number, but this one displays it while the one above returns it to be modified.
-	/**
-	 * This method will find a certain reservation and print the information.
-	 * 
-	 * @param reservations reservations is an array list of reservations that contains every reservation.
-	 * @param cars cars is an array list of cars that contains every car.
-	 */
-	public void reviewReservation(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
-		boolean found = false;
-    	Scanner in = new Scanner(System.in);
-    	
-    	System.out.println("Please enter the confirmation number of the reservation you are looking for");
-    	int number = in.nextInt();
-    	
-    	// checking to see if the entered confirmation number is an actual reservation number.
-    	for(Reservation reservation : reservations) {
-    		if(reservation.getConfirmationNumber() == number) {
-    			found = true;
-    		}
-    	}
-    	
-    	if(!found) {
-    		System.out.println("Sorry that number was not found");
-    		return;
-    	}
-
-		for(Reservation reservation : reservations) {
-			if(reservation.getConfirmationNumber() == number) {
-				// System.out.println(reservation.getAttributes());
-				Reservation.makeReservationReport(reservation, cars);
-			}
-		}
-	}
+//	// still by reservation number, but this one displays it while the one above returns it to be modified.
+//	/**
+//	 * This method will find a certain reservation and print the information.
+//	 * 
+//	 * @param reservations reservations is an array list of reservations that contains every reservation.
+//	 * @param cars cars is an array list of cars that contains every car.
+//	 */
+//	public void reviewReservation(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
+//		boolean found = false;
+//
+//		// checking to see if the entered confirmation number is an actual reservation number.
+//		for (Reservation reservation : reservations) {
+//			if (reservation.getConfirmationNumber() == number) {
+//				found = true;
+//			}
+//		}
+//
+//		if (!found) {
+//			System.out.println("Sorry that number was not found");
+//			return;
+//		}
+//
+//		for (Reservation reservation : reservations) {
+//			if (reservation.getConfirmationNumber() == number) {
+//				// System.out.println(reservation.getAttributes());
+//				reservation.makeReservationReport(cars);
+//			}
+//		}
+//	}
 	
 	/**
 	 * Method that is used for the read and write file.

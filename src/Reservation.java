@@ -1,8 +1,25 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * This is the reservation class. It holds the information that is needed to create and retrieve a reservation.
@@ -13,8 +30,7 @@ import java.util.Scanner;
  */
 public class Reservation {
 	
-	private String username;
-	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	private String username;																						// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< DO THAT.
 	private String car;
 	private Day pickUpDate;
 	private Day dropOffDate;
@@ -38,25 +54,22 @@ public class Reservation {
 	 * @param quote1
 	 *            Must be a valid string that holds the price of the reservation.
 	 */
-	public Reservation(String car_id, String pickUpDate1, String dropOffDate1, int confirmationNumber1, boolean insurance1, String quote1) {
+	public Reservation(String car_id, String pickUpDate1, String dropOffDate1, int confirmationNumber1, boolean insurance1, double quote1) {
 		username = "";
-		//^^^^^^^^^^^
+		
+		
+		
 		car = car_id;
 		confirmationNumber = confirmationNumber1;
 		insurance = insurance1;
 
-		pickUpDate = Reservation.stringToDay(pickUpDate1);
-		dropOffDate = Reservation.stringToDay(dropOffDate1);
+		pickUpDate = stringToDay(pickUpDate1);
+		dropOffDate = stringToDay(dropOffDate1);
 
-		quote = Double.parseDouble(quote1);
+		quote = quote1;
 	}
 	
-	/**
-	 * Will return the username of the person who made the reservation
-	 * 
-	 * @return a String that holds the username of the person who made this reservation.
-	 */
-	public String getUsername() {
+	public String getUserName() {
 		return username;
 	}
 
@@ -154,88 +167,143 @@ public class Reservation {
 	 * 
 	 * @return a new reservation containing the information that the user inputed.
 	 */
-	public static Reservation makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
-		Scanner in = new Scanner(System.in);
+	public static void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
 
-		boolean insur = false;
-		double price = 0;
-
-		Car.displayVehicles(cars);
-
-		System.out.println("Please choose a car from the list above");
-		int car = in.nextInt();
-		String car_id = cars.get(car - 1).getID();
-
-		System.out.println("Please enter a pick up date seperated by slashes. For Example: 10/31/1989");
-		String pdate = in.nextLine();
-		pdate = in.nextLine();
-
-		System.out.println("Plese enter a drop off date seperated by slashes. For Example: 10/31/1989");
-		String ddate = in.nextLine();
-
-		System.out.println("Do you want insurance? (1 for yes, 2 for no)");
-		int ins = in.nextInt();
-
-		while (ins < 1 || ins > 2) {
-			System.out.println("Plese choose one of the availible options.");
-			ins = in.nextInt();
-		}
-
-		if (ins == 1) {
-			insur = true;
-		}
-		else {
-			insur = false;
-		}
-
-		Day d1 = Reservation.stringToDay(pdate);
-		Day d2 = Reservation.stringToDay(ddate);
-
-		int days = d2.daysFrom(d1);
-
-		for (Car car1 : cars) {
-			if (car1.getID().equals(car_id)) {
-				price = car1.getPrice();
-			}
-		}
-
-		double quotes = days * price;
-
-		Reservation resv = new Reservation(car_id, pdate, ddate, Reservation.makeConfirmationNumber(reservations), insur, String.valueOf(quotes));
+		JFrame frame = new JFrame("Make a Reservation");
+		frame.setLayout(new BorderLayout());
+		frame.setVisible(true);
 		
-		return resv;
-	}
+		
+		// So at the moment I'm just going to have a display pop up and the user copy the carID from the pop up over to carId field cause that'll just be easiest for now. <<<<<<<<<<<<<<<<<<<<<<<<
+		Car.advancedSearch(cars);
 
-	/**
-	 * This method will update one aspect of a reservation.
-	 * 
-	 * @param cars
-	 *            is to be the array list of cars containing every car.
-	 * @param reservations
-	 *            is to be the array list of reservation containing every reservation.
-	 * @param number
-	 *            is a valid integer that holds the confirmation number of the reservation that is to be edited.
-	 * 
-	 * @return a list of reservation that holds every reservation, including the
-	 *         updated reservation.
-	 */
-	public ArrayList<Reservation> updateProfile(ArrayList<Car> cars, ArrayList<Reservation> reservations, int number) {
-		Reservation res = null;
-		for (Reservation reservation : reservations) {
-			if (reservation.getConfirmationNumber() == number) {
-				res = reservation;
-				break;
+		// change this to wherever your workspace is
+		ImageIcon img = new ImageIcon("./Car.jpg");
+		frame.setIconImage(img.getImage());
+
+		final int TEXT_FIELD_SIZE = 20;
+		JLabel carLabel = new JLabel("Car: ");
+		final JTextField carField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel pickUpDateLabel = new JLabel("Pick Up Date: ");
+		final JTextField pickUpDateField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel dropOffDateLabel = new JLabel("Drop Off Date: ");
+		final JTextField dropOffDateField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel insuranceLabel = new JLabel("Insurance: ");
+		final JTextField insuranceField = new JTextField(TEXT_FIELD_SIZE);
+		JButton okButton = new JButton("Submit");
+
+		// all the formatting that one could ever need.
+		frame.setBackground(Color.BLACK);
+
+		carLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+		carLabel.setForeground(Color.DARK_GRAY);
+		carField.setBackground(Color.DARK_GRAY);
+		carField.setForeground(Color.WHITE);
+		pickUpDateLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+		pickUpDateLabel.setForeground(Color.GRAY);
+		pickUpDateField.setBackground(Color.DARK_GRAY);
+		pickUpDateField.setForeground(Color.WHITE);
+		dropOffDateLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+		dropOffDateLabel.setForeground(Color.DARK_GRAY);
+		dropOffDateField.setBackground(Color.DARK_GRAY);
+		dropOffDateField.setForeground(Color.WHITE);
+		insuranceLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+		insuranceLabel.setForeground(Color.GRAY);
+		insuranceField.setBackground(Color.DARK_GRAY);
+		insuranceField.setForeground(Color.WHITE);
+		okButton.setBackground(Color.RED);
+
+		// change this to wherever your workspace is.
+		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
+		frame.add(headerLabel, BorderLayout.NORTH);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(8, 2));
+		panel.setBackground(Color.BLACK);
+
+		panel.add(carLabel);
+		panel.add(carField);
+		panel.add(pickUpDateLabel);
+		panel.add(pickUpDateField);
+		panel.add(dropOffDateLabel);
+		panel.add(dropOffDateField);
+		panel.add(insuranceLabel);
+		panel.add(insuranceField);
+		panel.add(new JLabel(""));
+		panel.add(okButton);
+
+		frame.add(panel);
+
+		frame.pack();
+
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String car = carField.getText();
+				String pickupDate = pickUpDateField.getText();
+				String dropOffDate = dropOffDateField.getText();
+				String insurance = insuranceField.getText();
+				
+				int number = Reservation.makeConfirmationNumber(reservations);
+				double quote = ;		// need to make a makeQuote method.
+				
+				Reservation resv = new Reservation(car, pickupDate, dropOffDate, number, Boolean.parseBoolean(insurance), quote);
+
+				UIManager UI = new UIManager();
+				UI.put("OptionPane.background", Color.DARK_GRAY);
+				UI.put("Panel.background", Color.RED);
+				UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13)));
+
+				JOptionPane.showMessageDialog(null,
+						" Car: " + car + "\n Pick Up Date: " + pickupDate
+						+ "\n Drop Off Date: " + dropOffDate
+						+ "\n Insurance: " + insurance,
+						"Information Saved",
+						JOptionPane.INFORMATION_MESSAGE, img);
 			}
-		}
+		});
 
-		reservations.remove(res);
-		res = makeReservation(cars, reservations);
-		reservations.add(res);
+		headerLabel.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int x = e.getX();
+				int y = e.getY();
 
-		return reservations;
+				// this is where it picks up on the menu button.
+				if (x > 670 && x < 800 && y > 226 && y < 250) {
+					// Originally had the x and y printed out to make sure i had
+					// the dimensions right
+					// System.out.println(x+ " " + y);
+
+					// just change this line of code to match the frame you want
+					// closed.
+					// For the love of all that is holy, DO NOT use the same
+					// name for the main frame vs everything else!
+					frame.dispose();
+				}
+			}
+
+			// Eclipse was freaking out when I didn't have these methods listed,
+			// for whatever reason.
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+		});
+		// we remove the original one, then add the one newly updated one.
+
 	}
 
-	// not used atm.. but maybe later.
 	/**
 	 * This is a method that checks the credit card of the user.
 	 * 
@@ -248,38 +316,98 @@ public class Reservation {
 	 */
 	public boolean checkCreditCard(Customer aCustomer, String creditCard) {
 		boolean check = false;
-		String credit = null;
+		
+		final int TEXT_FIELD_SIZE = 15;
 
-		Scanner in = new Scanner(System.in);
+		JFrame frame = new JFrame("Check Credit Card Info");
+		frame.setBackground(Color.BLACK);
+		frame.setLayout(new BorderLayout());
+		frame.setVisible(true);
 
-		System.out.println("aCustomer.getCreditCardNumber()" + aCustomer.getCreditCardNumber());
-		if (aCustomer.getCreditCardNumber().equals(creditCard)) {
-			check = true;
-		}
-		else {
-			System.out.println("Sorry that is not the correct credit card number");
-			while (!check) {
-				System.out.println("Please enter it again.");
-				credit = in.nextLine();
+		// change this to wherever your workspace is
+		ImageIcon img = new ImageIcon("./Car.jpg");
+		frame.setIconImage(img.getImage());
 
-				if (aCustomer.getCreditCardNumber().equals(credit)) {
+		JLabel creditLabel = new JLabel("Please enter your Credit Card number: ");
+		final JTextField creditField = new JTextField(TEXT_FIELD_SIZE);
+		JButton okButton = new JButton("Submit");
+
+		// all the formatting that one could ever need.
+		creditLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+		creditLabel.setForeground(Color.DARK_GRAY);
+		creditField.setBackground(Color.DARK_GRAY);
+		creditField.setForeground(Color.WHITE);
+		okButton.setBackground(Color.RED);
+
+		// change this to wherever your workspace is.
+		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
+		frame.add(headerLabel, BorderLayout.NORTH);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(8, 2));
+		panel.setBackground(Color.BLACK);
+
+		panel.add(creditLabel);
+		panel.add(creditField);
+		panel.add(new JLabel(""));
+		panel.add(okButton);
+		frame.add(panel);
+
+		frame.pack();
+		
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String creditCard = creditField.getText();
+
+				if (aCustomer.getCreditCardNumber().equals(creditCard)) {
 					check = true;
+					// cant do a check here because the boolean will disappear after the actionPerformed runs.. so idk what I'm going to do yet.
 				}
 			}
-		}
+		});
+		
+		headerLabel.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int x = e.getX();
+				int y = e.getY();
+
+				// this is where it picks up on the menu button.
+				if (x > 670 && x < 800 && y > 226 && y < 250) {
+					// Originally had the x and y printed out to make sure i had the dimensions right
+					// System.out.println(x+ " " + y);
+
+					// just change this line of code to match the frame you want closed.
+					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
+					frame.dispose();
+				}
+			}
+
+			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
+			@Override
+			public void mouseEntered(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+
+			}
+
+		});
 
 		return check;
-	}
-
-	// not used atm.. but maybe later.
-	/**
-	 * At the moment this is pointless, however it will just print a line that states it is sending an email to the user.
-	 * 
-	 * @param aCustomer
-	 *            is to be the customer that is to recieve the email.
-	 */
-	public void sendEmailConfirmation(Customer aCustomer) {
-		System.out.println("Sending an email to " + aCustomer.getEmail());
 	}
 	
 	/**
@@ -292,21 +420,15 @@ public class Reservation {
 	 */
 	public static Day stringToDay(String d) {
 
-		List<String> list1 = Arrays.asList(d.split("/"));
+		List<String> list = Arrays.asList(d.split("/"));
 
-		int month = Integer.parseInt(list1.get(0));
-		int day = Integer.parseInt(list1.get(1));
-		int year = Integer.parseInt(list1.get(2));
+		int month = Integer.parseInt(list.get(0));
+		int day = Integer.parseInt(list.get(1));
+		int year = Integer.parseInt(list.get(2));
 
 		Day date = new Day(year, month, day);
 
 		return date;
-	}
-	
-	public static void displayReservations(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
-		for(Reservation r : reservations) {
-			makeReservationReport(r, cars);
-		}
 	}
 
 	/**
@@ -317,22 +439,133 @@ public class Reservation {
 	 * @param cars
 	 *            is to be the array list of cars that contains every car.
 	 */
-	public static void makeReservationReport(Reservation aReservation, ArrayList<Car> cars) {
-		System.out.println();
-		System.out.print("Your Car: ");
+	public void makeReservationReport(ArrayList<Car> cars) {
+		JFrame frame = new JFrame(); 
+		
+		frame.setTitle("Reservation Report");
+		
+		frame.setLayout(new BorderLayout());
 
-		for (Car car : cars) {
-			if (aReservation.getCar().equals(car.getID())) {
-				System.out.println(car.getMake() + " " + car.getModel());
+		
+		frame.setVisible(true);
+		
+		//change this to wherever your workspace is
+		ImageIcon img = new ImageIcon("./Car.jpg");
+		frame.setIconImage(img.getImage());
+		
+		final int TEXT_FIELD_SIZE = 20; 	
+		JLabel carLabel = new JLabel("Car: "); 
+		final JTextField carField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel pickUpDateLabel = new JLabel("Pick Up Date: ");
+		final JTextField pickUpDateField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel dropOffDateLabel = new JLabel("Drop Off Date: ");
+		final JTextField dropOffDateField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel insuranceLabel = new JLabel("Insurance: ");
+		final JTextField insuranceField = new JTextField(TEXT_FIELD_SIZE); 
+		JButton okButton = new JButton("Submit");
+	
+		//all the formatting that one could ever need.
+		frame.setBackground(Color.BLACK);
+         
+		carLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+		carLabel.setForeground(Color.DARK_GRAY);
+		carField.setBackground(Color.DARK_GRAY);
+		carField.setForeground(Color.WHITE);
+		pickUpDateLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+		pickUpDateLabel.setForeground(Color.GRAY);
+		pickUpDateField.setBackground(Color.DARK_GRAY);
+		pickUpDateField.setForeground(Color.WHITE);
+		dropOffDateLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+		dropOffDateLabel.setForeground(Color.DARK_GRAY);
+		dropOffDateField.setBackground(Color.DARK_GRAY);
+		dropOffDateField.setForeground(Color.WHITE);
+		insuranceLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+		insuranceLabel.setForeground(Color.GRAY);
+		insuranceField.setBackground(Color.DARK_GRAY);
+		insuranceField.setForeground(Color.WHITE);
+		okButton.setBackground(Color.RED);
+         
+        //change this to wherever your workspace is. 
+        JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
+        frame.add(headerLabel, BorderLayout.NORTH);
+         
+        JPanel panel = new JPanel(); 
+        panel.setLayout(new GridLayout(8,2));
+        panel.setBackground(Color.BLACK);
+         
+         
+		panel.add(carLabel);
+		panel.add(carField);
+		panel.add(pickUpDateLabel);
+		panel.add(pickUpDateField);
+		panel.add(dropOffDateLabel);
+		panel.add(dropOffDateField);
+		panel.add(insuranceLabel);
+		panel.add(insuranceField);
+		panel.add(new JLabel(""));
+		panel.add(okButton);
+		frame.add(panel);
+		
+		frame.pack();
+		
+		okButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
+				String car = carField.getText(); 
+				String pickupDate = pickUpDateField.getText(); 
+				String dropOffDate = dropOffDateField.getText(); 
+				String insurance = insuranceField.getText();
+				
+				UIManager UI=new UIManager();
+				UI.put("OptionPane.background", Color.DARK_GRAY);
+				UI.put("Panel.background", Color.RED);
+				UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13))); 
+
+				JOptionPane.showMessageDialog(null," Car: "+ car
+						+ "\n Pick Up Date: " + pickupDate
+						+ "\n Drop Off Date: " + dropOffDate
+						+ "\n Insurance: " + insurance,
+						"Information Saved",
+			  			JOptionPane.INFORMATION_MESSAGE, img);
+			} 	
+		});
+		
+		
+		
+		headerLabel.addMouseListener(new MouseListener() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+				int x=e.getX();
+				int y=e.getY();
+				
+				//this is where it picks up on the menu button. 
+				if(x > 670 && x < 800 && y > 226 && y < 250) {
+					//Originally had the x and y printed out to make sure i had the dimensions right
+					//System.out.println(x+ " " + y);
+					
+					//just change this line of code to match the frame you want closed. 
+					//For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
+					frame.dispose();
+				}
+		    }
+		    
+	    	//Eclipse was freaking out when I didn't have these methods listed, for whatever reason. 
+			@Override	public void mouseEntered(MouseEvent e) {
+				
 			}
-		}
-
-		System.out.println("The pickup date is " + aReservation.getPickUpDate().toString());
-		System.out.println("The drop off date is " + aReservation.getDropOffDate().toString());
-		System.out.println("The confirmation number is " + aReservation.getConfirmationNumber());
-		System.out.println("Do you have insurance? " + aReservation.getInsurance());
-		System.out.println("The quote is " + aReservation.getQuote());
-		System.out.println();
+	
+			@Override	public void mouseExited(MouseEvent e) {
+				
+			}
+	
+			@Override	public void mousePressed(MouseEvent e) {
+				
+			}
+	
+			@Override	public void mouseReleased(MouseEvent e) {
+				
+			}
+		});
 	}
 
 	/**
@@ -346,3 +579,5 @@ public class Reservation {
 		return info;
 	}
 }
+
+

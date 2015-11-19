@@ -105,20 +105,16 @@ public class Manager extends Employee {
 
 				// this is where it picks up on the menu button.
 				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had
-					// the dimensions right
+					// Originally had the x and y printed out to make sure i had the dimensions right
 					// System.out.println(x+ " " + y);
 
-					// just change this line of code to match the frame you want
-					// closed.
-					// For the love of all that is holy, DO NOT use the same
-					// name for the main frame vs everything else!
+					// just change this line of code to match the frame you want closed.
+					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
 					cust_frame.dispose();
 				}
 			}
 
-			// Eclipse was freaking out when I didn't have these methods listed,
-			// for whatever reason.
+			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
 			@Override
 			public void mouseEntered(MouseEvent e) {
 			}
@@ -300,20 +296,16 @@ public class Manager extends Employee {
 
 				// this is where it picks up on the menu button.
 				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had
-					// the dimensions right
+					// Originally had the x and y printed out to make sure i had the dimensions right
 					// System.out.println(x+ " " + y);
 
-					// just change this line of code to match the frame you want
-					// closed.
-					// For the love of all that is holy, DO NOT use the same
-					// name for the main frame vs everything else!
+					// just change this line of code to match the frame you want closed.
+					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
 					emp_frame.dispose();
 				}
 			}
 
-			// Eclipse was freaking out when I didn't have these methods listed,
-			// for whatever reason.
+			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
 			@Override
 			public void mouseEntered(MouseEvent e) {
 			}
@@ -479,10 +471,17 @@ public class Manager extends Employee {
 				UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
 
 				JOptionPane.showMessageDialog(null,
-						" Name: " + name + "\n Username: " + userName + "\n Email: " + email + "\n Password: "
-								+ password + "\n Phone: " + phone + "\n Birthday: " + birthday
-								+ "\n Credit Card Number: " + credit + "\n Hire Date: " + hire + "\n Salary: " + salary,
-						"Information saved", JOptionPane.INFORMATION_MESSAGE);
+						" Name: " + name
+						+ "\n Username: " + userName
+						+ "\n Email: " + email
+						+ "\n Password: " + password
+						+ "\n Phone: " + phone
+						+ "\n Birthday: " + birthday
+						+ "\n Credit Card Number: " + credit
+						+ "\n Hire Date: " + hire
+						+ "\n Salary: " + salary,
+						"Information saved",
+						JOptionPane.INFORMATION_MESSAGE);
 
 				emp_frame.dispose();
 			}
@@ -524,20 +523,16 @@ public class Manager extends Employee {
 
 				// this is where it picks up on the menu button.
 				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had
-					// the dimensions right
+					// Originally had the x and y printed out to make sure i had the dimensions right
 					// System.out.println(x+ " " + y);
 
-					// just change this line of code to match the frame you want
-					// closed.
-					// For the love of all that is holy, DO NOT use the same
-					// name for the main frame vs everything else!
+					// just change this line of code to match the frame you want closed.
+					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
 					pass_frame.dispose();
 				}
 			}
 
-			// Eclipse was freaking out when I didn't have these methods listed,
-			// for whatever reason.
+			// Eclipse was freaking out when I didn't have these methods listed,  for whatever reason.
 			@Override
 			public void mouseEntered(MouseEvent e) {
 			}
@@ -559,6 +554,7 @@ public class Manager extends Employee {
 		Container c = pass_frame.getContentPane();
 		c.setBackground(primary);
 		pass_panel.setLayout(new GridLayout(8, 3));
+		pass_panel.setBackground(primary);
 		pass_frame.setLocationRelativeTo(null);
 		pass_frame.setVisible(true);
 
@@ -634,12 +630,9 @@ public class Manager extends Employee {
 					}
 				}
 
-				Manager manager = new Manager(m.getName(), m.getUserName(), m.getEmail(), password1, m.getPhoneNumber(),
-						m.getBirthday(), m.getCreditCardNumber(), m.getHireDate(), m.getSalary(), m.getBonus());
-				Employee employee = new Employee(e.getName(), e.getUserName(), e.getEmail(), password1,
-						e.getPhoneNumber(), e.getBirthday(), e.getCreditCardNumber(), e.getHireDate(), e.getSalary());
-				Customer customer = new Customer(c.getName(), c.getUserName(), c.getEmail(), password1,
-						c.getPhoneNumber(), c.getBirthday(), c.getCreditCardNumber());
+				Manager manager = new Manager(m.getName(), m.getUserName(), m.getEmail(), password1, m.getPhoneNumber(), m.getBirthday(), m.getCreditCardNumber(), m.getHireDate(), m.getSalary(), m.getBonus());
+				Employee employee = new Employee(e.getName(), e.getUserName(), e.getEmail(), password1, e.getPhoneNumber(), e.getBirthday(), e.getCreditCardNumber(), e.getHireDate(), e.getSalary());
+				Customer customer = new Customer(c.getName(), c.getUserName(), c.getEmail(), password1, c.getPhoneNumber(), c.getBirthday(), c.getCreditCardNumber());
 
 				managers.remove(m);
 				managers.add(manager);
@@ -666,8 +659,7 @@ public class Manager extends Employee {
 	 * This method will remove a reservation from the list.
 	 * 
 	 * @param reservations
-	 *            is an array list of reservations that contains every
-	 *            reservation.
+	 *            is an array list of reservations that contains every reservation.
 	 * 
 	 */
 	public void cancelReservation(ArrayList<Reservation> reservations) {
@@ -693,20 +685,16 @@ public class Manager extends Employee {
 
 				// this is where it picks up on the menu button.
 				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had
-					// the dimensions right
+					// Originally had the x and y printed out to make sure i had the dimensions right
 					// System.out.println(x+ " " + y);
 
-					// just change this line of code to match the frame you want
-					// closed.
-					// For the love of all that is holy, DO NOT use the same
-					// name for the main frame vs everything else!
+					// just change this line of code to match the frame you want closed.
+					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
 					cancel_frame.dispose();
 				}
 			}
 
-			// Eclipse was freaking out when I didn't have these methods listed,
-			// for whatever reason.
+			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
 			@Override
 			public void mouseEntered(MouseEvent e) {
 			}
@@ -728,7 +716,7 @@ public class Manager extends Employee {
 		c.setBackground(primary);
 
 		JPanel cancel_panel = new JPanel();
-
+		cancel_panel.setBackground(primary);
 		cancel_panel.setLayout(new GridLayout(2, 2));
 		cancel_frame.setLocationRelativeTo(null);
 		cancel_frame.setVisible(true);
@@ -774,8 +762,7 @@ public class Manager extends Employee {
 						UI.put("Panel.background", secondary);
 						UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
 
-						JOptionPane.showMessageDialog(null, "Reservation had been canceled.", "Information saved",
-								JOptionPane.INFORMATION_MESSAGE, img);
+						JOptionPane.showMessageDialog(null, "Reservation had been canceled.", "Information saved", JOptionPane.INFORMATION_MESSAGE, img);
 					}
 				}
 
@@ -785,8 +772,7 @@ public class Manager extends Employee {
 					UI.put("Panel.background", secondary);
 					UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
 
-					JOptionPane.showMessageDialog(null, "Sorry, Reservation not found. Try again", "Error",
-							JOptionPane.ERROR_MESSAGE, img);
+					JOptionPane.showMessageDialog(null, "Sorry, Reservation not found. Try again", "Error", JOptionPane.ERROR_MESSAGE, img);
 				}
 
 				cancel_frame.dispose();
@@ -794,32 +780,18 @@ public class Manager extends Employee {
 		});
 	}
 
-	/**
-	 * This method will update a single aspect of a reservation
-	 * 
-	 * @param reservations
-	 *            is an array list of reservations that contains every
-	 *            reservation.
-	 * @param cars
-	 *            is an array list of cars that contains every car.
-	 * 
-	 * @return an array list of reservations that contains all the reservations.
-	 */
     /**
      * This method will update a single aspect of a reservation
      * 
-     * @param reservations is an array list of reservations that contains every reservation.
-     * @param cars is an array list of cars that contains every car.
+     * @param reservations
+     * 				is an array list of reservations that contains every reservation.
+     * @param cars
+     * 			is an array list of cars that contains every car.
      * 
-     * @return an array list of reservations that contains all the reservations.
      */
     public void updateReservation(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 
 		final int TEXT_FIELD_SIZE = 20;
-    	
-    	// various variables used throughout this method
-    	String ddate = null;
-    	String pdate = null;
     	
     	JFrame frame = new JFrame("Update Reservation Info"); 
 		frame.setLayout(new GridLayout(2,2));
@@ -841,28 +813,28 @@ public class Manager extends Employee {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean found = false;
-				int number = Integer.parseInt(confirmField.getText()); 
-				
-		    	// checking to see if the entered confirmation number is an actual reservation number.
-		    	for(Reservation reservation : reservations) {
-		    		if(reservation.getConfirmationNumber() == number) {
-		    			found = true;
-		    			JOptionPane.showMessageDialog(null,"Reservation had been found.\n " + reservation.getAttributes(), "Reservation Information", JOptionPane.INFORMATION_MESSAGE);
-		    			 	
-		    			frame.dispose();
-		    			
-		    			Reservation resv = Reservation.makeReservation(cars, reservations);
-		    			reservations.remove(reservation);
-		    			reservations.add(resv);
-		    			
-		    			JOptionPane.showMessageDialog(null,"Reservation had been updated.\n " + resv.getAttributes(), "Reservation Information", JOptionPane.INFORMATION_MESSAGE);
+				int number = Integer.parseInt(confirmField.getText());
 
-		    		}
-		    	}
-		    	
-		    	if(!found) {
-		    		 JOptionPane.showMessageDialog(null,"Reservation was not found.\n ", "Reservation Information", JOptionPane.ERROR_MESSAGE);
-		    	}
+				// checking to see if the entered confirmation number is an
+				// actual reservation number.
+				for (Reservation reservation : reservations) {
+					if (reservation.getConfirmationNumber() == number) {
+						found = true;
+						JOptionPane.showMessageDialog(null,
+								"Reservation had been found.\n " + reservation.getAttributes(),
+								"Reservation Information", JOptionPane.INFORMATION_MESSAGE);
+
+						frame.dispose();
+
+						// make reservation no longer returns something. so yeah.
+						Reservation.makeReservation(cars, reservations);
+						reservations.remove(reservation);
+					}
+				}
+
+				if (!found) {
+					JOptionPane.showMessageDialog(null, "Reservation was not found.\n ", "Reservation Information", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 	}

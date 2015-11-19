@@ -1,5 +1,22 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * This is the Customer class, it holds the information that is used to create, and get information about a customer.
@@ -20,6 +37,10 @@ public class Customer {
 	
 	// we need this line below if we are going to create a history of customer reservations.
 	//private ArrayList<Reservation> prev_reservations;
+
+	public Customer() {
+		
+	}
 	
 	/**
 	 * 
@@ -157,65 +178,184 @@ public class Customer {
 	 * @param customers
 	 *            is to be the array list of customer that contains every customer.
 	 * 
-	 * @return the customer that was just created.
 	 */
-	public static Customer createNewCustomer(ArrayList<Customer> customers) {
-		System.out.println("We will now create you an account.");
+	public static void createNewCustomer(ArrayList<Customer> customers) {
 
-		Scanner in = new Scanner(System.in);
+		JFrame frame = new JFrame("Create new Customer"); 
+		frame.setLayout(new BorderLayout());
+		frame.setVisible(true);
+		
+		//change this to wherever your workspace is
+		ImageIcon img = new ImageIcon("./Car.jpg");
+		frame.setIconImage(img.getImage());
+		
+		final int TEXT_FIELD_SIZE = 20; 	
+		JLabel nameLabel = new JLabel("Name: "); 
+		final JTextField nameField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel userNameLabel = new JLabel("Username: ");
+		final JTextField userNameField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel emailLabel = new JLabel("Email: ");
+		final JTextField emailField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel passwordLabel = new JLabel("Password: ");
+		final JTextField passwordField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel phoneLabel = new JLabel("Phone Number: ");
+		final JTextField phoneField = new JTextField(10); 
+		JLabel birthdayLabel = new JLabel("Birthday: ");
+		final JTextField birthdayField = new JTextField(8); 
+		JLabel creditLabel = new JLabel("Credit Card Number: ");
+		final JTextField creditField = new JTextField(16); 
+		JButton okButton = new JButton("Submit");
+	
+		//all the formatting that one could ever need.
+        frame.setBackground(Color.BLACK);
+         
+        nameLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        nameLabel.setForeground(Color.DARK_GRAY);
+        nameField.setBackground(Color.DARK_GRAY);
+        nameField.setForeground(Color.WHITE);
+        userNameLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        userNameLabel.setForeground(Color.GRAY);
+        userNameField.setBackground(Color.DARK_GRAY);
+        userNameField.setForeground(Color.WHITE);
+        emailLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        emailLabel.setForeground(Color.DARK_GRAY);
+        emailField.setBackground(Color.DARK_GRAY);
+        emailField.setForeground(Color.WHITE);
+        passwordLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        passwordLabel.setForeground(Color.GRAY);
+        passwordField.setBackground(Color.DARK_GRAY);
+        passwordField.setForeground(Color.WHITE);
+        phoneLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        phoneLabel.setForeground(Color.DARK_GRAY);
+        phoneField.setBackground(Color.DARK_GRAY);
+        phoneField.setForeground(Color.WHITE);
+        birthdayLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        birthdayLabel.setForeground(Color.GRAY);
+        birthdayField.setBackground(Color.DARK_GRAY);
+        birthdayField.setForeground(Color.WHITE);
+        creditLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        creditLabel.setForeground(Color.DARK_GRAY);
+        creditField.setBackground(Color.DARK_GRAY);
+        creditField.setForeground(Color.WHITE);
+        okButton.setBackground(Color.RED);
+         
+        //change this to wherever your workspace is. 
+        JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
+        frame.add(headerLabel, BorderLayout.NORTH);
+         
+         
+        JPanel panel = new JPanel(); 
+        panel.setLayout(new GridLayout(8,2));
+        panel.setBackground(Color.BLACK);
+         
+         
+		panel.add(nameLabel);
+		panel.add(nameField);
+		panel.add(userNameLabel);
+		panel.add(userNameField);
+		panel.add(emailLabel);
+		panel.add(emailField);
+		panel.add(passwordLabel);
+		panel.add(passwordField);
+		panel.add(phoneLabel);
+		panel.add(phoneField);
+		panel.add(birthdayLabel);
+		panel.add(birthdayField);
+		panel.add(creditLabel);
+		panel.add(creditField);
+		panel.add(new JLabel(""));
+		panel.add(okButton);
+		frame.add(panel);
+		
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String name = nameField.getText(); 
+				String userName = userNameField.getText(); 
+				String email = emailField.getText(); 
+				String pass = passwordField.getText();
+				String phone = phoneField.getText(); 
+				String birth = birthdayField.getText(); 
+				String credit = creditField.getText(); 
 
-		String name = null;
-		String username = null;
-		String password = null;
-
-		// create new user.
-		System.out.println("Enter your name: ");
-		name = in.nextLine();
-
-		System.out.println("Enter a username: ");
-		username = in.nextLine();
-
-		// checking to see if the username is already taken.
-		for (Customer customer : customers) {
-			if (customer.getUserName().equals(username)) {
-				while (customer.getUserName().equals(username)) {
-					System.out.print("That username is taken, please enter a different username: ");
-					username = in.nextLine();
+				boolean found = findUsername(customers, userName);
+				
+				// if the username is not already taken.
+				if(!found) {
+					 UIManager UI = new UIManager();
+					 UI.put("OptionPane.background", Color.DARK_GRAY);
+					 UI.put("Panel.background", Color.RED);
+					 UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13))); 
+	
+	
+					Customer customer = new Customer(name, userName, email, pass, phone, birth, credit);
+					customers.add(customer);
+				        
+					 JOptionPane.showMessageDialog(null,
+							 " Name: "+ name
+							 + "\n Username: " + userName
+							 + "\n Email: " + email
+							 + "\n Password: " + pass
+							 + "\n Phone: " + phone
+							 + "\n Birthday: " + birth
+							 + "\n Credit Card Number: " + credit,
+							 "Information Saved",
+				  			 JOptionPane.INFORMATION_MESSAGE, img);
+				} else {
+					// tell the user his chosen username is taken.
+					JOptionPane.showMessageDialog(null,  "Sorry that username is already taken.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-		}
+		});
+		
+        headerLabel.addMouseListener(new MouseListener() {
+    	    @Override
+    	    public void mouseClicked(MouseEvent e) {
+				int x=e.getX();
+				int y=e.getY();
+    	    	    
+	    	    //this is where it picks up on the menu button. 
+	    	    if(x > 670 && x < 800 && y > 226 && y < 250) {
+					// Originally had the x and y printed out to make sure i had the dimensions right
+					// System.out.println(x+ " " + y);
 
-		// getting the users information.
-		System.out.println("Please enter a password: ");
-		password = in.nextLine();
+					// just change this line of code to match the frame you want closed.
+					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
+					frame.dispose();
+	    	    }
+    	    }
+ 
+    		@Override
+    		public void mouseEntered(MouseEvent e) {
+    			
+    		}
 
-		System.out.println("Please enter your email: ");
-		String email = in.nextLine();
+    		@Override
+    		public void mouseExited(MouseEvent e) {
+    		
+    		}
 
-		System.out.println("Please enter your phone number: ");
-		String phone = in.nextLine();
+    		@Override
+    		public void mousePressed(MouseEvent e) {
+    			
+    		}
 
-		System.out.println("Please enter your birthday: ");
-		String birth = in.nextLine();
-
-		System.out.println("Please enter your credit card number: ");
-		String credit = in.nextLine();
-
-		Customer customer = new Customer(name, username, email, password, phone, birth, credit);
-
-		return customer;
+    		@Override
+    		public void mouseReleased(MouseEvent e) {
+    			
+    		}
+    	});
 	}
 	
 	/**
 	 * This is a method that will determines if the customer's entered username was found in the list of customers.
 	 * 
 	 * @param customers
-	 *            is to be the array list of customers that contains every
-	 *            customer.
+	 *            is to be the array list of customers that contains every customer.
 	 * @param username
 	 *            is the be the username of that is to be found.
 	 * 
-	 * @return a boolean that tells whether the username was found.
+	 * @return a boolean that return true is the username is found, false if the username is not found.
 	 */
 	public static boolean findUsername(ArrayList<Customer> customers, String username) {
 		boolean found = false;
@@ -228,56 +368,187 @@ public class Customer {
 
 		return found;
 	}
-	
-	public void displayUserReservations(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
-		ArrayList<Reservation> resv = new ArrayList<>();
-		
-		for(Reservation r : reservations) {
-			if(this.getUserName().equals(r.getUsername())) {
-				resv.add(r);
-			}
-		}
-		
-		Reservation.displayReservations(resv, cars);
-	}
 
 	/**
-	 * This method will update this customer profile inforamtion.
-	 * 
-	 * @return a Customer that is the newly upated customer.
+	 * This method will update this customer profile information.
+	 * @param customers
+	 * 			an array list of customers that contains every customer.
+	 * @param index
+	 * 			an int that holds the index of the customer in the array list that is also passed in.
 	 */
 	public void updateProfile(int index, ArrayList<Customer> customers) {
-		
 		customers.remove(index);
+		JFrame frame = new JFrame("Update Customer Info"); 
+		frame.setLayout(new BorderLayout());
+		frame.setVisible(true);
 		
-		Scanner input = new Scanner(System.in);
+		//change this to wherever your workspace is
+		ImageIcon img = new ImageIcon("./Car.jpg");
+		frame.setIconImage(img.getImage());
+		
+		final int TEXT_FIELD_SIZE = 20; 	
+		JLabel nameLabel = new JLabel("Name: "); 
+		final JTextField nameField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel userNameLabel = new JLabel("Username: ");
+		final JTextField userNameField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel emailLabel = new JLabel("Email: ");
+		final JTextField emailField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel passwordLabel = new JLabel("Password: ");
+		final JTextField passwordField = new JTextField(TEXT_FIELD_SIZE); 
+		JLabel phoneLabel = new JLabel("Phone Number: ");
+		final JTextField phoneField = new JTextField(10); 
+		JLabel birthdayLabel = new JLabel("Birthday: ");
+		final JTextField birthdayField = new JTextField(8); 
+		JLabel creditLabel = new JLabel("Credit Card Number: ");
+		final JTextField creditField = new JTextField(16); 
+		JButton okButton = new JButton("Submit");
+	
+		//all the formatting that one could ever need.
+        frame.setBackground(Color.BLACK);
+         
+        nameLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        nameLabel.setForeground(Color.DARK_GRAY);
+        nameField.setBackground(Color.DARK_GRAY);
+        nameField.setForeground(Color.WHITE);
+        userNameLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        userNameLabel.setForeground(Color.GRAY);
+        userNameField.setBackground(Color.DARK_GRAY);
+        userNameField.setForeground(Color.WHITE);
+        emailLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        emailLabel.setForeground(Color.DARK_GRAY);
+        emailField.setBackground(Color.DARK_GRAY);
+        emailField.setForeground(Color.WHITE);
+        passwordLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        passwordLabel.setForeground(Color.GRAY);
+        passwordField.setBackground(Color.DARK_GRAY);
+        passwordField.setForeground(Color.WHITE);
+        phoneLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        phoneLabel.setForeground(Color.DARK_GRAY);
+        phoneField.setBackground(Color.DARK_GRAY);
+        phoneField.setForeground(Color.WHITE);
+        birthdayLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        birthdayLabel.setForeground(Color.GRAY);
+        birthdayField.setBackground(Color.DARK_GRAY);
+        birthdayField.setForeground(Color.WHITE);
+        creditLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
+        creditLabel.setForeground(Color.DARK_GRAY);
+        creditField.setBackground(Color.DARK_GRAY);
+        creditField.setForeground(Color.WHITE);
+        okButton.setBackground(Color.RED);
+         
+        //change this to wherever your workspace is. 
+        JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
+        frame.add(headerLabel, BorderLayout.NORTH);
+         
+        JPanel panel = new JPanel(); 
+        panel.setLayout(new GridLayout(8,2));
+        panel.setBackground(Color.BLACK);
+         
+		panel.add(nameLabel);
+		panel.add(nameField);
+		panel.add(userNameLabel);
+		panel.add(userNameField);
+		panel.add(emailLabel);
+		panel.add(emailField);
+		panel.add(passwordLabel);
+		panel.add(passwordField);
+		panel.add(phoneLabel);
+		panel.add(phoneField);
+		panel.add(birthdayLabel);
+		panel.add(birthdayField);
+		panel.add(creditLabel);
+		panel.add(creditField);
+		panel.add(new JLabel(""));
+		panel.add(okButton);
+		frame.add(panel);
+		
+		frame.pack();
+		
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Customer C = customers.get(index);
+				
+				String name = nameField.getText();
+				String user = userNameField.getText();
+				String email = emailField.getText();
+				String pass = passwordField.getText();
+				String phone = phoneField.getText();
+				String birth = birthdayField.getText();
+				String credit = creditField.getText();
+				
+				boolean found = findUsername(customers, user);
+				
+				if(!found) {
+					if(name.equals(null)) {
+						name = C.getName();
+					}
+					if(user.equals(null)) {
+						user = C.getUserName();
+					}
+					if(email.equals(null)) {
+						email = C.getEmail();
+					}
+					if(pass.equals(null)) {
+						pass = C.getPassword();
+					}
+					if(phone.equals(null)) {
+						phone = C.getPhoneNumber();
+					}
+					if(birth.equals(null)) {
+						birth = C.getBirthday();
+					}
+					if(credit.equals(null)) {
+						credit = C.getCreditCardNumber();
+					}
+	
+			        Customer customer = new Customer(name, user, email, pass, phone, birth, credit);
+			        customers.add(customer);
+				} else {
+					// tell the user his chosen username is taken.
+					JOptionPane.showMessageDialog(null,  "Sorry that username is already taken.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			} 	
+		});
+        
+        headerLabel.addMouseListener(new MouseListener() {
+    	    @Override
+    	    public void mouseClicked(MouseEvent e) {
+				int x=e.getX();
+				int y=e.getY();
+    	    	    
+	    	    //this is where it picks up on the menu button. 
+	    	    if(x > 670 && x < 800 && y > 226 && y < 250) {
+					// Originally had the x and y printed out to make sure i had the dimensions right
+					// System.out.println(x+ " " + y);
 
-		System.out.println("Please enter your new name");
-		String new_name = input.nextLine();
+					// just change this line of code to match the frame you want closed.
+					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
+					frame.dispose();
+	    	    }
+    	    }
+ 
+    		@Override
+    		public void mouseEntered(MouseEvent e) {
+    			
+    		}
 
-		System.out.println("Please enter your new username");
-		String new_username = input.nextLine();
+    		@Override
+    		public void mouseExited(MouseEvent e) {
+    		
+    		}
 
-		System.out.println("Please enter your new email");
-		String new_email = input.nextLine();
+    		@Override
+    		public void mousePressed(MouseEvent e) {
+    			
+    		}
 
-		System.out.println("Please enter your new password");
-		String new_password = input.nextLine();
-
-		System.out.println("Please enter your new phone number");
-		String new_phone = input.nextLine();
-
-		System.out.println("Please enter your new birthday");
-		String new_birthday = input.nextLine();
-
-		System.out.println("Please enter your new credit card number");
-		String new_creditCardNumber = input.nextLine();
-
-		Customer customer = new Customer(new_name, new_username, new_email, new_password, new_phone, new_birthday, new_creditCardNumber);
-
-		customers.add(customer);
+    		@Override
+    		public void mouseReleased(MouseEvent e) {
+    			
+    		}
+    	});
 	}
-
+	
 	/**
 	 * This method will call the make reservation method and will print the new confirmation number.
 	 * 
@@ -286,16 +557,21 @@ public class Customer {
 	 * @param reservations
 	 *            is to be an array list of reservation that contains every reservation.
 	 * 
-	 * @return the array list of reservtion that contains every reservation, including the newly made one.
 	 */
 	public void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
-		// somehow make this point to reservation make reservation.
 		Reservation.makeReservation(cars, reservations);
+	}
 
-		Reservation resv = reservations.get(reservations.size() - 1);
+	public void displayReservationHistory(ArrayList<Reservation> reservations) {
+		ArrayList<Reservation> user_history = new ArrayList<Reservation>();
 		
-		System.out.println("Your reservation has been made.");
-		System.out.println("Your confirmation number is: " + resv.getConfirmationNumber());
+		for(Reservation R : reservations) {
+			if(this.getUserName().equals(R.getUserName())) {
+				user_history.add(R);
+			}
+		}
+		
+		// should make a table to display this stuff.
 	}
 	
 	/**
