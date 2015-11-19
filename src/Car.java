@@ -388,8 +388,7 @@ public class Car {
 
 			count++;
 		}
-
-		...
+		
 		// <<<<<<<<<<<< TO DO >>>>>>>>>>>>
 		// add pictures to this somehow.. maybe a button to select?
 		// yeah I should definitely include a button to select.
