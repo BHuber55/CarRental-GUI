@@ -30,7 +30,7 @@ import javax.swing.plaf.FontUIResource;
  */
 public class Reservation {
 	
-	private String username;																						// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< DO THAT.
+	private String username;
 	private String car;
 	private Day pickUpDate;
 	private Day dropOffDate;
@@ -54,11 +54,8 @@ public class Reservation {
 	 * @param quote1
 	 *            Must be a valid string that holds the price of the reservation.
 	 */
-	public Reservation(String car_id, String pickUpDate1, String dropOffDate1, int confirmationNumber1, boolean insurance1, double quote1) {
-		username = "";
-		
-		
-		
+	public Reservation(String username1, String car_id, String pickUpDate1, String dropOffDate1, int confirmationNumber1, boolean insurance1, double quote1) {
+		username = username1;
 		car = car_id;
 		confirmationNumber = confirmationNumber1;
 		insurance = insurance1;
@@ -156,6 +153,31 @@ public class Reservation {
 
 		return num;
 	}
+	
+	public static double makeQuote(ArrayList<Car> cars, String carID, String pickup, String dropoff) {
+		double price = 0;
+		double total = 0;
+		
+		Day pick = Reservation.stringToDay(pickup);
+		Day drop = Reservation.stringToDay(dropoff);
+		
+		int days = pick.daysFrom(drop);
+		
+		if(days < 0) {
+			days = days * -1;
+		}
+		
+		for(Car C : cars) {
+			if(C.getID().equals(carID)) {
+				price = C.getPrice();
+				break;
+			}
+		}
+		
+		total = price * days;
+		
+		return total;
+	}
 
 	/**
 	 * This method creates a reservation, by asking the user for input.
@@ -167,7 +189,7 @@ public class Reservation {
 	 * 
 	 * @return a new reservation containing the information that the user inputed.
 	 */
-	public static void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations) {
+	public static void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations, String username1) {
 
 		JFrame frame = new JFrame("Make a Reservation");
 		frame.setLayout(new BorderLayout());
@@ -244,9 +266,10 @@ public class Reservation {
 				String insurance = insuranceField.getText();
 				
 				int number = Reservation.makeConfirmationNumber(reservations);
-				double quote = ;		// need to make a makeQuote method.
+				double quote = Reservation.makeQuote(cars, car, pickupDate, dropOffDate);		// need to make a makeQuote method.
 				
-				Reservation resv = new Reservation(car, pickupDate, dropOffDate, number, Boolean.parseBoolean(insurance), quote);
+				Reservation resv = new Reservation(username1, car, pickupDate, dropOffDate, number, Boolean.parseBoolean(insurance), quote);
+				reservations.add(resv);
 
 				UIManager UI = new UIManager();
 				UI.put("OptionPane.background", Color.DARK_GRAY);
@@ -270,20 +293,16 @@ public class Reservation {
 
 				// this is where it picks up on the menu button.
 				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had
-					// the dimensions right
+					// Originally had the x and y printed out to make sure i had the dimensions right
 					// System.out.println(x+ " " + y);
 
-					// just change this line of code to match the frame you want
-					// closed.
-					// For the love of all that is holy, DO NOT use the same
-					// name for the main frame vs everything else!
+					// just change this line of code to match the frame you want closed.
+					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
 					frame.dispose();
 				}
 			}
 
-			// Eclipse was freaking out when I didn't have these methods listed,
-			// for whatever reason.
+			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
 			@Override
 			public void mouseEntered(MouseEvent e) {
 			}
@@ -302,112 +321,6 @@ public class Reservation {
 		});
 		// we remove the original one, then add the one newly updated one.
 
-	}
-
-	/**
-	 * This is a method that checks the credit card of the user.
-	 * 
-	 * @param aCustomer
-	 *            is to be the customer that is to be checked.
-	 * @param creditCard
-	 *            is to be the credit card number.
-	 * 
-	 * @return a boolean that determines whether or not the user is correct.
-	 */
-	public boolean checkCreditCard(Customer aCustomer, String creditCard) {
-		boolean check = false;
-		
-		final int TEXT_FIELD_SIZE = 15;
-
-		JFrame frame = new JFrame("Check Credit Card Info");
-		frame.setBackground(Color.BLACK);
-		frame.setLayout(new BorderLayout());
-		frame.setVisible(true);
-
-		// change this to wherever your workspace is
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		frame.setIconImage(img.getImage());
-
-		JLabel creditLabel = new JLabel("Please enter your Credit Card number: ");
-		final JTextField creditField = new JTextField(TEXT_FIELD_SIZE);
-		JButton okButton = new JButton("Submit");
-
-		// all the formatting that one could ever need.
-		creditLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-		creditLabel.setForeground(Color.DARK_GRAY);
-		creditField.setBackground(Color.DARK_GRAY);
-		creditField.setForeground(Color.WHITE);
-		okButton.setBackground(Color.RED);
-
-		// change this to wherever your workspace is.
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		frame.add(headerLabel, BorderLayout.NORTH);
-
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(8, 2));
-		panel.setBackground(Color.BLACK);
-
-		panel.add(creditLabel);
-		panel.add(creditField);
-		panel.add(new JLabel(""));
-		panel.add(okButton);
-		frame.add(panel);
-
-		frame.pack();
-		
-		okButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				String creditCard = creditField.getText();
-
-				if (aCustomer.getCreditCardNumber().equals(creditCard)) {
-					check = true;
-					// cant do a check here because the boolean will disappear after the actionPerformed runs.. so idk what I'm going to do yet.
-				}
-			}
-		});
-		
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-
-			}
-
-		});
-
-		return check;
 	}
 	
 	/**
@@ -493,7 +406,6 @@ public class Reservation {
         panel.setLayout(new GridLayout(8,2));
         panel.setBackground(Color.BLACK);
          
-         
 		panel.add(carLabel);
 		panel.add(carField);
 		panel.add(pickUpDateLabel);
@@ -574,7 +486,7 @@ public class Reservation {
 	 * @return a String that displays all the attributes separated by ", "
 	 */
 	public String getAttributes() {
-		String info = (getCar() + ", " + getPickUpDate().toString() + ", " + getDropOffDate().toString() + ", " + getConfirmationNumber() + ", " + getInsurance() + ", " + String.valueOf(getQuote()));
+		String info = (getUserName() + ", " + getCar() + ", " + getPickUpDate().toString() + ", " + getDropOffDate().toString() + ", " + getConfirmationNumber() + ", " + getInsurance() + ", " + String.valueOf(getQuote()));
 		
 		return info;
 	}
