@@ -406,10 +406,10 @@ public class Driver<T> {
 		b_e_review_reservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (beginning.equals(beg_emp)) {
-					E.reviewReservation(reservations, cars);
+					E.findByConfirmationNumber(reservations, cars);
 				}
 				if (beginning.equals(beg_man)) {
-					M.reviewReservation(reservations, cars);
+					M.findByConfirmationNumber(reservations, cars);
 				}
 				
 				try {
@@ -724,6 +724,8 @@ public class Driver<T> {
 			public void actionPerformed(ActionEvent e) {
 				// if they choose to create a new account.. we do that.
 				
+				
+				// this is going to be an interesting one to solve.
 				Customer c = Customer.createNewCustomer(customers);				
 				customers.add(c);
 				
