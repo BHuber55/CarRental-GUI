@@ -175,9 +175,13 @@ public class Manager extends Employee {
 				format(pane); 
 
 				pane.showMessageDialog(null,
-						" Name: " + name + "\n Username: " + userName + "\n Email: " + email + "\n Password: "
-								+ password + "\n Phone: " + phone + "\n Birthday: " + birthday
-								+ "\n Credit Card Number: " + credit,
+						" Name: " + name
+						+ "\n Username: " + userName
+						+ "\n Email: " + email
+						+ "\n Password: " + password
+						+ "\n Phone: " + phone
+						+ "\n Birthday: " + birthday
+						+ "\n Credit Card Number: " + credit,
 						"Information saved", JOptionPane.INFORMATION_MESSAGE);
 
 				cust_frame.dispose();

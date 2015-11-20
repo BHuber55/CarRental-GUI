@@ -165,7 +165,7 @@ public class Car extends formatter{
 
 		JButton mpg = new JButton("MPG");
 
-		JButton none = new JButton("None");
+		JButton none = new JButton("Display All Vehicles");
 
 		format(label);
 		
@@ -415,7 +415,6 @@ public class Car extends formatter{
 					format(pane); 
 
 					pane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
-					search_frame.dispose();
 				}
 			}
 		});
@@ -565,10 +564,10 @@ public class Car extends formatter{
 					format(pane); 
 
 					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
-					search_frame.dispose();
 				}
 			}
 		});
+		
 		JPanel search_panel = new JPanel();
 		format(search_panel);
 		search_panel.add(prompt);
@@ -629,7 +628,6 @@ public class Car extends formatter{
 					format(pane); 
 
 					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
-					search_frame.dispose();
 				}
 			}
 		});
@@ -699,7 +697,6 @@ public class Car extends formatter{
 					format(pane); 
 
 					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
-					search_frame.dispose();
 				}
 			}
 		});

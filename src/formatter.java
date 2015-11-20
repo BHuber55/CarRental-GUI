@@ -61,7 +61,7 @@ public class formatter {
 	}
 
 	public static void format(JTextField field) {
-		field.setBackground(Color.DARK_GRAY);
+		field.setBackground(new Color(66, 66, 66));
 		field.setForeground(Color.WHITE);
 		field.setFont(new Font("High Tower Text", Font.PLAIN, 16));
 		
@@ -136,14 +136,13 @@ public class formatter {
 
 		UIManager UI = new UIManager();
 		UI.put("OptionPane.background", primary);
-		UI.put("Panel.background", secondary);
+		UI.put("Panel.background", primary);
 		UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13)));
 		
-
+		// want to change font color to secondary.
 	}
 
 	public static void format(JPanel panel) {
-
 		panel.setBackground(primary);
 
 	}
