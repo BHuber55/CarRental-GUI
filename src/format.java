@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
@@ -22,51 +23,11 @@ public class format {
 	private static Color primary = new Color(55, 71, 79);
 	private static Color secondary = new Color(236, 239, 241);
 
-	public static JFrame format(JFrame frame) {
-
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int w = frame.getWidth();
-		int h = frame.getHeight();
-		int x = (int) ((dim.getWidth() - w) / 2);
-		int y = (int) ((dim.getHeight() - h) / 2);
-		frame.setLocation(x, y);
-
-		// frame.setUndecorated(true);
-		frame.setSize(800, 510);
-
-		frame.setLayout(new BorderLayout());
-
-		Container c = frame.getContentPane();
-		c.setBackground(primary);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-
-		return frame;
-	}
-
-	public static JLabel format(JLabel label) {
-		final String font_name = "Harlow Solid Italic";
-
-		label.setBackground(primary);
-		label.setForeground(secondary);
-		label.setFont(new Font(font_name, Font.PLAIN, 16));
-		return label;
-	}
-
-	public static JTextField format(JTextField field) {
-		field.setBackground(Color.GRAY);
-		field.setForeground(Color.WHITE);
-		field.setFont(new Font("High Tower Text", Font.PLAIN, 16));
-		
-		return field;
-	}
-
-	public static JButton format(JButton button) {
+	public static void format(JButton button) {
 		final Color primary;
 		final Color secondary;
 
-		if (button.getName().equals("login_button") || button.getName().equals("create_button")) {
+		if (button.getText().equals("login_button") || button.getText().equals("create_button")) {
 			primary = Color.BLACK;
 			secondary = Color.RED;
 		} else {
@@ -82,11 +43,9 @@ public class format {
 		button.setOpaque(false);
 		button.setContentAreaFilled(false);
 		button.setBorderPainted(false);
-
-		return button;
 	}
 
-	public static JFrame addHeader(JFrame frame) {
+	public static void addHeader(JFrame frame) {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.BLACK);
 		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
@@ -124,25 +83,58 @@ public class format {
 
 		ImageIcon img = new ImageIcon("./Car.jpg");
 		frame.setIconImage(img.getImage());
+	}
+	
+	public static void format(JFrame frame) {
 
-		return frame;
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		int w = frame.getWidth();
+		int h = frame.getHeight();
+		int x = (int) ((dim.getWidth() - w) / 2);
+		int y = (int) ((dim.getHeight() - h) / 2);
+		frame.setLocation(x, y);
 
+		// frame.setUndecorated(true);
+		frame.setSize(800, 510);
+
+		frame.setLayout(new BorderLayout());
+
+		Container c = frame.getContentPane();
+		c.setBackground(primary);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 
-	public static JOptionPane format(JOptionPane pane) {
+	public static void format(JLabel label) {
+		final String font_name = "Harlow Solid Italic";
+
+		label.setBackground(primary);
+		label.setForeground(secondary);
+		label.setFont(new Font(font_name, Font.PLAIN, 16));
+	}
+
+	public static void format(JOptionPane pane) {
 
 		UIManager UI = new UIManager();
 		UI.put("OptionPane.background", primary);
 		UI.put("Panel.background", secondary);
 		UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13)));
-		
-		return pane;
 	}
 
-	public static JPanel format(JPanel panel) {
+	public static void format(JPanel panel) {
 
 		panel.setBackground(primary);
-
-		return panel;
+	}
+	
+	public static void format(JTable table) {
+		table.setBackground(primary);
+		table.setForeground(secondary);
+	}
+	
+	public static void format(JTextField field) {
+		field.setBackground(Color.GRAY);
+		field.setForeground(Color.WHITE);
+		field.setFont(new Font("High Tower Text", Font.PLAIN, 16));
 	}
 }

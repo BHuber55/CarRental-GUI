@@ -1,18 +1,3 @@
-/*
- * Features that need to be added.
- * 
- * 1. Need to create the customer reservation history.
- * 		going to jsut add a username to the reservation class.. will then loop through the list to find 
- * 		if the said user has any reservations.
- * 
- * 2. Check the dates on the reservation to make sure that the cars are available for the customer selected dates.
- * 					^^ probably not going to happen.
- * 
- * 
- * 3. Convert the day class to the Calendar class.
- * 					^^ not my job.. hopefully Will will take care of it.
- * 
- */
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -40,8 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-// Might have to add WRITE() to the last line of every button ActionListener.
-
 public class Driver<T> extends format {
 
 	public static void main(String args[]) throws IOException {
@@ -68,6 +51,7 @@ public class Driver<T> extends format {
 
 		// Creating the frame and what not.
 		JFrame menu_frame = new JFrame("Main Menu");
+    	format(menu_frame);
 
 		
 		final String beg_emp = "E_";
@@ -126,11 +110,6 @@ public class Driver<T> extends format {
 
 		// still must have the below line as a final.
 		final Manager M = managers.get(i);
-		
-		// setting the frame so that it is centered
-		menu_frame.setLayout(new FlowLayout());
-    	format(menu_frame);
-	   
 
 		// creating the customer's buttons.
 		JButton b_c_logout = new JButton("Logout");
@@ -212,12 +191,6 @@ public class Driver<T> extends format {
 		b_c_view_resv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				C.displayReservationHistory(reservations);	
-				
-				try {
-					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
-				} catch (IOException e1) {
-					// Do Stuff
-				}
 			}
 		});
 
@@ -292,12 +265,6 @@ public class Driver<T> extends format {
 				if (beginning.equals(beg_man)) {
 					M.displayAllCustomers(customers);
 				}
-				
-				try {
-					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
-				} catch (IOException e1) {
-					// Do Stuff
-				}
 			}
 		});
 
@@ -332,12 +299,6 @@ public class Driver<T> extends format {
 				if (beginning.equals(beg_man)) {
 					M.findByConfirmationNumber(reservations, cars);
 				}
-				
-				try {
-					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
-				} catch (IOException e1) {
-					// Do Stuff
-				}
 			}
 		});
 
@@ -351,12 +312,6 @@ public class Driver<T> extends format {
 				}
 				if (beginning.equals(beg_man)) {
 					M.findByConfirmationNumber(reservations, cars);
-				}
-				
-				try {
-					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
-				} catch (IOException e1) {
-					// Do Stuff
 				}
 			}
 		});
@@ -476,7 +431,7 @@ public class Driver<T> extends format {
 		
 		menu_frame.setIconImage(img.getImage()); 
 		
-		menu_Panel.setLayout(new GridLayout(6,1));
+		menu_Panel.setLayout(new GridLayout(7,1));
 	
 		panel.add(headerLabel); 	
 		panel.setSize(img.getIconWidth(),img.getIconHeight());
@@ -542,6 +497,12 @@ public class Driver<T> extends format {
 		p6.setBackground(primary);
 		
 		menu_Panel.add(p6);
+		
+		JPanel p7 = new JPanel();
+		p7.setBackground(primary);
+		
+		menu_Panel.add(p7);
+		
 		menu_frame.add(menu_Panel);
 
 		menu_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -554,7 +515,6 @@ public class Driver<T> extends format {
 		int index = 0;
 		
 		final Color primary = new Color(55, 71, 79);
-		
 		
 		JFrame login = new JFrame();
 		login.setUndecorated(true);
@@ -574,6 +534,11 @@ public class Driver<T> extends format {
 		login_Panel.setLayout(new FlowLayout());
 		login_Panel.setSize(100,100);
 		login_Panel.setBackground(primary);
+		
+		JPanel login_Panel1 = new JPanel(); 
+		login_Panel1.setLayout(new FlowLayout());
+		login_Panel1.setSize(100,100);
+		login_Panel1.setBackground(primary);
 		
 		JLabel username_label = new JLabel("Username: ");
 		format(username_label);
@@ -621,8 +586,6 @@ public class Driver<T> extends format {
 		create_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// if they choose to create a new account.. we do that.
-				
-				
 				// this is going to be an interesting one to solve.
 				Customer.createNewCustomer(customers);				
 				
@@ -631,6 +594,7 @@ public class Driver<T> extends format {
 				
 			}
 		});
+		
 		login_Panel.add(username_label);
 		login_Panel.add(username_text_field);
 		
@@ -639,9 +603,10 @@ public class Driver<T> extends format {
 
 		login_Panel.add(create_button);
 		login_Panel.add(login_button);
-
 		
 		login.add(login_Panel, BorderLayout.CENTER);
+		//login.add(login_Panel1, BorderLayout.CENTER);
+		
 		login.pack();
 		login.setVisible(true);
 		

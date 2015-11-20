@@ -326,16 +326,13 @@ public class Employee extends Customer {
 						cars.remove(car);
 						
 						JOptionPane.showMessageDialog(null, "The car is removed", "\n ", JOptionPane.INFORMATION_MESSAGE);
-
 						break;
 					}
 				}
 
 				if (!found) {
 					JOptionPane.showMessageDialog(null, "The car ID is not found", "\n ", JOptionPane.INFORMATION_MESSAGE);
-
 					return;
-
 				}
 			}
 		});
