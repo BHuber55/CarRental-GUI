@@ -33,7 +33,7 @@ public class formatter {
 //		frame.setLocation(x, y);
 		//frame.setUndecorated(true);
 		frame.setSize(800, 510);
-
+		frame.setBackground(primary);
 		frame.setLayout(new BorderLayout());
 
 		Container c = frame.getContentPane();

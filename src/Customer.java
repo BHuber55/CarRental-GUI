@@ -304,13 +304,13 @@ public class Customer extends formatter{
 
 	/**
 	 * This method will update this customer profile information.
+	 * 
 	 * @param customers
 	 * 			an array list of customers that contains every customer.
 	 * @param index
-	 * 			an int that holds the index of the customer in the array list that is also passed in.
+	 * 			an integer that holds the index of the customer in the array list that is also passed in.
 	 */
 	public void updateProfile(int index, ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers) {
-		customers.remove(index);
 		JFrame frame = new JFrame("Update Customer Info"); 
 		format(frame);
 		addHeader(frame);
@@ -375,7 +375,9 @@ public class Customer extends formatter{
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Customer C = customers.get(index);
-				System.out.println("The current customer is... " + C.getAttributes());
+				
+				String OG_user = C.getUserName();
+				String beg = OG_user.substring(0, 2);
 				
 				String name = nameField.getText();
 				String user = userNameField.getText();
@@ -387,7 +389,7 @@ public class Customer extends formatter{
 				
 				boolean found = findUsername(customers, user);
 				
-				if(user.equals(C.getUserName())) {
+				if(user.equals(OG_user)) {
 					found = false;
 				}
 		        
@@ -413,34 +415,47 @@ public class Customer extends formatter{
 					if(credit.equals(null)) {
 						credit = C.getCreditCardNumber();
 					}
-	
-			        Customer customer = new Customer(name, user, email, pass, phone, birth, credit);
-			       // customers.add(customer);
 			        
-			       // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-			        if(user.substring(0, 2).equals("E_") || user.substring(0, 2).equals("M_")) {
-			        	Employee emp = null;
-			        	Manager man = null;
-			        	
-			        	for(Employee E : employees) {
-			        		if(E.getUserName().equals(user)) {
-			        			emp = new Employee(name, user, email, pass, phone, birth, credit, E.getHireDate(), E.getSalary());
-			        			employees.add(emp);
-			        		}
-			        	}
-			        	
-			        	if(user.substring(0, 2).equals("M_")) {
-				        	for(Manager M : managers) {
-					        	if(user.substring(0, 2).equals(user)) {
+					if(beg.equals("E_") || beg.equals("M_")) {
+				       	Employee emp = null;
+				       	Manager man = null;
+				       	
+				       	for(Employee E : employees) {
+				       		if(E.getUserName().equals(OG_user)) {
+				       			emp = new Employee(name, user, email, pass, phone, birth, credit, E.getHireDate(), E.getSalary());
+				       			employees.add(emp);
+				       			employees.remove(E);
+				       		}
+				       	}
+				        	
+				       	if(beg.equals("M_")) {
+					       	for(Manager M : managers) {
+					        	if(M.getUserName().equals(OG_user)) {
 					        		man = new Manager(name, user, email, pass, phone, birth, credit, M.getHireDate(), M.getSalary(), M.getBonus());
 					        		managers.add(man);
+					        		managers.remove(M);
 					        	}
-				        	}
-			        	}
-			        }
+					       	}
+				       	}
+				    }
+
+			        Customer customer = new Customer(name, user, email, pass, phone, birth, credit);
+			        customers.add(customer);
+			        customers.remove(index);
+			        
+			       // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+			       
+			        JOptionPane p = new JOptionPane();
+			        format(p);
+			        p.showMessageDialog(null, "You have successfully updated your profile.", "Saved", JOptionPane.PLAIN_MESSAGE);
+			        
+			        frame.dispose();
+			        
 				} else {
 					// tell the user his chosen username is taken.
-					JOptionPane.showMessageDialog(null,  "Sorry that username is already taken. Please enter a different one.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane pane = new JOptionPane();
+					format(pane);
+					pane.showMessageDialog(null,  "Sorry that username is already taken. Please enter a different one.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			} 	
 		});

@@ -2,35 +2,71 @@ Pete
 E_pete
 email@gmail.com
 abc132
-xxx-xxx-xxxx
+123-456-7890
 10/31/1989
-xxxx-xxxx-xxxx-0000
+xxxx-xxxx-xxxx-xxxx
 HireDate
 100000
-Ralph
+Ralph Davis
 E_Ralphy
 thekaratekid@aol.com
 abc123
-456
+123-456-7890
 01/01/1950
-4567
+xxxx-xxxx-xxxx-xxxx
 01/01/1983
 2
-Jeremy
+Jeremy Jackson
 E_Jeremy
 email@gmail.com
 abc123
-456-456-4561
+123-456-7890
 11/11/2000
 xxxx-xxxx-xxxx-xxxx
 11/12/20000
 100
-Loro
+Loro Dumo
 M_loro
 email@gmail.com
 abc123
-xxx-xxx-xxxx
+123-456-7890
 1/1/2000
-xxxx-xxxx-xxxx-0000
+xxxx-xxxx-xxxx-xxxx
 HireDate
+100000
+Wesley King
+E_Wes
+email@gmail.com
+abc123
+123-456-7890
+02/14/1995
+xxxx-xxxx-xxxx-xxxx
+01/01/2015
+50000
+Jordan Roth
+E_BigJ
+email@gmail.com
+abc123
+123-456-7890
+02/21/1995
+xxxx-xxxx-xxxx-xxxx
+01/01/2015
+50000
+Farah Kandah
+E_FKandah
+email@gmail.com
+abc123
+123-456-7890
+07/10/1980
+xxxx-xxxx-xxxx-xxxx
+01/01/2015
+50000
+Farah Kandah
+M_FKandah
+email@gmail.com
+abc123
+123-456-7890
+07/10/1980
+xxxx-xxxx-xxxx-xxxx
+01/01/2015
 100000
