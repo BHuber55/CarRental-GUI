@@ -467,6 +467,7 @@ public class Customer extends formatter{
 		
 		JFrame frame = new JFrame("User Reservation History");
 		format(frame);
+		frame.setVisible(false);
 		
 		for(Reservation R : reservations) {
 			if(username.equals(R.getUserName())) {
@@ -477,31 +478,33 @@ public class Customer extends formatter{
 		String header[] = { "Username", "Car ID", "Pick Up Date", "Drop Off Date", "Confirmation Number" };
 		Object data[][] = new Object[user_history.size()][5];
 		String info = "";
-		List<String> list;
+		List<String> list = Arrays.asList(info.split(", "));
 		int count = 0;
 
-		for (Reservation h : user_history) {
-			info = h.getAttributes();
-			list = Arrays.asList(info.split(", "));
-
-			// seeing if there are any reservations.
-			if(list.size() == 0) {
-				JOptionPane pane = new JOptionPane();
-				format(pane);
-				
-				pane.showMessageDialog(null, "There were no reservation found for that customer", "Error", JOptionPane.WARNING_MESSAGE);
-				frame.dispose();
-				return;
-			}
+		if(!user_history.isEmpty()) {
+			frame.setVisible(true);
 			
-			
-			for (int j = 0; j < 5; j++) {
-				data[count][j] = list.get(j);
-			}
+			for (Reservation h : user_history) {
+				info = h.getAttributes();
+				list = Arrays.asList(info.split(", "));
+	
+				for (int j = 0; j < 5; j++) {
+					data[count][j] = list.get(j);
+				}
 
-			count++;
+				count++;
+			}
+		} else {
+			JOptionPane pane = new JOptionPane();
+			format(pane);
+			
+			pane.showMessageDialog(null, "There were no reservation found for that customer", "Error", JOptionPane.WARNING_MESSAGE);
+			
+			frame.dispose();
+			
+			//return;
 		}
-		
+
 		JTable table = new JTable(data, header){
 			@Override
 			public boolean isCellEditable(int row, int column) {
