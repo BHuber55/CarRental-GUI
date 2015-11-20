@@ -9,19 +9,64 @@ import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
-public class format {
+public class formatter {
 
 	private static Color primary = new Color(55, 71, 79);
 	private static Color secondary = new Color(236, 239, 241);
+
+	public static void format(JFrame frame) {
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		int w = frame.getWidth();
+		int h = frame.getHeight();
+		int x = (int) ((dim.getWidth() - w) / 2);
+		int y = (int) ((dim.getHeight() - h) / 2);
+		frame.setLocation(x, y);
+
+		frame.setUndecorated(true);
+		frame.setSize(800, 510);
+
+		frame.setLayout(new BorderLayout());
+
+		Container c = frame.getContentPane();
+		c.setBackground(primary);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+
+	}
+
+	public static void format(JLabel label) {
+		final String font_name = "Harlow Solid Italic";
+
+		label.setBackground(primary);
+		label.setForeground(secondary);
+		label.setFont(new Font(font_name, Font.PLAIN, 16));
+	}
+	
+	public static void format(JComboBox<String> box)
+	{
+		final String font_name = "High Tower Text";
+		box.setFont(new Font(font_name, Font.PLAIN, 18));
+		box.setForeground(secondary);
+		box.setBackground(primary);
+	}
+
+	public static void format(JTextField field) {
+		field.setBackground(Color.GRAY);
+		field.setForeground(Color.WHITE);
+		field.setFont(new Font("High Tower Text", Font.PLAIN, 16));
+		
+	}
 
 	public static void format(JButton button) {
 		final Color primary;
@@ -43,6 +88,7 @@ public class format {
 		button.setOpaque(false);
 		button.setContentAreaFilled(false);
 		button.setBorderPainted(false);
+
 	}
 
 	public static void addHeader(JFrame frame) {
@@ -83,35 +129,8 @@ public class format {
 
 		ImageIcon img = new ImageIcon("./Car.jpg");
 		frame.setIconImage(img.getImage());
-	}
-	
-	public static void format(JFrame frame) {
 
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int w = frame.getWidth();
-		int h = frame.getHeight();
-		int x = (int) ((dim.getWidth() - w) / 2);
-		int y = (int) ((dim.getHeight() - h) / 2);
-		frame.setLocation(x, y);
 
-		// frame.setUndecorated(true);
-		frame.setSize(800, 510);
-
-		frame.setLayout(new BorderLayout());
-
-		Container c = frame.getContentPane();
-		c.setBackground(primary);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	}
-
-	public static void format(JLabel label) {
-		final String font_name = "Harlow Solid Italic";
-
-		label.setBackground(primary);
-		label.setForeground(secondary);
-		label.setFont(new Font(font_name, Font.PLAIN, 16));
 	}
 
 	public static void format(JOptionPane pane) {
@@ -120,21 +139,15 @@ public class format {
 		UI.put("OptionPane.background", primary);
 		UI.put("Panel.background", secondary);
 		UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13)));
+		
+
 	}
 
 	public static void format(JPanel panel) {
 
 		panel.setBackground(primary);
+
 	}
 	
-	public static void format(JTable table) {
-		table.setBackground(primary);
-		table.setForeground(secondary);
-	}
 	
-	public static void format(JTextField field) {
-		field.setBackground(Color.GRAY);
-		field.setForeground(Color.WHITE);
-		field.setFont(new Font("High Tower Text", Font.PLAIN, 16));
-	}
 }

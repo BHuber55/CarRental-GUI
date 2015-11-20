@@ -1,8 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 /**
  * This is the reservation class. It holds the information that is needed to create and retrieve a reservation.
@@ -23,7 +28,7 @@ import javax.swing.JTextField;
  * @author Loro Dumo, Brennan Huber, William Thompson, Peter Way
  *
  */
-public class Reservation extends format{
+public class Reservation extends formatter{
 	
 	private String username;
 	private String car;
@@ -304,78 +309,17 @@ public class Reservation extends format{
 	 *            is to be the array list of cars that contains every car.
 	 */
 	public void makeReservationReport(ArrayList<Car> cars) {
-		JFrame frame = new JFrame(); 
-		
-		frame.setTitle("Reservation Report");
-		format(frame); 
-		addHeader(frame); 
-		
-		//change this to wherever your workspace is
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		frame.setIconImage(img.getImage());
-		
-		final int TEXT_FIELD_SIZE = 20; 	
-		JLabel carLabel = new JLabel("Car: "); 
-		final JTextField carField = new JTextField(TEXT_FIELD_SIZE); 
-		JLabel pickUpDateLabel = new JLabel("Pick Up Date: ");
-		final JTextField pickUpDateField = new JTextField(TEXT_FIELD_SIZE); 
-		JLabel dropOffDateLabel = new JLabel("Drop Off Date: ");
-		final JTextField dropOffDateField = new JTextField(TEXT_FIELD_SIZE); 
-		JLabel insuranceLabel = new JLabel("Insurance: ");
-		final JTextField insuranceField = new JTextField(TEXT_FIELD_SIZE); 
-		JButton okButton = new JButton("Submit");
-	
-		//all the formatting that one could ever need.
-		frame.setBackground(Color.BLACK);
-         
-		format(carLabel);
-		format(carField);
-		format(pickUpDateLabel);
-		format(pickUpDateField);
-		format(dropOffDateLabel);
-		format(dropOffDateField);
-		format(insuranceLabel);
-		format(insuranceField);
-		format(okButton);
-         
-         
-        JPanel panel = new JPanel(); 
-        panel.setLayout(new GridLayout(8,2));
-        panel.setBackground(Color.BLACK);
-         
-		panel.add(carLabel);
-		panel.add(carField);
-		panel.add(pickUpDateLabel);
-		panel.add(pickUpDateField);
-		panel.add(dropOffDateLabel);
-		panel.add(dropOffDateField);
-		panel.add(insuranceLabel);
-		panel.add(insuranceField);
-		panel.add(new JLabel(""));
-		panel.add(okButton);
-		frame.add(panel);
-		
-		frame.pack();
-		
-		okButton.addActionListener(new ActionListener() {
-			@SuppressWarnings("static-access")
-			public void actionPerformed(ActionEvent e) {
-				String car = carField.getText(); 
-				String pickupDate = pickUpDateField.getText(); 
-				String dropOffDate = dropOffDateField.getText(); 
-				String insurance = insuranceField.getText();
-				
-				JOptionPane pane = new JOptionPane(); 
-				format(pane);
+		JOptionPane pane = new JOptionPane(); 
+		format(pane);
 
-				JOptionPane.showMessageDialog(null," Car: "+ car
-						+ "\n Pick Up Date: " + pickupDate
-						+ "\n Drop Off Date: " + dropOffDate
-						+ "\n Insurance: " + insurance,
-						"Information Saved",
-			  			JOptionPane.INFORMATION_MESSAGE, img);
-			}
-			}); 	
+		JOptionPane.showMessageDialog(null,
+				" Username: " + username
+				+ " Car: "+ car
+				+ "\n Pick Up Date: " + pickUpDate
+				+ "\n Drop Off Date: " + dropOffDate
+				+ "\n Insurance: " + insurance,
+				"Information Saved",
+	  			JOptionPane.INFORMATION_MESSAGE);	
 		}
 	
 	/**

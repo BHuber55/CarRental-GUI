@@ -25,7 +25,7 @@ import javax.swing.plaf.FontUIResource;
  * @author Loro Dumo, Brennan Huber, William Thompson, Peter Way
  *
  */
-public class Customer {
+public class Customer extends formatter{
 
 	private String name;
 	private String username;
@@ -182,12 +182,9 @@ public class Customer {
 	public static void createNewCustomer(ArrayList<Customer> customers) {
 
 		JFrame frame = new JFrame("Create new Customer"); 
-		frame.setLayout(new BorderLayout());
-		frame.setVisible(true);
+		format(frame); 
+		addHeader(frame);
 		
-		//change this to wherever your workspace is
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		frame.setIconImage(img.getImage());
 		
 		final int TEXT_FIELD_SIZE = 20; 	
 		JLabel nameLabel = new JLabel("Name: "); 
@@ -206,47 +203,26 @@ public class Customer {
 		final JTextField creditField = new JTextField(16); 
 		JButton okButton = new JButton("Submit");
 	
-		//all the formatting that one could ever need.
-        frame.setBackground(Color.BLACK);
          
-        nameLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        nameLabel.setForeground(Color.DARK_GRAY);
-        nameField.setBackground(Color.DARK_GRAY);
-        nameField.setForeground(Color.WHITE);
-        userNameLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        userNameLabel.setForeground(Color.GRAY);
-        userNameField.setBackground(Color.DARK_GRAY);
-        userNameField.setForeground(Color.WHITE);
-        emailLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        emailLabel.setForeground(Color.DARK_GRAY);
-        emailField.setBackground(Color.DARK_GRAY);
-        emailField.setForeground(Color.WHITE);
-        passwordLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        passwordLabel.setForeground(Color.GRAY);
-        passwordField.setBackground(Color.DARK_GRAY);
-        passwordField.setForeground(Color.WHITE);
-        phoneLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        phoneLabel.setForeground(Color.DARK_GRAY);
-        phoneField.setBackground(Color.DARK_GRAY);
-        phoneField.setForeground(Color.WHITE);
-        birthdayLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        birthdayLabel.setForeground(Color.GRAY);
-        birthdayField.setBackground(Color.DARK_GRAY);
-        birthdayField.setForeground(Color.WHITE);
-        creditLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        creditLabel.setForeground(Color.DARK_GRAY);
-        creditField.setBackground(Color.DARK_GRAY);
-        creditField.setForeground(Color.WHITE);
-        okButton.setBackground(Color.RED);
-         
-        //change this to wherever your workspace is. 
-        JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-        frame.add(headerLabel, BorderLayout.NORTH);
+        format(nameLabel);
+        format(nameField);
+        format(userNameLabel);
+        format(userNameField);
+        format(emailLabel);
+        format(emailField);
+        format(passwordLabel);
+        format(passwordField);
+        format(phoneLabel);
+        format(phoneField);
+        format(birthdayLabel);
+        format(birthdayField);
+        format(creditLabel);
+        format(creditField);
+        format(okButton);
          
          
         JPanel panel = new JPanel(); 
         panel.setLayout(new GridLayout(8,2));
-        panel.setBackground(Color.BLACK);
          
          
 		panel.add(nameLabel);
@@ -268,6 +244,7 @@ public class Customer {
 		frame.add(panel);
 		
 		okButton.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				String name = nameField.getText(); 
@@ -282,18 +259,13 @@ public class Customer {
 				
 				// if the username is not already taken.
 				if(!found) {
-					 UIManager UI = new UIManager();
-					 UI.put("OptionPane.background", Color.DARK_GRAY);
-					 UI.put("Panel.background", Color.RED);
-					 UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13))); 
-	
-	
+					JOptionPane pane = new JOptionPane(); 	
+					format(pane); 
+					
+					@SuppressWarnings("static-access")
 					Customer customer = new Customer(name, userName, email, pass, phone, birth, credit);
 					customers.add(customer);
-					
-					//final public static int index = customers.indexOf(customer);
-				        
-					 JOptionPane.showMessageDialog(null,
+					pane.showMessageDialog(null,
 							 " Name: "+ name
 							 + "\n Username: " + userName
 							 + "\n Email: " + email
@@ -302,53 +274,14 @@ public class Customer {
 							 + "\n Birthday: " + birth
 							 + "\n Credit Card Number: " + credit,
 							 "Information Saved",
-				  			 JOptionPane.INFORMATION_MESSAGE, img);
+				  			 JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					// tell the user his chosen username is taken.
-					JOptionPane.showMessageDialog(null,  "Sorry that username is already taken.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane pane = new JOptionPane(); 	
+					format(pane); 
+					pane.showMessageDialog(null,  "Sorry that username is already taken.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		
-		//return index;
-		
-        headerLabel.addMouseListener(new MouseListener() {
-    	    @Override
-    	    public void mouseClicked(MouseEvent e) {
-				int x=e.getX();
-				int y=e.getY();
-    	    	    
-	    	    //this is where it picks up on the menu button. 
-	    	    if(x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					frame.dispose();
-	    	    }
-    	    }
- 
-    		@Override
-    		public void mouseEntered(MouseEvent e) {
-    			
-    		}
-
-    		@Override
-    		public void mouseExited(MouseEvent e) {
-    		
-    		}
-
-    		@Override
-    		public void mousePressed(MouseEvent e) {
-    			
-    		}
-
-    		@Override
-    		public void mouseReleased(MouseEvent e) {
-    			
-    		}
-    	});
 	}
 	
 	/**
@@ -383,12 +316,8 @@ public class Customer {
 	public void updateProfile(int index, ArrayList<Customer> customers) {
 		customers.remove(index);
 		JFrame frame = new JFrame("Update Customer Info"); 
-		frame.setLayout(new BorderLayout());
-		frame.setVisible(true);
-		
-		//change this to wherever your workspace is
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		frame.setIconImage(img.getImage());
+		format(frame);
+		addHeader(frame);
 		
 		final int TEXT_FIELD_SIZE = 20; 	
 		JLabel nameLabel = new JLabel("Name: "); 
@@ -408,45 +337,28 @@ public class Customer {
 		JButton okButton = new JButton("Submit");
 	
 		//all the formatting that one could ever need.
-        frame.setBackground(Color.BLACK);
+        
          
-        nameLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        nameLabel.setForeground(Color.DARK_GRAY);
-        nameField.setBackground(Color.DARK_GRAY);
-        nameField.setForeground(Color.WHITE);
-        userNameLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        userNameLabel.setForeground(Color.GRAY);
-        userNameField.setBackground(Color.DARK_GRAY);
-        userNameField.setForeground(Color.WHITE);
-        emailLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        emailLabel.setForeground(Color.DARK_GRAY);
-        emailField.setBackground(Color.DARK_GRAY);
-        emailField.setForeground(Color.WHITE);
-        passwordLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        passwordLabel.setForeground(Color.GRAY);
-        passwordField.setBackground(Color.DARK_GRAY);
-        passwordField.setForeground(Color.WHITE);
-        phoneLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        phoneLabel.setForeground(Color.DARK_GRAY);
-        phoneField.setBackground(Color.DARK_GRAY);
-        phoneField.setForeground(Color.WHITE);
-        birthdayLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        birthdayLabel.setForeground(Color.GRAY);
-        birthdayField.setBackground(Color.DARK_GRAY);
-        birthdayField.setForeground(Color.WHITE);
-        creditLabel.setFont(new Font("Harlow Solid Italic", Font.BOLD, 18));
-        creditLabel.setForeground(Color.DARK_GRAY);
-        creditField.setBackground(Color.DARK_GRAY);
-        creditField.setForeground(Color.WHITE);
-        okButton.setBackground(Color.RED);
+        format(nameLabel);
+        format(nameField);
+        format(userNameLabel);
+        format(userNameField);
+        format(emailLabel);
+        format(emailField);
+        format(passwordLabel);
+        format(passwordField);
+        format(phoneLabel);
+        format(phoneField);
+        format(birthdayLabel);
+        format(birthdayField);
+        format(creditLabel);
+        format(creditField);
+        format(okButton);
          
-        //change this to wherever your workspace is. 
-        JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-        frame.add(headerLabel, BorderLayout.NORTH);
          
         JPanel panel = new JPanel(); 
         panel.setLayout(new GridLayout(8,2));
-        panel.setBackground(Color.BLACK);
+        format(panel);
          
 		panel.add(nameLabel);
 		panel.add(nameField);
@@ -466,7 +378,6 @@ public class Customer {
 		panel.add(okButton);
 		frame.add(panel);
 		
-		frame.pack();
 		
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -481,6 +392,10 @@ public class Customer {
 				String credit = creditField.getText();
 				
 				boolean found = findUsername(customers, user);
+				
+				if(user.equals(C.getUserName())) {
+					found = false;
+				}
 				
 				if(!found) {
 					if(name.equals(null)) {
@@ -514,43 +429,6 @@ public class Customer {
 			} 	
 		});
         
-        headerLabel.addMouseListener(new MouseListener() {
-    	    @Override
-    	    public void mouseClicked(MouseEvent e) {
-				int x=e.getX();
-				int y=e.getY();
-    	    	    
-	    	    //this is where it picks up on the menu button. 
-	    	    if(x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					frame.dispose();
-	    	    }
-    	    }
- 
-    		@Override
-    		public void mouseEntered(MouseEvent e) {
-    			
-    		}
-
-    		@Override
-    		public void mouseExited(MouseEvent e) {
-    		
-    		}
-
-    		@Override
-    		public void mousePressed(MouseEvent e) {
-    			
-    		}
-
-    		@Override
-    		public void mouseReleased(MouseEvent e) {
-    			
-    		}
-    	});
 	}
 	
 	/**
@@ -576,7 +454,7 @@ public class Customer {
 				user_history.add(R);
 			}
 		}
-		
+		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		// should make a table to display this stuff.
 	}
 	

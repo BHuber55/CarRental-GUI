@@ -24,7 +24,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
-public class Car {
+public class Car extends formatter{
 
 	private String model;
 	private int year;
@@ -145,65 +145,17 @@ public class Car {
 	 *            is the array list of cars that contains every car.
 	 */
 	public static void advancedSearch(ArrayList<Car> cars) {
-		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
-		String font_name = "Harlow Solid Italic";
 		
 		JFrame adv_search = new JFrame("Advanced Search");
 
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		adv_search.setIconImage(img.getImage());
+		addHeader(adv_search); 
+		format(adv_search); 
+		
 
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		adv_search.add(headerLabel, BorderLayout.NORTH);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					adv_search.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
-
-		Container c = adv_search.getContentPane();
-		c.setBackground(primary);
-
-		JLabel label = new JLabel("What criteria would you like to search by");
-		label.setBackground(primary);
-		label.setForeground(secondary);
-		label.setFont(new Font(font_name, Font.PLAIN, 18));
-	
+		JLabel label = new JLabel("What criteria would you like to search by");	
 
 		JButton color = new JButton("Color");
 		
-
 		JButton make = new JButton("Make");
 
 		JButton model = new JButton("Model");
@@ -216,84 +168,58 @@ public class Car {
 
 		JButton none = new JButton("None");
 
-		color.setOpaque(false);
-		color.setContentAreaFilled(false);
-		color.setBorderPainted(false);
-		color.setBackground(primary);
-		color.setForeground(secondary);
-		color.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(label);
+		
+		format(color);
+		
 		color.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Car.searchByColor(cars);
 			}
 		});
 
-		make.setOpaque(false);
-		make.setContentAreaFilled(false);
-		make.setBorderPainted(false);
-		make.setBackground(primary);
-		make.setForeground(secondary);
-		make.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(make);
+		
 		make.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Car.searchByMake(cars);
 			}
 		});
 
-		model.setOpaque(false);
-		model.setContentAreaFilled(false);
-		model.setBorderPainted(false);
-		model.setBackground(primary);
-		model.setForeground(secondary);
-		model.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(model);
+		
 		model.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Car.searchByModel(cars);
 			}
 		});
 
-		price.setOpaque(false);
-		price.setContentAreaFilled(false);
-		price.setBorderPainted(false);
-		price.setBackground(primary);
-		price.setForeground(secondary);
-		price.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(price);
+		
 		price.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Car.searchByPrice(cars);
 			}
 		});
 
-		mileage.setOpaque(false);
-		mileage.setContentAreaFilled(false);
-		mileage.setBorderPainted(false);
-		mileage.setBackground(primary);
-		mileage.setForeground(secondary);
-		mileage.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(mileage);
+		
 		mileage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Car.searchByMileage(cars);
 			}
 		});
 
-		mpg.setOpaque(false);
-		mpg.setContentAreaFilled(false);
-		mpg.setBorderPainted(false);
-		mpg.setBackground(primary);
-		mpg.setForeground(secondary);
-		mpg.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(mpg);
+		
 		mpg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Car.searchByMPG(cars);
 			}
 		});
 
-		none.setOpaque(false);
-		none.setContentAreaFilled(false);
-		none.setBorderPainted(false);
-		none.setBackground(primary);
-		none.setForeground(secondary);
-		none.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(none);
+		
 		none.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Car.displayVehicles(cars);
@@ -302,7 +228,8 @@ public class Car {
 			}
 		});
 		JPanel adv_search_panel = new JPanel();
-		adv_search_panel.setBackground(primary);
+		format(adv_search_panel); 
+		
 		adv_search_panel.add(label);
 		adv_search_panel.add(color);
 		adv_search_panel.add(make);
@@ -313,11 +240,7 @@ public class Car {
 		adv_search_panel.add(none);
 		adv_search_panel.setSize(320, 200);
 		adv_search_panel.setLayout(new FlowLayout());
-		adv_search_panel.setSize(320, 200);
 		adv_search.add(adv_search_panel);
-		adv_search.setVisible(true);
-		adv_search.setSize(800, 400);
-		adv_search.setLocationRelativeTo(null);
 	}
 
 	/**
@@ -332,46 +255,9 @@ public class Car {
 		int count = 0;
 
 		JFrame cars_frame = new JFrame("Available vehicles");
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		cars_frame.setIconImage(img.getImage());
+		addHeader(cars_frame); 
+		format(cars_frame); 
 
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		cars_frame.add(headerLabel, BorderLayout.NORTH);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					cars_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
 
 		String header[] = { "Model", "Year", "Make", "Color", "Price", "Mileage", "MPG" };
 		Object data[][] = new Object[cars.size()][7];
@@ -401,16 +287,13 @@ public class Car {
 		};
 		JPanel car_panel = new JPanel();
 		car_panel.setLayout(new GridLayout(3, 3));
-		car_panel.setBackground(primary);
+		format(car_panel);
 
-		Container c = cars_frame.getContentPane();
-		c.setBackground(primary);
+		;
 		car_panel.add(table.getTableHeader());
 		car_panel.add(table);
 		cars_frame.add(car_panel);
-		cars_frame.setLocationRelativeTo(null);
-		cars_frame.setSize(800, 500);
-		cars_frame.setVisible(true);
+		
 	}
 
 	/**
@@ -422,77 +305,24 @@ public class Car {
 	 */
 	public static void searchByColor(ArrayList<Car> cars) {
 
-		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
-
-		final String font_name = "Harlow Solid Italic";
 		
 		String colors[] = { "Black", "Blue", "Green", "Grey", "Orange", "Purple", "Red", "White", "Yellow" };
 
 		JFrame search_frame = new JFrame("Search by color");
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		search_frame.setIconImage(img.getImage());
-
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		search_frame.add(headerLabel, BorderLayout.NORTH);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					search_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
+		addHeader(search_frame); 
+		format(search_frame); 
 
 		JPanel search_panel = new JPanel();
-		search_panel.setBackground(primary);
+		format(search_panel); 
+		
 		JLabel prompt = new JLabel("Please choose a color.");
-		prompt.setFont(new Font(font_name, Font.PLAIN, 18));
-		prompt.setForeground(secondary);
-		prompt.setBackground(primary);
+		format(prompt);
 
 		JComboBox<String> color_choices = new JComboBox<String>(colors);
-		color_choices.setFont(new Font(font_name, Font.PLAIN, 18));
-		color_choices.setForeground(secondary);
-		color_choices.setBackground(primary);
+		format(color_choices);
 
 		JButton select = new JButton("Select");
-		select.setFont(new Font(font_name, Font.PLAIN, 18));
-		select.setForeground(secondary);
-		select.setBackground(primary);
-
-		select.setOpaque(false);
-		select.setContentAreaFilled(false);
-		select.setBorderPainted(false);
-		select.setFont(new Font(font_name, Font.PLAIN, 18));
-		select.setForeground(secondary);
+		format(select);
 		
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -514,12 +344,9 @@ public class Car {
 				if (sorted_cars.size() != 0) {
 					Car.displayVehicles(sorted_cars);
 				} else {
-					UIManager UI = new UIManager();
-					UI.put("OptionPane.background", primary);
-					UI.put("Panel.background", secondary);
-					UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
-
-					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE, img);
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
+					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
 					search_frame.dispose();
 				}
 			}
@@ -530,13 +357,7 @@ public class Car {
 		search_panel.add(color_choices, BorderLayout.CENTER);
 		search_panel.add(select, BorderLayout.EAST);
 		search_frame.add(search_panel, BorderLayout.SOUTH);
-		Container c = search_frame.getContentPane();
-		c.setBackground(primary);
 
-		search_frame.setSize(800, 350);
-		search_frame.setVisible(true);
-		search_frame.setLocationRelativeTo(null);
-		search_panel.setLayout(new FlowLayout());
 	}
 
 	/**
@@ -547,73 +368,27 @@ public class Car {
 	 * 
 	 */
 	public static void searchByModel(ArrayList<Car> cars) {
-		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
-
-		final String font_name = "Harlow Solid Italic";
-		
+				
 		// add to this list.
 		// maybe make it loop through the list and only display vehicle models that we have?
 		String models[] = { "Aventador", "F1", "Model S", "Wrangler" };
 
 		JFrame search_frame = new JFrame("Search by model");
 		JPanel search_panel = new JPanel(); 
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		search_frame.setIconImage(img.getImage());
+		addHeader(search_frame); 
+		format(search_frame); 
 
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		search_frame.add(headerLabel, BorderLayout.NORTH);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					search_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
 
 		JLabel prompt = new JLabel("Please choose a model of car.");
+		format(prompt);
 
 		JComboBox<String> car_models = new JComboBox<String>(models);
 
-		car_models.setFont(new Font(font_name, Font.PLAIN, 18));
-		car_models.setForeground(primary);
-		car_models.setBackground(secondary);
+		format(car_models);
 
 		JButton select = new JButton("Select");
-		select.setFont(new Font(font_name, Font.PLAIN, 18));
-		select.setForeground(secondary);
-
-		select.setOpaque(false);
-		select.setContentAreaFilled(false);
-		select.setBorderPainted(false);
+		format(select);
+		
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListIterator<Car> iter = cars.listIterator();
@@ -635,12 +410,10 @@ public class Car {
 				if (sorted_cars.size() != 0) {
 					Car.displayVehicles(sorted_cars);
 				} else {
-					UIManager UI = new UIManager();
-					UI.put("OptionPane.background", primary);
-					UI.put("Panel.background", secondary);
-					UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
 
-					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE, img);
+					pane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
 					search_frame.dispose();
 				}
 			}
@@ -649,14 +422,8 @@ public class Car {
 		search_panel.add(prompt);
 		search_panel.add(car_models);
 		search_panel.add(select);
-		Container c = search_frame.getContentPane();
-		c.setBackground(primary);
-		search_panel.setBackground(primary);
 		search_frame.add(search_panel);
-		search_frame.setSize(800, 350);
-		search_frame.setVisible(true);
-		search_frame.setLocationRelativeTo(null);
-		search_frame.setLayout(new FlowLayout());
+		
 	}
 
 	/**
@@ -679,66 +446,19 @@ public class Car {
 
 		JFrame search_frame = new JFrame("Search by model");
 		JPanel search_panel = new JPanel(); 
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		search_frame.setIconImage(img.getImage());
-
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		search_frame.add(headerLabel, BorderLayout.NORTH);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					search_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
+		addHeader(search_frame); 
+		format(search_frame); 
 
 		JLabel prompt = new JLabel("Please choose a model of car.");
-		prompt.setFont(new Font(font_name, Font.PLAIN, 18));
-		prompt.setForeground(secondary);
-		prompt.setBackground(primary);
+		format(prompt);
 
 		JComboBox<String> car_makes = new JComboBox<String>(makes);
 
-		car_makes.setFont(new Font(font_name, Font.PLAIN, 18));
-		car_makes.setForeground(primary);
-		car_makes.setBackground(secondary);
+		format(car_makes);
 
 		JButton select = new JButton("Select");
-		select.setFont(new Font(font_name, Font.PLAIN, 18));
-		select.setForeground(secondary);
+		format(select);
 
-		select.setOpaque(false);
-		select.setContentAreaFilled(false);
-		select.setBorderPainted(false);
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String car_make = (String) car_makes.getSelectedItem();
@@ -758,13 +478,10 @@ public class Car {
 				if (sorted_cars.size() != 0) {
 					Car.displayVehicles(sorted_cars);
 				} else {
-					UIManager UI = new UIManager();
-					UI.put("OptionPane.background", primary);
-					UI.put("Panel.background", secondary);
-					UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
 
-					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE, img);
-					search_frame.dispose();
+					pane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);			search_frame.dispose();
 				}
 			}
 		});
@@ -772,14 +489,8 @@ public class Car {
 		search_panel.add(prompt);
 		search_panel.add(car_makes);
 		search_panel.add(select);
-		search_panel.setBackground(primary);
-		Container c = search_frame.getContentPane();
-		c.setBackground(primary);
 		search_frame.add(search_panel);
-		search_frame.setSize(800, 350);
-		search_frame.setVisible(true);
-		search_frame.setLocationRelativeTo(null);
-		search_frame.setLayout(new FlowLayout());
+	
 	}
 
 	/**
@@ -800,66 +511,18 @@ public class Car {
 		String prices[] = { "5.0", "100.0", "200.0", "300.0", "400.0", "10000.0" };
 
 		JFrame search_frame = new JFrame("Search by model");
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		search_frame.setIconImage(img.getImage());
-
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		search_frame.add(headerLabel, BorderLayout.NORTH);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					search_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
+		addHeader(search_frame); 
+		format(search_frame);
 
 		JLabel prompt = new JLabel("Please choose a model of car.");
-		prompt.setFont(new Font(font_name, Font.PLAIN, 18));
-		prompt.setForeground(secondary);
-		prompt.setBackground(primary);
+		format(prompt);
 
 		JComboBox<String> car_prices = new JComboBox<String>(prices);
-
-		car_prices.setFont(new Font(font_name, Font.PLAIN, 18));
-		car_prices.setForeground(primary);
-		car_prices.setBackground(secondary);
+		format(car_prices);
 
 		JButton select = new JButton("Select");
-		select.setFont(new Font(font_name, Font.PLAIN, 18));
-		select.setForeground(secondary);
+		format(select);
 
-		select.setOpaque(false);
-		select.setContentAreaFilled(false);
-		select.setBorderPainted(false);
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListIterator<Car> iter = cars.listIterator();
@@ -883,28 +546,20 @@ public class Car {
 				if (sorted_cars.size() != 0) {
 					Car.displayVehicles(sorted_cars);
 				} else {
-					UIManager UI = new UIManager();
-					UI.put("OptionPane.background", primary);
-					UI.put("Panel.background", secondary);
-					UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
 
-					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE, img);
+					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
 					search_frame.dispose();
 				}
 			}
 		});
 		JPanel search_panel = new JPanel();
-		search_panel.setBackground(primary);
+		format(search_panel);
 		search_panel.add(prompt);
 		search_panel.add(car_prices);
 		search_panel.add(select);
 		search_frame.add(search_panel);
-		Container c = search_frame.getContentPane();
-		c.setBackground(primary);
-		search_frame.setSize(800, 350);
-		search_frame.setVisible(true);
-		search_frame.setLocationRelativeTo(null);
-		search_frame.setLayout(new FlowLayout());
 	}
 
 	/**
@@ -914,74 +569,25 @@ public class Car {
 	 *           is the array list of cars that contains every car.
 	 */
 	public static void searchByMileage(ArrayList<Car> cars) {
-		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
-
-		final String font_name = "Harlow Solid Italic";
 
 		// add to this list.
 		// maybe make it loop through the list and only display vehicle models that we have.
 		String mileages[] = { "5", "2000", "3000", "10000", "100000" };
 
 		JFrame search_frame = new JFrame("Search by model");
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		search_frame.setIconImage(img.getImage());
-
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		search_frame.add(headerLabel, BorderLayout.NORTH);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					search_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
+		addHeader(search_frame); 
+		format(search_frame); 
 
 		JLabel prompt = new JLabel("Please choose a model of car.");
-		prompt.setFont(new Font(font_name, Font.PLAIN, 18));
-		prompt.setForeground(secondary);
-		prompt.setBackground(primary);
+		format(prompt);
 
 		JComboBox<String> car_mileages = new JComboBox<String>(mileages);
 
-		car_mileages.setFont(new Font(font_name, Font.PLAIN, 18));
-		car_mileages.setForeground(primary);
-		car_mileages.setBackground(secondary);
+		format(car_mileages);
 
 		JButton select = new JButton("Select");
-		select.setFont(new Font(font_name, Font.PLAIN, 18));
-		select.setForeground(secondary);
-		select.setOpaque(false);
-		select.setContentAreaFilled(false);
-		select.setBorderPainted(false);
+		format(select);
+		
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListIterator<Car> iter = cars.listIterator();
@@ -1004,12 +610,10 @@ public class Car {
 				if (sorted_cars.size() != 0) {
 					Car.displayVehicles(sorted_cars);
 				} else {
-					UIManager UI = new UIManager();
-					UI.put("OptionPane.background", primary);
-					UI.put("Panel.background", secondary);
-					UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
+					JOptionPane pane = new JOptionPane();
+					format(pane); 
 
-					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE, img);
+					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
 					search_frame.dispose();
 				}
 			}
@@ -1019,14 +623,7 @@ public class Car {
 		search_panel.add(prompt);
 		search_panel.add(car_mileages);
 		search_panel.add(select);
-		search_panel.setBackground(primary);
-		Container c = search_frame.getContentPane();
-		c.setBackground(primary);
-		search_frame.setSize(800, 350);
 		search_frame.add(search_panel);
-		search_frame.setVisible(true);
-		search_frame.setLocationRelativeTo(null);
-		search_frame.setLayout(new FlowLayout());
 	}
 
 	/**
@@ -1037,10 +634,6 @@ public class Car {
 	 * 
 	 */
 	public static void searchByMPG(ArrayList<Car> cars) {
-		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
-
-		final String font_name = "Harlow Solid Italic";
 
 		// add to this list.
 		// maybe make it loop through the list and only display vehicle models
@@ -1049,65 +642,20 @@ public class Car {
 
 		JFrame search_frame = new JFrame("Search by miles per gallon");
 		JPanel search_panel = new JPanel(); 
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		search_frame.setIconImage(img.getImage());
-
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		search_frame.add(headerLabel, BorderLayout.NORTH);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					search_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
+		
+		addHeader(search_frame); 
+		format(search_frame); 
+		format(search_panel); 
 
 		JLabel prompt = new JLabel("Please select the miles per gallon you hope your car can get.");
-		prompt.setFont(new Font(font_name, Font.PLAIN, 18));
-		prompt.setForeground(secondary);
-		prompt.setBackground(primary);
+		format(prompt);
 		
 		JComboBox<String> car_MPGs = new JComboBox<String>(MPGs);
-
-		car_MPGs.setFont(new Font(font_name, Font.PLAIN, 18));
-		car_MPGs.setForeground(primary);
-		car_MPGs.setBackground(secondary);
+		format(car_MPGs);
 
 		JButton select = new JButton("Select");
-
-		select.setOpaque(false);
-		select.setContentAreaFilled(false);
-		select.setBorderPainted(false);
-		select.setFont(new Font(font_name, Font.PLAIN, 18));
-		select.setForeground(secondary);
+		format(select);
+		
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListIterator<Car> iter = cars.listIterator();
@@ -1131,27 +679,20 @@ public class Car {
 				if (sorted_cars.size() != 0) {
 					Car.displayVehicles(sorted_cars);
 				} else {
-					UIManager UI = new UIManager();
-					UI.put("OptionPane.background", primary);
-					UI.put("Panel.background", secondary);
-					UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
 
-					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE, img);
+					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
 					search_frame.dispose();
 				}
 			}
 		});
 
-		search_panel.setBackground(primary);
-		Container c = search_frame.getContentPane();
-		c.setBackground(primary);
+		
 		search_panel.add(prompt);
 		search_panel.add(car_MPGs);
 		search_panel.add(select);
 		search_frame.add(search_panel);
-		search_frame.setSize(800, 350);
-		search_frame.setVisible(true);
-		search_frame.setLocationRelativeTo(null);
 		
 	}
 

@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-public class Driver<T> extends format {
+public class Driver<T> extends formatter {
 
 	public static void main(String args[]) throws IOException {
 		// Defining the names of the files used.
@@ -336,7 +336,7 @@ public class Driver<T> extends format {
 		format(b_m_create_employee);
 		b_m_create_employee.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				M.createEmployee(employees);
+				M.createEmployee(employees, customers);
 				
 				try {
 					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
@@ -431,7 +431,7 @@ public class Driver<T> extends format {
 		
 		menu_frame.setIconImage(img.getImage()); 
 		
-		menu_Panel.setLayout(new GridLayout(7,1));
+		menu_Panel.setLayout(new GridLayout(6,1));
 	
 		panel.add(headerLabel); 	
 		panel.setSize(img.getIconWidth(),img.getIconHeight());
@@ -497,11 +497,6 @@ public class Driver<T> extends format {
 		p6.setBackground(primary);
 		
 		menu_Panel.add(p6);
-		
-		JPanel p7 = new JPanel();
-		p7.setBackground(primary);
-		
-		menu_Panel.add(p7);
 		
 		menu_frame.add(menu_Panel);
 

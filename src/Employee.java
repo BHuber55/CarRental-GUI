@@ -79,51 +79,70 @@ public class Employee extends Customer {
 	 */
 	public void updateVehicle(ArrayList<Car> cars) {
 
-		JFrame frame = new JFrame();
-		frame.setTitle("Update Vehicle");
-		frame.setVisible(true);
+		JFrame update_frame = new JFrame("Update Vehicle");
+		JPanel update_panel = new JPanel(); 
+		
+		addHeader(update_frame);
+		format(update_frame);
+		format(update_panel); 
 
 		final int TEXT_FIELD_SIZE = 20;
-		JLabel IDNumber = new JLabel("ID number");
+		JLabel idNumber = new JLabel("ID number");
+		format(idNumber); 
 		final JTextField idField = new JTextField(TEXT_FIELD_SIZE);
+		format(idField); 
 		JLabel carModel = new JLabel("Car model");
+		format(carModel); 
 		final JTextField carModelField = new JTextField(TEXT_FIELD_SIZE);
+		format(carModelField); 
 		JLabel carYear = new JLabel("Car Year");
+		format(carYear); 
 		final JTextField carYearField = new JTextField(TEXT_FIELD_SIZE);
+		format(carYearField); 
 		JLabel carMake = new JLabel("Car Make");
+		format(carMake); 
 		final JTextField carMakeField = new JTextField(TEXT_FIELD_SIZE);
+		format(carMakeField); 
 		JLabel carColor = new JLabel("Car Color");
+		format(carColor); 
 		final JTextField carColorField = new JTextField(TEXT_FIELD_SIZE);
+		format(carColorField); 
 		JLabel carPrice = new JLabel("Car Price");
+		format(carPrice); 
 		final JTextField carPriceField = new JTextField(TEXT_FIELD_SIZE);
-		JLabel carMilage = new JLabel("Car Milage");
-		final JTextField carMilageField = new JTextField(TEXT_FIELD_SIZE);
+		format(carPriceField); 
+		JLabel carMileage = new JLabel("Car Mileage");
+		format(carMileage); 
+		final JTextField carMileageField = new JTextField(TEXT_FIELD_SIZE);
+		format(carMileageField); 
 		JLabel carMPG = new JLabel("Car MPG");
+		format(carMPG); 
 		final JTextField carMPGField = new JTextField(TEXT_FIELD_SIZE);
+		format(carMPGField); 
 
 		JButton submitButton = new JButton("Submit");
+		format(submitButton); 
 
-		frame.setLayout(new GridLayout(10, 2));
+		update_panel.setLayout(new GridLayout(10, 2));
 
-		frame.add(IDNumber);
-		frame.add(idField);
-		frame.add(carModel);
-		frame.add(carModelField);
-		frame.add(carYear);
-		frame.add(carYearField);
-		frame.add(carMake);
-		frame.add(carMakeField);
-		frame.add(carColor);
-		frame.add(carColorField);
-		frame.add(carPrice);
-		frame.add(carPriceField);
-		frame.add(carMilage);
-		frame.add(carMilageField);
-		frame.add(carMPG);
-		frame.add(carMPGField);
-		frame.add(submitButton);
-
-		frame.pack();
+		update_panel.add(idNumber);
+		update_panel.add(idField);
+		update_panel.add(carModel);
+		update_panel.add(carModelField);
+		update_panel.add(carYear);
+		update_panel.add(carYearField);
+		update_panel.add(carMake);
+		update_panel.add(carMakeField);
+		update_panel.add(carColor);
+		update_panel.add(carColorField);
+		update_panel.add(carPrice);
+		update_panel.add(carPriceField);
+		update_panel.add(carMileage);
+		update_panel.add(carMileageField);
+		update_panel.add(carMPG);
+		update_panel.add(carMPGField);
+		update_panel.add(submitButton);
+		update_frame.add(update_panel);
 
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -143,7 +162,7 @@ public class Employee extends Customer {
 				String make = carMakeField.getText();
 				String color = carColorField.getText();
 				String price = carPriceField.getText();
-				String mileage = carMilageField.getText();
+				String mileage = carMileageField.getText();
 				String MPG = carMPGField.getText();
 				
 				if (model.equals(null)) {
@@ -172,7 +191,10 @@ public class Employee extends Customer {
 				
 				cars.add(new_car);
 				
-				JOptionPane.showMessageDialog(null,
+				JOptionPane pane = new JOptionPane();
+				format(pane); 
+				
+				pane.showMessageDialog(null,
 						" Model: " + model
 						+ "\n Year " + year
 						+ "\n Make " + make
@@ -182,7 +204,7 @@ public class Employee extends Customer {
 						+ "\n MPG " + MPG,
 						"Information saved", JOptionPane.INFORMATION_MESSAGE);	
 				
-				frame.dispose();
+				update_frame.dispose();
 			}
 
 		});
@@ -198,51 +220,69 @@ public class Employee extends Customer {
 	 */
 	public void registerNewVehicle(ArrayList<Car> cars) {
 
-		JFrame frame = new JFrame();
-		frame.setTitle("Register New Vehicle");
-		frame.setVisible(true);
+		JFrame reg_frame = new JFrame("Register New Vehicle");
+		addHeader(reg_frame); 
+		format(reg_frame); 
+		
+		JPanel reg_panel = new JPanel(); 
 
 		final int TEXT_FIELD_SIZE = 20;
 		JLabel carModel = new JLabel("Car model");
+		format(carModel);
 		final JTextField carModelField = new JTextField(TEXT_FIELD_SIZE);
+		format(carModelField); 
 		JLabel carYear = new JLabel("Car Year");
+		format(carYear); 
 		final JTextField carYearField = new JTextField(TEXT_FIELD_SIZE);
+		format(carYearField); 
 		JLabel carMake = new JLabel("Car Make");
+		format(carMake); 
 		final JTextField carMakeField = new JTextField(TEXT_FIELD_SIZE);
+		format(carMakeField); 
 		JLabel carColor = new JLabel("Car Color");
+		format(carColor); 
 		final JTextField carColorField = new JTextField(TEXT_FIELD_SIZE);
+		format(carColorField); 
 		JLabel carPrice = new JLabel("Car Price");
+		format(carPrice); 
 		final JTextField carPriceField = new JTextField(TEXT_FIELD_SIZE);
-		JLabel carMilage = new JLabel("Car Milage");
-		final JTextField carMilageField = new JTextField(TEXT_FIELD_SIZE);
+		format(carPriceField); 
+		JLabel carMileage = new JLabel("Car Mileage");
+		format(carMileage); 
+		final JTextField carMileageField = new JTextField(TEXT_FIELD_SIZE);
+		format(carMileageField); 
 		JLabel carMPG = new JLabel("Car MPG");
+		format(carMPG); 
 		final JTextField carMPGField = new JTextField(TEXT_FIELD_SIZE);
+		format(carMPGField);
 		JLabel IDNumber = new JLabel("ID number");
+		format(IDNumber); 
 		final JTextField idField = new JTextField(TEXT_FIELD_SIZE);
+		format(idField); 
 
 		JButton submitButton = new JButton("Submit");
+		format(submitButton); 
 
-		frame.setLayout(new GridLayout(10, 2));
+		reg_panel.setLayout(new GridLayout(10, 2));
 
-		frame.add(IDNumber);
-		frame.add(idField);
-		frame.add(carModel);
-		frame.add(carModelField);
-		frame.add(carYear);
-		frame.add(carYearField);
-		frame.add(carMake);
-		frame.add(carMakeField);
-		frame.add(carColor);
-		frame.add(carColorField);
-		frame.add(carPrice);
-		frame.add(carPriceField);
-		frame.add(carMilage);
-		frame.add(carMilageField);
-		frame.add(carMPG);
-		frame.add(carMPGField);
-		frame.add(submitButton);
-
-		frame.pack();
+		reg_panel.add(IDNumber);
+		reg_panel.add(idField);
+		reg_panel.add(carModel);
+		reg_panel.add(carModelField);
+		reg_panel.add(carYear);
+		reg_panel.add(carYearField);
+		reg_panel.add(carMake);
+		reg_panel.add(carMakeField);
+		reg_panel.add(carColor);
+		reg_panel.add(carColorField);
+		reg_panel.add(carPrice);
+		reg_panel.add(carPriceField);
+		reg_panel.add(carMileage);
+		reg_panel.add(carMileageField);
+		reg_panel.add(carMPG);
+		reg_panel.add(carMPGField);
+		reg_panel.add(submitButton);
+		reg_frame.add(reg_panel);
 
 		submitButton.addActionListener(new ActionListener() {
 
@@ -254,15 +294,16 @@ public class Employee extends Customer {
 				String make = carMakeField.getText();
 				String color = carColorField.getText();
 				String price = carPriceField.getText();
-				String mileage = carMilageField.getText();
+				String mileage = carMileageField.getText();
 				String MPG = carMPGField.getText();
 				String carID = idField.getText();
 				
 				for(Car c : cars) {
 					if(c.getID().equals(carID)) {
 						found = true;
-						
-						JOptionPane.showMessageDialog(null, "That Car ID is already in use, please choose another", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane pane = new JOptionPane(); 
+						format(pane); 
+						pane.showMessageDialog(null, "That Car ID is already in use, please choose another", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 
@@ -270,8 +311,9 @@ public class Employee extends Customer {
 					Car new_car = new Car(model, Integer.parseInt(year), make, color, Double.parseDouble(price), Integer.parseInt(mileage), Integer.parseInt(MPG), carID);
 	
 					cars.add(new_car);
-					
-					JOptionPane.showMessageDialog(null,
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
+					pane.showMessageDialog(null,
 							"The vehicles"
 							+ " Model: " + model
 							+ "\n Year " + year
@@ -284,7 +326,7 @@ public class Employee extends Customer {
 							JOptionPane.INFORMATION_MESSAGE);
 				}
 				
-				frame.dispose();
+				reg_frame.dispose();
 			}
 		}); 
 	}
@@ -298,20 +340,27 @@ public class Employee extends Customer {
 	 */
 	public void deleteVehicle(ArrayList<Car> cars) {
 
-		JFrame frame = new JFrame("Delete Vehicle");
-		frame.setLayout(new GridLayout(10, 2));
+		JFrame del_frame = new JFrame("Delete Vehicle");
+		JPanel del_panel = new JPanel();
+		addHeader(del_frame); 
+		format(del_frame);
+		format(del_panel); 
+		del_panel.setLayout(new GridLayout(10, 2));
 
-		frame.setVisible(true);
 
 		final int TEXT_FIELD_SIZE = 20;
 		JLabel IDNumber = new JLabel("ID number of vehicle to delete");
+		format(IDNumber); 
 		final JTextField idField = new JTextField(TEXT_FIELD_SIZE);
+		format(idField); 
 
 		JButton submitButton = new JButton("Submit");
+		format(submitButton);
 
-		frame.add(IDNumber);
-		frame.add(idField);
-		frame.add(submitButton);
+		del_panel.add(IDNumber);
+		del_panel.add(idField);
+		del_panel.add(submitButton);
+		del_frame.add(del_panel);
 
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -324,15 +373,21 @@ public class Employee extends Customer {
 						found = true;
 						
 						cars.remove(car);
-						
-						JOptionPane.showMessageDialog(null, "The car is removed", "\n ", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane pane = new JOptionPane(); 
+						format(pane);
+						pane.showMessageDialog(null, "The car is removed", "\n ", JOptionPane.INFORMATION_MESSAGE);
+
 						break;
 					}
 				}
 
 				if (!found) {
-					JOptionPane.showMessageDialog(null, "The car ID is not found", "\n ", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
+					pane.showMessageDialog(null, "The car ID is not found", "\n ", JOptionPane.INFORMATION_MESSAGE);
+
 					return;
+
 				}
 			}
 		});
@@ -347,65 +402,47 @@ public class Employee extends Customer {
 	 */
 	public void displayAllCustomers(ArrayList<Customer> customers) {
 
-		JFrame frame = new JFrame("Display all Customers");
-		frame.setVisible(true);
-		frame.setLayout(new GridLayout(10, 2));
+		JFrame display_frame = new JFrame("Display all Customers");
+		JPanel display_panel = new JPanel(); 
+		addHeader(display_frame); 
+		format(display_frame); 
+		format(display_panel); 
+		display_panel.setLayout(new GridLayout(2, 1));
 
-		final int TEXT_FIELD_SIZE = 20;
-		JLabel allCustomers = new JLabel("All customers");
-		final JTextField Customers = new JTextField(TEXT_FIELD_SIZE);
+		String header[] = { "Name", "Username", "Email", "Phone Number"};
+		Object data[][] = new Object[customers.size()][5];
+		String info = "";
+		List<String> list;
+		int count = 0;
 
-		JButton submitButton = new JButton("Submit");
+		for (Customer C : customers) {
+			info = C.getAttributes();
+			list = Arrays.asList(info.split(", "));
+			//list.remove(3);
 
-		frame.add(allCustomers);
-		frame.add(Customers);
-		frame.add(submitButton);
-
-		frame.pack();
-
-		submitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String header[] = { "Name", "Username", "Email", "Phone Number", "Birthday" };
-				Object data[][] = new Object[customers.size()][5];
-				String info = "";
-				List<String> list;
-				int count = 0;
-
-				for (Customer C : customers) {
-					info = C.getAttributes();
-					list = Arrays.asList(info.split(", "));
-
-					for (int j = 0; j < 5; j++) {
-						data[count][j] = list.get(j);
-					}
-
-					count++;
+			for (int j = 0; j < 4; j++) {
+				if(j != 3) {
+					data[count][j] = list.get(j);
+				} else {
+					data[count][j] = list.get(++j);
 				}
-				
-				JTable table = new JTable(data, header) {
-					@Override
-					public boolean isCellEditable(int row, int column) {
-						// all cells false
-						return false;
-					}
-				};
-				Color primary = new Color(75, 75, 75);
-
-				JPanel panel = new JPanel();
-				panel.setLayout(new GridLayout(3, 3));
-				panel.setBackground(primary);
-
-				Container c = frame.getContentPane();
-				c.setBackground(primary);
-				panel.add(table.getTableHeader());
-				panel.add(table);
-				frame.add(panel);
-				frame.setLocationRelativeTo(null);
-				frame.setSize(800, 500);
-				frame.setVisible(true);
 			}
-		});
+
+			count++;
+		}
+		
+		JTable table = new JTable(data, header) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		};
+		
+		display_panel.add(table.getTableHeader());
+		display_panel.add(table);
+		
+		display_frame.add(display_panel);
 	}
 
 	/**
@@ -416,20 +453,26 @@ public class Employee extends Customer {
 	 */
 	public void findByConfirmationNumber(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 
-		JFrame frame = new JFrame("Find confirmation number");
-		frame.setVisible(true);
-		frame.setLayout(new GridLayout(10, 2));
+		JFrame confirm_frame = new JFrame("Find confirmation number");
+		addHeader(confirm_frame); 
+		format(confirm_frame); 
+		
+		JPanel confirm_panel = new JPanel(); 
+		format(confirm_panel); 
+		confirm_panel.setLayout(new GridLayout(10, 2));
 
 		final int TEXT_FIELD_SIZE = 20;
 		JLabel confirmationNumber = new JLabel("Confirmation number your trying find");
+		format(confirmationNumber); 
 		final JTextField confirmationNumberField = new JTextField(TEXT_FIELD_SIZE);
+		format(confirmationNumberField);
 		JButton submitButton = new JButton("Submit");
+		format(submitButton); 
 
-		frame.add(confirmationNumber);
-		frame.add(confirmationNumberField);
-		frame.add(submitButton);
-
-		frame.pack();
+		confirm_panel.add(confirmationNumber);
+		confirm_panel.add(confirmationNumberField);
+		confirm_panel.add(submitButton);
+		confirm_frame.add(confirm_panel);
 		
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -447,7 +490,9 @@ public class Employee extends Customer {
 				}
 
 				if(!found) {
-					JOptionPane.showMessageDialog(null, "Sorry that Reservation was not found.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
+					pane.showMessageDialog(null, "Sorry that Reservation was not found.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

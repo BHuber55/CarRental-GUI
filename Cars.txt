@@ -1,11 +1,3 @@
-Model S
-2016
-Tesla
-Blue
-200.0
-5
-150
-carID1
 Wrangler
 2015
 Jeep

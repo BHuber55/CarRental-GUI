@@ -83,139 +83,63 @@ public class Manager extends Employee {
 	 *         including the newly created one.
 	 */
 	public void createCustomer(ArrayList<Customer> customers) {
-		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
-
-		final String font_name = "Harlow Solid Italic";
 		
 		JFrame cust_frame = new JFrame("Create Customer");
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		cust_frame.setIconImage(img.getImage());
+		addHeader(cust_frame); 
+		format(cust_frame); 
 
 		JPanel cust_panel = new JPanel();
+		format(cust_panel); 
 
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		cust_frame.add(headerLabel, BorderLayout.PAGE_START);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					cust_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
-
-		Container c = cust_frame.getContentPane();
-		c.setBackground(primary);
-		cust_frame.setLocationRelativeTo(null);
-		cust_frame.setVisible(true);
 
 		final int TEXT_FIELD_SIZE = 20;
 
 		JLabel nameLabel = new JLabel("Name: ");
-		nameLabel.setBackground(primary);
-		nameLabel.setForeground(secondary);
-		nameLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(nameLabel);
 
 		final JTextField nameField = new JTextField(TEXT_FIELD_SIZE);
-		nameField.setBackground(secondary);
-		nameField.setForeground(primary);
-		nameField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(nameField);
 
 		JLabel userNameLabel = new JLabel("Username: ");
-		userNameLabel.setBackground(primary);
-		userNameLabel.setForeground(secondary);
-		userNameLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(userNameLabel);
 
 		final JTextField userNameField = new JTextField(TEXT_FIELD_SIZE);
-		userNameField.setBackground(secondary);
-		userNameField.setForeground(primary);
-		userNameField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(userNameField);
 
 		JLabel emailLabel = new JLabel("Email: ");
-		emailLabel.setBackground(primary);
-		emailLabel.setForeground(secondary);
-		emailLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(emailLabel);
 
 		final JTextField emailField = new JTextField(TEXT_FIELD_SIZE);
-		emailField.setBackground(secondary);
-		emailField.setForeground(primary);
-		emailField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(emailField);
 
 		JLabel passwordLabel = new JLabel("Password: ");
-		passwordLabel.setBackground(primary);
-		passwordLabel.setForeground(secondary);
-		passwordLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(passwordLabel);
 
 		final JTextField passwordField = new JTextField(TEXT_FIELD_SIZE);
-		passwordField.setBackground(secondary);
-		passwordField.setForeground(primary);
-		passwordField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(passwordField);
 
 		JLabel phoneLabel = new JLabel("Phone Number: ");
-		phoneLabel.setBackground(primary);
-		phoneLabel.setForeground(secondary);
-		phoneLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(phoneLabel);
 
 		final JTextField phoneField = new JTextField(10);
-		phoneField.setBackground(secondary);
-		phoneField.setForeground(primary);
-		phoneField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(phoneField);
 
 		JLabel birthdayLabel = new JLabel("Birthday: ");
-		birthdayLabel.setBackground(primary);
-		birthdayLabel.setForeground(secondary);
-		birthdayLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(birthdayLabel);
 
 		final JTextField birthdayField = new JTextField(10);
-		birthdayField.setBackground(secondary);
-		birthdayField.setForeground(primary);
-		birthdayField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(birthdayField);
 
 		JLabel creditLabel = new JLabel("Credit Card Number: ");
-		creditLabel.setBackground(primary);
-		creditLabel.setForeground(secondary);
-		creditLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(creditLabel);
 
 		final JTextField creditField = new JTextField(16);
-		creditField.setBackground(secondary);
-		creditField.setForeground(primary);
-		creditField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(creditField);
 
 		JButton okButton = new JButton("Submit");
-		okButton.setBackground(primary);
-		okButton.setForeground(secondary);
-		okButton.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(okButton);
 
 		cust_panel.setLayout(new GridLayout(8, 2));
-		cust_panel.setBackground(primary);
 		cust_panel.add(nameLabel);
 		cust_panel.add(nameField);
 		cust_panel.add(userNameLabel);
@@ -234,8 +158,6 @@ public class Manager extends Employee {
 		cust_panel.add(okButton);
 		cust_frame.add(cust_panel);
 
-		cust_frame.pack();
-
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String name = nameField.getText();
@@ -249,12 +171,10 @@ public class Manager extends Employee {
 				Customer customer = new Customer(name, userName, email, password, phone, birthday, credit);
 				customers.add(customer);
 
-				UIManager UI = new UIManager();
-				UI.put("OptionPane.background", primary);
-				UI.put("Panel.background", secondary);
-				UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
+				JOptionPane pane = new JOptionPane(); 
+				format(pane); 
 
-				JOptionPane.showMessageDialog(null,
+				pane.showMessageDialog(null,
 						" Name: " + name + "\n Username: " + userName + "\n Email: " + email + "\n Password: "
 								+ password + "\n Phone: " + phone + "\n Birthday: " + birthday
 								+ "\n Credit Card Number: " + credit,
@@ -274,158 +194,75 @@ public class Manager extends Employee {
 	 * @return an array list of employees that contains every employee,
 	 *         including the newly created one.
 	 */
-	public void createEmployee(ArrayList<Employee> employees) {
-		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
-
-		final String font_name = "Harlow Solid Italic";
+	public void createEmployee(ArrayList<Employee> employees, ArrayList<Customer> customers) {
 		
 		JFrame emp_frame = new JFrame("Create Employee");
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		emp_frame.setIconImage(img.getImage());
+		addHeader(emp_frame); 
+		format(emp_frame); 
 
 		JPanel emp_panel = new JPanel();
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		emp_frame.add(headerLabel, BorderLayout.PAGE_START);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					emp_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
-
-		Container c = emp_frame.getContentPane();
-		c.setBackground(primary);
+		format(emp_panel); 
+		
 		emp_panel.setLayout(new GridLayout(10, 2));
-		emp_frame.setLocationRelativeTo(null);
-		emp_frame.setVisible(true);
 
 		final int TEXT_FIELD_SIZE = 20;
 		JLabel nameLabel = new JLabel("Name: ");
-		nameLabel.setBackground(primary);
-		nameLabel.setForeground(secondary);
-		nameLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(nameLabel);
 
 		final JTextField nameField = new JTextField(TEXT_FIELD_SIZE);
-		nameField.setBackground(secondary);
-		nameField.setForeground(primary);
-		nameField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(nameField);
 
 		JLabel userNameLabel = new JLabel("Username: ");
-		userNameLabel.setBackground(primary);
-		userNameLabel.setForeground(secondary);
-		userNameLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(userNameLabel);
 
 		final JTextField userNameField = new JTextField(TEXT_FIELD_SIZE);
-		userNameField.setBackground(secondary);
-		userNameField.setForeground(primary);
-		userNameField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(userNameField);
 
 		JLabel emailLabel = new JLabel("Email: ");
-		emailLabel.setBackground(primary);
-		emailLabel.setForeground(secondary);
-		emailLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(emailLabel);
 
 		final JTextField emailField = new JTextField(TEXT_FIELD_SIZE);
-		emailField.setBackground(secondary);
-		emailField.setForeground(primary);
-		emailField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(emailField);
 
 		JLabel passwordLabel = new JLabel("Password: ");
-		passwordLabel.setBackground(primary);
-		passwordLabel.setForeground(secondary);
-		passwordLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(passwordLabel);
 
 		final JTextField passwordField = new JTextField(TEXT_FIELD_SIZE);
-		passwordField.setBackground(secondary);
-		passwordField.setForeground(primary);
-		passwordField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(passwordField);
 
 		JLabel phoneLabel = new JLabel("Phone Number: ");
-		phoneLabel.setBackground(primary);
-		phoneLabel.setForeground(secondary);
-		phoneLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(phoneLabel);
 
 		final JTextField phoneField = new JTextField(10);
-		phoneField.setBackground(secondary);
-		phoneField.setForeground(primary);
-		phoneField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(phoneField);
 
 		JLabel birthdayLabel = new JLabel("Birthday: ");
-		birthdayLabel.setBackground(primary);
-		birthdayLabel.setForeground(secondary);
-		birthdayLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(birthdayLabel);
 
 		final JTextField birthdayField = new JTextField(8);
-		birthdayField.setBackground(secondary);
-		birthdayField.setForeground(primary);
-		birthdayField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(birthdayField);
 
 		JLabel creditLabel = new JLabel("Credit Card Number: ");
-		creditLabel.setBackground(primary);
-		creditLabel.setForeground(secondary);
-		creditLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(creditLabel);
 
 		final JTextField creditField = new JTextField(16);
-		creditField.setBackground(secondary);
-		creditField.setForeground(primary);
-		creditField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(creditField);
 
 		JLabel hireLabel = new JLabel("Hire Date: ");
-		hireLabel.setBackground(primary);
-		hireLabel.setForeground(secondary);
-		hireLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(hireLabel);
 
 		final JTextField hireField = new JTextField(8);
-		hireField.setBackground(secondary);
-		hireField.setForeground(primary);
-		hireField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(hireField);
 
 		JLabel salaryLabel = new JLabel("Salary: ");
-		salaryLabel.setBackground(primary);
-		salaryLabel.setForeground(secondary);
-		salaryLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(salaryLabel);
 
 		final JTextField salaryField = new JTextField(8);
-		salaryField.setBackground(secondary);
-		salaryField.setForeground(primary);
-		salaryField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(salaryField);
 
 		JButton okButton = new JButton("Submit");
-		okButton.setBackground(primary);
-		okButton.setForeground(secondary);
-		okButton.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(okButton);
 
-		emp_panel.setBackground(primary);
 		emp_panel.add(nameLabel);
 		emp_panel.add(nameField);
 		emp_panel.add(userNameLabel);
@@ -448,7 +285,6 @@ public class Manager extends Employee {
 		emp_panel.add(okButton);
 		emp_frame.add(emp_panel);
 
-		emp_frame.pack();
 
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -463,12 +299,14 @@ public class Manager extends Employee {
 				int salary = Integer.parseInt(salaryField.getText());
 
 				Employee emp = new Employee(name, userName, email, password, phone, birthday, credit, hire, salary);
-
+				Customer C = new Customer(name, userName, email, password, phone, birthday, credit);
+				
 				employees.add(emp);
-				UIManager UI = new UIManager();
-				UI.put("OptionPane.background", primary);
-				UI.put("Panel.background", secondary);
-				UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
+				customers.add(C);
+				
+				
+			JOptionPane pane = new JOptionPane(); 
+			format(pane); 
 
 				JOptionPane.showMessageDialog(null,
 						" Name: " + name
@@ -503,86 +341,34 @@ public class Manager extends Employee {
 	 * 
 	 */
 	public void changePassword(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, String userName) {
-		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
-
-		final String font_name = "Harlow Solid Italic";
+		
 
 		JFrame pass_frame = new JFrame("Change Password");
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		pass_frame.setIconImage(img.getImage());
+		addHeader(pass_frame); 
+		format(pass_frame); 
 
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		pass_frame.add(headerLabel, BorderLayout.PAGE_START);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					pass_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed,  for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
+		
 		JPanel pass_panel = new JPanel();
+		format(pass_panel); 
 
-		Container c = pass_frame.getContentPane();
-		c.setBackground(primary);
+		
 		pass_panel.setLayout(new GridLayout(8, 3));
-		pass_panel.setBackground(primary);
-		pass_frame.setLocationRelativeTo(null);
-		pass_frame.setVisible(true);
 
 		final int TEXT_FIELD_SIZE = 20;
 		JLabel passLabel = new JLabel("Please enter your new password: ");
-		passLabel.setBackground(primary);
-		passLabel.setForeground(secondary);
-		passLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(passLabel);
 
 		final JTextField passField = new JTextField(TEXT_FIELD_SIZE);
-		passField.setBackground(secondary);
-		passField.setForeground(primary);
-		passField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(passField);
 
 		JLabel passLabel1 = new JLabel("Please enter your new password again: ");
-		passLabel1.setBackground(primary);
-		passLabel1.setForeground(secondary);
-		passLabel1.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(passLabel1);
 
 		final JTextField passField1 = new JTextField(TEXT_FIELD_SIZE);
-		passField1.setBackground(secondary);
-		passField1.setForeground(primary);
-		passField1.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(passField1);
 
 		JButton okButton = new JButton("Submit");
-		okButton.setBackground(primary);
-		okButton.setForeground(secondary);
-		okButton.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(okButton);
 
 		pass_panel.add(passLabel);
 		pass_panel.add(passField);
@@ -590,7 +376,6 @@ public class Manager extends Employee {
 		pass_panel.add(passField1);
 		pass_panel.add(okButton);
 		pass_frame.add(pass_panel);
-		pass_frame.pack();
 
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
@@ -603,12 +388,9 @@ public class Manager extends Employee {
 				String password2 = passField1.getText();
 
 				if (!password1.equals(password2)) {
-					UIManager UI = new UIManager();
-					UI.put("OptionPane.background", primary);
-					UI.put("Panel.background", secondary);
-					UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
-					
-					JOptionPane.showMessageDialog(null, "Passwords are not equal", "Error", JOptionPane.WARNING_MESSAGE);
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
+					pane.showMessageDialog(null, "Passwords are not equal", "Error", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 
@@ -643,12 +425,10 @@ public class Manager extends Employee {
 				customers.remove(c);
 				customers.add(customer);
 
-				UIManager UI = new UIManager();
-				UI.put("OptionPane.background", primary);
-				UI.put("Panel.background", secondary);
-				UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
+				JOptionPane pane = new JOptionPane(); 
+				format(pane); 
 
-				JOptionPane.showMessageDialog(null, "\n New Password: " + password1, "Information saved", JOptionPane.INFORMATION_MESSAGE, img);
+				pane.showMessageDialog(null, "\n New Password: " + password1, "Information saved", JOptionPane.INFORMATION_MESSAGE);
 
 				pass_frame.dispose();
 			}
@@ -663,85 +443,33 @@ public class Manager extends Employee {
 	 * 
 	 */
 	public void cancelReservation(ArrayList<Reservation> reservations) {
-		final Color primary = new Color(55, 71, 79);
-		final Color secondary = new Color(236, 239, 241);
-
-		final String font_name = "Harlow Solid Italic";
 
 		final int TEXT_FIELD_SIZE = 20;
 
 		JFrame cancel_frame = new JFrame("Cancel Reservation");
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		cancel_frame.setIconImage(img.getImage());
-
-		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
-		cancel_frame.add(headerLabel, BorderLayout.PAGE_START);
-
-		headerLabel.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-
-				// this is where it picks up on the menu button.
-				if (x > 670 && x < 800 && y > 226 && y < 250) {
-					// Originally had the x and y printed out to make sure i had the dimensions right
-					// System.out.println(x+ " " + y);
-
-					// just change this line of code to match the frame you want closed.
-					// For the love of all that is holy, DO NOT use the same name for the main frame vs everything else!
-					cancel_frame.dispose();
-				}
-			}
-
-			// Eclipse was freaking out when I didn't have these methods listed, for whatever reason.
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-		});
-
-		Container c = cancel_frame.getContentPane();
-		c.setBackground(primary);
+		addHeader(cancel_frame); 
+		format(cancel_frame); 
+	
 
 		JPanel cancel_panel = new JPanel();
-		cancel_panel.setBackground(primary);
+		format(cancel_panel); 
 		cancel_panel.setLayout(new GridLayout(2, 2));
-		cancel_frame.setLocationRelativeTo(null);
-		cancel_frame.setVisible(true);
+
 
 		JLabel confirmLabel = new JLabel("Confirmation Number to cancel:  ");
-		confirmLabel.setBackground(primary);
-		confirmLabel.setForeground(secondary);
-		confirmLabel.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(confirmLabel);
 
 		final JTextField confirmField = new JTextField(TEXT_FIELD_SIZE);
-		confirmField.setBackground(secondary);
-		confirmField.setForeground(primary);
-		confirmField.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(confirmField);
 
 		JButton okButton = new JButton("Submit");
-		okButton.setBackground(primary);
-		okButton.setForeground(secondary);
-		okButton.setFont(new Font(font_name, Font.PLAIN, 18));
+		format(okButton);
 
 		cancel_panel.add(confirmLabel);
 		cancel_panel.add(confirmField);
 		cancel_panel.add(new JLabel(""));
 		cancel_panel.add(okButton);
 		cancel_frame.add(cancel_panel);
-		cancel_frame.pack();
 
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -756,23 +484,18 @@ public class Manager extends Employee {
 						found = true;
 
 						reservations.remove(reservation);
-
-						UIManager UI = new UIManager();
-						UI.put("OptionPane.background", primary);
-						UI.put("Panel.background", secondary);
-						UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
-
-						JOptionPane.showMessageDialog(null, "Reservation had been canceled.", "Information saved", JOptionPane.INFORMATION_MESSAGE, img);
+						JOptionPane pane = new JOptionPane(); 
+						format(pane); 
+						
+						pane.showMessageDialog(null, "Reservation had been canceled.", "Information saved", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 
 				if (!found) {
-					UIManager UI = new UIManager();
-					UI.put("OptionPane.background", primary);
-					UI.put("Panel.background", secondary);
-					UI.put("OptionPane.messageFont", new FontUIResource(new Font(font_name, Font.PLAIN, 13)));
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
 
-					JOptionPane.showMessageDialog(null, "Sorry, Reservation not found. Try again", "Error", JOptionPane.ERROR_MESSAGE, img);
+					pane.showMessageDialog(null, "Sorry, Reservation not found. Try again", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 
 				cancel_frame.dispose();
@@ -793,22 +516,26 @@ public class Manager extends Employee {
 
 		final int TEXT_FIELD_SIZE = 20;
     	
-    	JFrame frame = new JFrame("Update Reservation Info"); 
-		frame.setLayout(new GridLayout(2,2));
-		frame.setLocationRelativeTo(null);
+    	JFrame update_frame = new JFrame("Update Reservation Info"); 
+    	addHeader(update_frame); 
+    	JPanel update_panel = new JPanel(); 
+		update_panel.setLayout(new GridLayout(2,2));
+		format(update_frame); 
+		format(update_panel); 
 		
 		JLabel confirmLabel = new JLabel("Confirmation Number to update:  "); 
+		format(confirmLabel); 
 		final JTextField confirmField = new JTextField(TEXT_FIELD_SIZE);
+		format(confirmField); 
 		JButton okButton = new JButton("Submit");
+		format(okButton); 
 		
 		JLabel blank = new JLabel();
-		frame.add(confirmLabel);
-		frame.add(confirmField);
-		frame.add(blank);
-		frame.add(okButton);
-		
-		frame.setVisible(true);
-		frame.pack(); 
+		update_panel.add(confirmLabel);
+		update_panel.add(confirmField);
+		update_panel.add(blank);
+		update_panel.add(okButton);
+		update_frame.add(update_panel);
 		
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -820,11 +547,13 @@ public class Manager extends Employee {
 				for (Reservation reservation : reservations) {
 					if (reservation.getConfirmationNumber() == number) {
 						found = true;
-						JOptionPane.showMessageDialog(null,
+						JOptionPane pane = new JOptionPane(); 
+						format(pane); 
+						pane.showMessageDialog(null,
 								"Reservation had been found.\n " + reservation.getAttributes(),
 								"Reservation Information", JOptionPane.INFORMATION_MESSAGE);
 
-						frame.dispose();
+						update_frame.dispose();
 
 						// make reservation no longer returns something. so yeah.
 						String username = reservation.getUserName();
@@ -835,7 +564,9 @@ public class Manager extends Employee {
 				}
 
 				if (!found) {
-					JOptionPane.showMessageDialog(null, "Reservation was not found.\n ", "Reservation Information", JOptionPane.ERROR_MESSAGE);
+					JOptionPane pane = new JOptionPane(); 
+					format(pane); 
+					pane.showMessageDialog(null, "Reservation was not found.\n ", "Reservation Information", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

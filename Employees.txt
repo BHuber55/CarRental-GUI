@@ -16,3 +16,12 @@ xxx-xxx-xxxx
 xxxx-xxxx-xxxx-0000
 HireDate
 100000
+Ralph
+E_Ralphy
+thekaratekid@aol.com
+abc123
+456
+01/01/1950
+4567
+01/01/1983
+2
