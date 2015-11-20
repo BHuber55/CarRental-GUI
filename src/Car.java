@@ -147,7 +147,6 @@ public class Car extends formatter{
 	public static void advancedSearch(ArrayList<Car> cars) {
 		
 		JFrame adv_search = new JFrame("Advanced Search");
-
 		addHeader(adv_search); 
 		format(adv_search); 
 		
@@ -240,6 +239,8 @@ public class Car extends formatter{
 		adv_search_panel.add(none);
 		adv_search_panel.setSize(320, 200);
 		adv_search_panel.setLayout(new FlowLayout());
+		
+		adv_search.setSize(320, 200);
 		adv_search.add(adv_search_panel);
 	}
 
@@ -259,8 +260,8 @@ public class Car extends formatter{
 		format(cars_frame); 
 
 
-		String header[] = { "Model", "Year", "Make", "Color", "Price", "Mileage", "MPG" };
-		Object data[][] = new Object[cars.size()][7];
+		String header[] = { "Model", "Year", "Make", "Color", "Price", "Mileage", "MPG", "CarID" };
+		Object data[][] = new Object[cars.size()][8];
 		String info = "";
 		List<String> list;
 
@@ -268,7 +269,7 @@ public class Car extends formatter{
 			info = car.getAttributes();
 			list = Arrays.asList(info.split(", "));
 
-			for (int j = 0; j < 7; j++) {
+			for (int j = 0; j < 8; j++) {
 				data[count][j] = list.get(j);
 			}
 
@@ -286,10 +287,9 @@ public class Car extends formatter{
 			}
 		};
 		JPanel car_panel = new JPanel();
-		car_panel.setLayout(new GridLayout(3, 3));
+		car_panel.setLayout(new GridLayout(2, 3));
 		format(car_panel);
 
-		;
 		car_panel.add(table.getTableHeader());
 		car_panel.add(table);
 		cars_frame.add(car_panel);
@@ -347,7 +347,6 @@ public class Car extends formatter{
 					JOptionPane pane = new JOptionPane(); 
 					format(pane); 
 					JOptionPane.showMessageDialog(null, "Sorry, we do not have any cars that match the given criteria.", "Alert", JOptionPane.INFORMATION_MESSAGE);
-					search_frame.dispose();
 				}
 			}
 		});
@@ -374,9 +373,11 @@ public class Car extends formatter{
 		String models[] = { "Aventador", "F1", "Model S", "Wrangler" };
 
 		JFrame search_frame = new JFrame("Search by model");
-		JPanel search_panel = new JPanel(); 
 		addHeader(search_frame); 
 		format(search_frame); 
+		
+		JPanel search_panel = new JPanel(); 
+		format(search_panel);
 
 
 		JLabel prompt = new JLabel("Please choose a model of car.");
@@ -442,12 +443,26 @@ public class Car extends formatter{
 
 		// add to this list.
 		// maybe make it loop through the list and only display vehicle makes that we have.
+		ArrayList<String> make_list = new ArrayList<String>();
+		
+		for(Car c : cars) {
+			make_list.add(c.getMake());
+		}
+		String testing[] = {};
+		make_list.toArray(testing);
+		
+		for(int i = 0; i < testing.length; i++) {
+			System.out.println("cars: " + testing[i]);
+		}
+		
 		String makes[] = { "Jeep", "Lamborghini", "Tesla", "Kia" };
 
 		JFrame search_frame = new JFrame("Search by model");
-		JPanel search_panel = new JPanel(); 
 		addHeader(search_frame); 
 		format(search_frame); 
+		JPanel search_panel = new JPanel(); 
+		format(search_panel); 
+		
 
 		JLabel prompt = new JLabel("Please choose a model of car.");
 		format(prompt);
@@ -641,10 +656,11 @@ public class Car extends formatter{
 		String MPGs[] = { "1", "150", "20", "30", "40", "5000000" };
 
 		JFrame search_frame = new JFrame("Search by miles per gallon");
-		JPanel search_panel = new JPanel(); 
-		
 		addHeader(search_frame); 
 		format(search_frame); 
+		
+		JPanel search_panel = new JPanel(); 
+		
 		format(search_panel); 
 
 		JLabel prompt = new JLabel("Please select the miles per gallon you hope your car can get.");

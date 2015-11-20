@@ -115,7 +115,7 @@ public class Driver<T> extends formatter {
 		JButton b_c_logout = new JButton("Logout");
 		JButton b_c_update_profile = new JButton("Update Profile");
 		JButton b_c_make_resv = new JButton("Make Reservation");
-		JButton b_c_view_resv = new JButton("Review your Reservations");
+		JButton b_c_view_resv = new JButton("Review Your Reservations");
 		
 		// creating the employee's buttons.
 		JButton b_e_new_vehicle = new JButton("Register New Vehicle");
@@ -160,7 +160,7 @@ public class Driver<T> extends formatter {
 				int index = customers.indexOf(C);
 				
 				// now we add the modified customer back to the list.
-				C.updateProfile(index, customers);
+				C.updateProfile(index, customers, employees, managers);
 				
 				try {
 					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
@@ -190,7 +190,7 @@ public class Driver<T> extends formatter {
 		format(b_c_view_resv);
 		b_c_view_resv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				C.displayReservationHistory(reservations);	
+				C.displayReservationHistory(reservations, username);	
 			}
 		});
 
@@ -271,22 +271,22 @@ public class Driver<T> extends formatter {
 		// creating the action listener for the button.
 		// also setting the buttons to look good.
 		format(b_e_view_cust_record);
-//		b_e_view_cust_record.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (beginning.equals(beg_emp)) {
-//					E.viewCustomerRecord(customers);
-//				}
-//				if (beginning.equals(beg_man)) {
-//					M.viewCustomerRecord(customers);
-//				}
+		b_e_view_cust_record.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (beginning.equals(beg_emp)) {
+					E.viewCustomerRecord(reservations);
+				}
+				if (beginning.equals(beg_man)) {
+					M.viewCustomerRecord(reservations);
+				}
 		
-//				try {
-//					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
-//				} catch (IOException e1) {
-//					// Do Stuff
-//				}
-//			}
-//		});
+				try {
+					WRITE(FILE_CARS, FILE_CUSTOMERS, FILE_EMPLOYEES, FILE_MANAGERS, FILE_RESERVATIONS, cars, customers, employees, managers, reservations);
+				} catch (IOException e1) {
+					// Do Stuff
+				}
+			}
+		});
 
 		// creating the action listener for the button.
 		// also setting the buttons to look good.
@@ -568,7 +568,7 @@ public class Driver<T> extends formatter {
 					try {
 						login.dispose();
 						Driver.mainMenu(i, cars, customers, employees, managers, reservations);
-			
+						
 						// kill the program after the menu is called.
 						return;
 					} catch (IOException e1) {

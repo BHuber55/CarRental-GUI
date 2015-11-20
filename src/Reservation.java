@@ -125,6 +125,10 @@ public class Reservation extends formatter{
 	public double getQuote() {
 		return quote;
 	}
+	
+	public void setConfirmationNumber(int number) {
+		confirmationNumber = number;
+	}
 
 	/**
 	 * This will create a confirmation number for the reservation.
@@ -192,19 +196,21 @@ public class Reservation extends formatter{
 	public static void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations, String username1) {
 
 		JFrame frame = new JFrame("Make a Reservation");
+		addHeader(frame);
+		format(frame);
 		frame.setLayout(new BorderLayout());
-		frame.setVisible(true);
 		
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(9, 2));
+		format(panel);
 		
 		// So at the moment I'm just going to have a display pop up and the user copy the carID from the pop up over to carId field cause that'll just be easiest for now. <<<<<<<<<<<<<<<<<<<<<<<<
 		Car.advancedSearch(cars);
 
-		// change this to wherever your workspace is
-		ImageIcon img = new ImageIcon("./Car.jpg");
-		frame.setIconImage(img.getImage());
-
 		final int TEXT_FIELD_SIZE = 20;
-		JLabel carLabel = new JLabel("Car: ");
+		JLabel usernameLabel = new JLabel("Username: ");
+		final JTextField usernameField = new JTextField(TEXT_FIELD_SIZE);
+		JLabel carLabel = new JLabel("Car ID: ");
 		final JTextField carField = new JTextField(TEXT_FIELD_SIZE);
 		JLabel pickUpDateLabel = new JLabel("Pick Up Date: ");
 		final JTextField pickUpDateField = new JTextField(TEXT_FIELD_SIZE);
@@ -214,9 +220,8 @@ public class Reservation extends formatter{
 		final JTextField insuranceField = new JTextField(TEXT_FIELD_SIZE);
 		JButton okButton = new JButton("Submit");
 
-		// all the formatting that one could ever need.
-		frame.setBackground(Color.BLACK);
-
+		format(usernameLabel);
+		format(usernameField);
 		format(carLabel);
 		format(carField);
 		format(pickUpDateLabel);
@@ -227,13 +232,8 @@ public class Reservation extends formatter{
 		format(insuranceField);
 		format(okButton);
 
-		// change this to wherever your workspace is.
-		addHeader(frame);
-
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(8, 2));
-		panel.setBackground(Color.BLACK);
-
+		panel.add(usernameLabel);
+		panel.add(usernameField);
 		panel.add(carLabel);
 		panel.add(carField);
 		panel.add(pickUpDateLabel);
@@ -257,26 +257,26 @@ public class Reservation extends formatter{
 				String insurance = insuranceField.getText();
 				
 				int number = Reservation.makeConfirmationNumber(reservations);
-				double quote = Reservation.makeQuote(cars, car, pickupDate, dropOffDate);		// need to make a makeQuote method.
+				double quote = Reservation.makeQuote(cars, car, pickupDate, dropOffDate);
 				
 				Reservation resv = new Reservation(username1, car, pickupDate, dropOffDate, number, Boolean.parseBoolean(insurance), quote);
 				reservations.add(resv);
-
+				
 				JOptionPane pane = new JOptionPane(); 
 				format(pane);
 
 				JOptionPane.showMessageDialog(null,
-						" Car: " + car + "\n Pick Up Date: " + pickupDate
+						" Car ID: " + car
+						+ "\n Pick Up Date: " + pickupDate
 						+ "\n Drop Off Date: " + dropOffDate
-						+ "\n Insurance: " + insurance,
+						+ "\n Insurance: " + insurance
+						+ "\n Confirmation Number: " + resv.getConfirmationNumber(),
 						"Information Saved",
-						JOptionPane.INFORMATION_MESSAGE, img);
+						JOptionPane.INFORMATION_MESSAGE);
+				
+				frame.dispose();
 			}
 		});
-
-
-		// we remove the original one, then add the one newly updated one.
-
 	}
 	
 	/**
@@ -314,10 +314,11 @@ public class Reservation extends formatter{
 
 		JOptionPane.showMessageDialog(null,
 				" Username: " + username
-				+ " Car: "+ car
+				+ "\n Car ID: "+ car
 				+ "\n Pick Up Date: " + pickUpDate
 				+ "\n Drop Off Date: " + dropOffDate
-				+ "\n Insurance: " + insurance,
+				+ "\n Insurance: " + insurance
+				+ "\n Confirmation Number: " + confirmationNumber,
 				"Information Saved",
 	  			JOptionPane.INFORMATION_MESSAGE);	
 		}

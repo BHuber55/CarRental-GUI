@@ -346,6 +346,7 @@ public class Manager extends Employee {
 		JFrame pass_frame = new JFrame("Change Password");
 		addHeader(pass_frame); 
 		format(pass_frame); 
+		pass_frame.setSize(400, 250);
 
 		
 		JPanel pass_panel = new JPanel();
@@ -518,9 +519,10 @@ public class Manager extends Employee {
     	
     	JFrame update_frame = new JFrame("Update Reservation Info"); 
     	addHeader(update_frame); 
+    	format(update_frame); 
+    	
     	JPanel update_panel = new JPanel(); 
 		update_panel.setLayout(new GridLayout(2,2));
-		format(update_frame); 
 		format(update_panel); 
 		
 		JLabel confirmLabel = new JLabel("Confirmation Number to update:  "); 
@@ -536,6 +538,7 @@ public class Manager extends Employee {
 		update_panel.add(blank);
 		update_panel.add(okButton);
 		update_frame.add(update_panel);
+		update_frame.pack();
 		
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

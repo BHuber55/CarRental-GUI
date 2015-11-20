@@ -69,6 +69,42 @@ public class Employee extends Customer {
 	public String getHireDate() {
 		return hire;
 	}
+	
+	public void viewCustomerRecord(ArrayList<Reservation> reservations) {
+		JFrame frame = new JFrame("Customer History");
+		addHeader(frame);
+		format(frame);
+		frame.setSize(500, 250);
+		
+		JPanel panel = new JPanel();
+		format(panel);
+		panel.setLayout(new GridLayout(5, 1));
+		
+		JLabel usernameLabel = new JLabel("Please enter the username of the customer you wish to look up: ");
+		final JTextField usernameField = new JTextField(15);
+		format(usernameLabel);
+		format(usernameField);
+		
+		JButton submit = new JButton("Submit");
+		format(submit);
+		
+		panel.add(usernameLabel);
+		panel.add(usernameField);
+		panel.add(submit);
+		panel.add(new JLabel());
+		panel.add(new JLabel());
+		
+		frame.add(panel);
+		
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String username = usernameField.getText();
+				
+				frame.dispose();
+				displayReservationHistory(reservations, username);
+			}
+		});
+	}
 
 	/**
 	 * This method will allow the employee to update one aspect of the car.
@@ -153,6 +189,7 @@ public class Employee extends Customer {
 				for(Car c : cars) {
 					if(c.getID().equals(carID)) {
 						OG = c;
+						cars.remove(c);
 						break;
 					}
 				}
@@ -201,7 +238,8 @@ public class Employee extends Customer {
 						+ "\n Color " + color
 						+ "\n Price " + price
 						+ "\n Milage " + mileage
-						+ "\n MPG " + MPG,
+						+ "\n MPG " + MPG
+						+ "\n Car Id" +carID,
 						"Information saved", JOptionPane.INFORMATION_MESSAGE);	
 				
 				update_frame.dispose();
@@ -225,6 +263,7 @@ public class Employee extends Customer {
 		format(reg_frame); 
 		
 		JPanel reg_panel = new JPanel(); 
+		format(reg_frame);
 
 		final int TEXT_FIELD_SIZE = 20;
 		JLabel carModel = new JLabel("Car model");
@@ -377,6 +416,7 @@ public class Employee extends Customer {
 						format(pane);
 						pane.showMessageDialog(null, "The car is removed", "\n ", JOptionPane.INFORMATION_MESSAGE);
 
+						del_frame.dispose();
 						break;
 					}
 				}
@@ -502,9 +542,9 @@ public class Employee extends Customer {
 		ArrayList<Reservation> user_history = new ArrayList<Reservation>();
 		
 		JFrame frame = new JFrame("Customer History");
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		frame.setLayout(new FlowLayout());
+		addHeader(frame); 
+		format(frame); 
+		
 		
 		for(Reservation R : reservations) {
 			if(R.getUserName().equals(username)) {
@@ -540,16 +580,11 @@ public class Employee extends Customer {
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3, 3));
-		panel.setBackground(primary);
+		format(panel);
 
-		Container c = frame.getContentPane();
-		c.setBackground(primary);
 		panel.add(table.getTableHeader());
 		panel.add(table);
 		frame.add(panel);
-		frame.setLocationRelativeTo(null);
-		frame.setSize(800, 500);
-		frame.setVisible(true);
 		
 	}
 	

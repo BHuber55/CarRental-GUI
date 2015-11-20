@@ -1,22 +1,17 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.plaf.FontUIResource;
 
 /**
  * This is the Customer class, it holds the information that is used to create, and get information about a customer.
@@ -223,6 +218,7 @@ public class Customer extends formatter{
          
         JPanel panel = new JPanel(); 
         panel.setLayout(new GridLayout(8,2));
+        format(panel);
          
          
 		panel.add(nameLabel);
@@ -313,7 +309,7 @@ public class Customer extends formatter{
 	 * @param index
 	 * 			an int that holds the index of the customer in the array list that is also passed in.
 	 */
-	public void updateProfile(int index, ArrayList<Customer> customers) {
+	public void updateProfile(int index, ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers) {
 		customers.remove(index);
 		JFrame frame = new JFrame("Update Customer Info"); 
 		format(frame);
@@ -337,8 +333,6 @@ public class Customer extends formatter{
 		JButton okButton = new JButton("Submit");
 	
 		//all the formatting that one could ever need.
-        
-         
         format(nameLabel);
         format(nameField);
         format(userNameLabel);
@@ -354,7 +348,6 @@ public class Customer extends formatter{
         format(creditLabel);
         format(creditField);
         format(okButton);
-         
          
         JPanel panel = new JPanel(); 
         panel.setLayout(new GridLayout(8,2));
@@ -382,6 +375,7 @@ public class Customer extends formatter{
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Customer C = customers.get(index);
+				System.out.println("The current customer is... " + C.getAttributes());
 				
 				String name = nameField.getText();
 				String user = userNameField.getText();
@@ -396,7 +390,7 @@ public class Customer extends formatter{
 				if(user.equals(C.getUserName())) {
 					found = false;
 				}
-				
+		        
 				if(!found) {
 					if(name.equals(null)) {
 						name = C.getName();
@@ -421,10 +415,32 @@ public class Customer extends formatter{
 					}
 	
 			        Customer customer = new Customer(name, user, email, pass, phone, birth, credit);
-			        customers.add(customer);
+			       // customers.add(customer);
+			        
+			       // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+			        if(user.substring(0, 2).equals("E_") || user.substring(0, 2).equals("M_")) {
+			        	Employee emp = null;
+			        	Manager man = null;
+			        	
+			        	for(Employee E : employees) {
+			        		if(E.getUserName().equals(user)) {
+			        			emp = new Employee(name, user, email, pass, phone, birth, credit, E.getHireDate(), E.getSalary());
+			        			employees.add(emp);
+			        		}
+			        	}
+			        	
+			        	if(user.substring(0, 2).equals("M_")) {
+				        	for(Manager M : managers) {
+					        	if(user.substring(0, 2).equals(user)) {
+					        		man = new Manager(name, user, email, pass, phone, birth, credit, M.getHireDate(), M.getSalary(), M.getBonus());
+					        		managers.add(man);
+					        	}
+				        	}
+			        	}
+			        }
 				} else {
 					// tell the user his chosen username is taken.
-					JOptionPane.showMessageDialog(null,  "Sorry that username is already taken.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,  "Sorry that username is already taken. Please enter a different one.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			} 	
 		});
@@ -446,16 +462,61 @@ public class Customer extends formatter{
 		Reservation.makeReservation(cars, reservations, username);
 	}
 
-	public void displayReservationHistory(ArrayList<Reservation> reservations) {
+	public void displayReservationHistory(ArrayList<Reservation> reservations, String username) {
 		ArrayList<Reservation> user_history = new ArrayList<Reservation>();
 		
+		JFrame frame = new JFrame("User Reservation History");
+		format(frame);
+		
 		for(Reservation R : reservations) {
-			if(this.getUserName().equals(R.getUserName())) {
+			if(username.equals(R.getUserName())) {
 				user_history.add(R);
 			}
 		}
-		// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		// should make a table to display this stuff.
+		
+		String header[] = { "Username", "Car ID", "Pick Up Date", "Drop Off Date", "Confirmation Number" };
+		Object data[][] = new Object[user_history.size()][5];
+		String info = "";
+		List<String> list;
+		int count = 0;
+
+		for (Reservation h : user_history) {
+			info = h.getAttributes();
+			list = Arrays.asList(info.split(", "));
+
+			// seeing if there are any reservations.
+			if(list.size() == 0) {
+				JOptionPane pane = new JOptionPane();
+				format(pane);
+				
+				pane.showMessageDialog(null, "There were no reservation found for that customer", "Error", JOptionPane.WARNING_MESSAGE);
+				frame.dispose();
+				return;
+			}
+			
+			
+			for (int j = 0; j < 5; j++) {
+				data[count][j] = list.get(j);
+			}
+
+			count++;
+		}
+		
+		JTable table = new JTable(data, header){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
+		};
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(2, 3));
+		format(panel);
+
+		panel.add(table.getTableHeader());
+		panel.add(table);
+		frame.add(panel);
 	}
 	
 	/**

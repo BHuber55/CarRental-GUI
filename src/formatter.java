@@ -26,13 +26,12 @@ public class formatter {
 	public static void format(JFrame frame) {
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int w = frame.getWidth();
-		int h = frame.getHeight();
-		int x = (int) ((dim.getWidth() - w) / 2);
-		int y = (int) ((dim.getHeight() - h) / 2);
-		frame.setLocation(x, y);
-
-		frame.setUndecorated(true);
+//		int w = frame.getWidth();
+//		int h = frame.getHeight();
+//		int x =  (int) ((dim.getWidth() - (w / 2)));
+//		int y =  (int) ((dim.getHeight() - (h / 2)));
+//		frame.setLocation(x, y);
+		//frame.setUndecorated(true);
 		frame.setSize(800, 510);
 
 		frame.setLayout(new BorderLayout());
@@ -40,7 +39,7 @@ public class formatter {
 		Container c = frame.getContentPane();
 		c.setBackground(primary);
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
 	}
@@ -62,7 +61,7 @@ public class formatter {
 	}
 
 	public static void format(JTextField field) {
-		field.setBackground(Color.GRAY);
+		field.setBackground(Color.DARK_GRAY);
 		field.setForeground(Color.WHITE);
 		field.setFont(new Font("High Tower Text", Font.PLAIN, 16));
 		
@@ -83,7 +82,7 @@ public class formatter {
 
 		button.setBackground(primary);
 		button.setForeground(secondary);
-		button.setFont(new Font(font_name, Font.PLAIN, 18));
+		button.setFont(new Font(font_name, Font.PLAIN, 17));
 
 		button.setOpaque(false);
 		button.setContentAreaFilled(false);
