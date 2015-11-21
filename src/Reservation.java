@@ -196,9 +196,9 @@ public class Reservation extends formatter{
 	public static void makeReservation(ArrayList<Car> cars, ArrayList<Reservation> reservations, String username1) {
 
 		JFrame frame = new JFrame("Make a Reservation");
-		addHeader(frame);
 		format(frame);
-		frame.setLayout(new BorderLayout());
+		addHeader(frame);
+		//frame.setLayout(new BorderLayout());
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(9, 2));

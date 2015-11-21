@@ -1,19 +1,19 @@
-Loro Dumo
-M_loro
-email@gmail.com
-abc123
-123-456-7890
-1/1/2000
-xxxx-xxxx-xxxx-xxxx
-HireDate
-100000
-5000.0
 Farah Kandah
 M_FKandah
 email@gmail.com
 abc123
 123-456-7890
 07/10/1980
+xxxx-xxxx-xxxx-xxxx
+HireDate
+100000
+5000.0
+Loro Dumo
+M_loro
+email@gmail.com
+abc123
+123-456-7890
+1/1/2000
 xxxx-xxxx-xxxx-xxxx
 HireDate
 100000

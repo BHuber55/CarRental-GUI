@@ -26,11 +26,7 @@ public class formatter {
 	public static void format(JFrame frame) {
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-//		int w = frame.getWidth();
-//		int h = frame.getHeight();
-//		int x =  (int) ((dim.getWidth() - (w / 2)));
-//		int y =  (int) ((dim.getHeight() - (h / 2)));
-//		frame.setLocation(x, y);
+		frame.setLocation(((dim.width/2)-400), ((dim.height/2)-255));
 		//frame.setUndecorated(true);
 		frame.setSize(800, 510);
 		frame.setBackground(primary);
@@ -95,7 +91,6 @@ public class formatter {
 		panel.setBackground(Color.BLACK);
 		JLabel headerLabel = new JLabel(new ImageIcon("./header.jpg"));
 		panel.add(headerLabel);
-
 		frame.add(panel, BorderLayout.PAGE_START);
 
 		headerLabel.addMouseListener(new MouseListener() {
@@ -103,27 +98,18 @@ public class formatter {
 			public void mouseClicked(MouseEvent e) {
 				int x = e.getX();
 				int y = e.getY();
-
 				if (x > 670 && x < 800 && y > 226 && y < 250) {
 					frame.dispose();
 				}
 			}
-
 			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
+			public void mouseEntered(MouseEvent e) {			}
 			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
+			public void mouseExited(MouseEvent e) {			}
 			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
+			public void mousePressed(MouseEvent e) {			}
 			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
+			public void mouseReleased(MouseEvent e) {			}
 		});
 
 		ImageIcon img = new ImageIcon("./Car.jpg");
@@ -132,14 +118,15 @@ public class formatter {
 
 	}
 
+	@SuppressWarnings("static-access")
 	public static void format(JOptionPane pane) {
 
 		UIManager UI = new UIManager();
 		UI.put("OptionPane.background", primary);
 		UI.put("Panel.background", primary);
+		UI.put("OptionPane.messageForeground", secondary);		
 		UI.put("OptionPane.messageFont", new FontUIResource(new Font("High Tower Text", Font.PLAIN, 13)));
 		
-		// want to change font color to secondary.
 	}
 
 	public static void format(JPanel panel) {

@@ -72,9 +72,8 @@ public class Employee extends Customer {
 	
 	public void viewCustomerRecord(ArrayList<Reservation> reservations) {
 		JFrame frame = new JFrame("Customer History");
-		addHeader(frame);
 		format(frame);
-		frame.setSize(500, 250);
+		addHeader(frame);
 		
 		JPanel panel = new JPanel();
 		format(panel);
@@ -95,6 +94,7 @@ public class Employee extends Customer {
 		panel.add(new JLabel());
 		
 		frame.add(panel);
+		frame.pack();
 		
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,8 +118,8 @@ public class Employee extends Customer {
 		JFrame update_frame = new JFrame("Update Vehicle");
 		JPanel update_panel = new JPanel(); 
 		
-		addHeader(update_frame);
 		format(update_frame);
+		addHeader(update_frame);
 		format(update_panel); 
 
 		final int TEXT_FIELD_SIZE = 20;
@@ -179,6 +179,7 @@ public class Employee extends Customer {
 		update_panel.add(carMPGField);
 		update_panel.add(submitButton);
 		update_frame.add(update_panel);
+		update_frame.pack();
 
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -259,11 +260,11 @@ public class Employee extends Customer {
 	public void registerNewVehicle(ArrayList<Car> cars) {
 
 		JFrame reg_frame = new JFrame("Register New Vehicle");
-		addHeader(reg_frame); 
 		format(reg_frame); 
+		addHeader(reg_frame); 
 		
 		JPanel reg_panel = new JPanel(); 
-		format(reg_frame);
+		format(reg_panel);
 
 		final int TEXT_FIELD_SIZE = 20;
 		JLabel carModel = new JLabel("Car model");
@@ -322,7 +323,7 @@ public class Employee extends Customer {
 		reg_panel.add(carMPGField);
 		reg_panel.add(submitButton);
 		reg_frame.add(reg_panel);
-
+		reg_frame.pack();
 		submitButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -380,11 +381,11 @@ public class Employee extends Customer {
 	public void deleteVehicle(ArrayList<Car> cars) {
 
 		JFrame del_frame = new JFrame("Delete Vehicle");
-		JPanel del_panel = new JPanel();
-		addHeader(del_frame); 
+		JPanel del_panel = new JPanel(); 
 		format(del_frame);
+		addHeader(del_frame);
 		format(del_panel); 
-		del_panel.setLayout(new GridLayout(10, 2));
+		del_panel.setLayout(new GridLayout(3, 1));
 
 
 		final int TEXT_FIELD_SIZE = 20;
@@ -400,6 +401,7 @@ public class Employee extends Customer {
 		del_panel.add(idField);
 		del_panel.add(submitButton);
 		del_frame.add(del_panel);
+		del_frame.pack();
 
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -444,8 +446,8 @@ public class Employee extends Customer {
 
 		JFrame display_frame = new JFrame("Display all Customers");
 		JPanel display_panel = new JPanel(); 
-		addHeader(display_frame); 
 		format(display_frame); 
+		addHeader(display_frame); 
 		format(display_panel); 
 		display_panel.setLayout(new GridLayout(2, 1));
 
@@ -483,6 +485,7 @@ public class Employee extends Customer {
 		display_panel.add(table);
 		
 		display_frame.add(display_panel);
+		display_frame.pack();
 	}
 
 	/**
@@ -493,13 +496,13 @@ public class Employee extends Customer {
 	 */
 	public void findByConfirmationNumber(ArrayList<Reservation> reservations, ArrayList<Car> cars) {
 
-		JFrame confirm_frame = new JFrame("Find confirmation number");
-		addHeader(confirm_frame); 
+		JFrame confirm_frame = new JFrame("Find confirmation number"); 
 		format(confirm_frame); 
+		addHeader(confirm_frame);
 		
 		JPanel confirm_panel = new JPanel(); 
 		format(confirm_panel); 
-		confirm_panel.setLayout(new GridLayout(10, 2));
+		confirm_panel.setLayout(new GridLayout(3, 1));
 
 		final int TEXT_FIELD_SIZE = 20;
 		JLabel confirmationNumber = new JLabel("Confirmation number your trying find");
@@ -513,6 +516,7 @@ public class Employee extends Customer {
 		confirm_panel.add(confirmationNumberField);
 		confirm_panel.add(submitButton);
 		confirm_frame.add(confirm_panel);
+		confirm_frame.pack();
 		
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -542,8 +546,9 @@ public class Employee extends Customer {
 		ArrayList<Reservation> user_history = new ArrayList<Reservation>();
 		
 		JFrame frame = new JFrame("Customer History");
-		addHeader(frame); 
+		addHeader(frame);
 		format(frame); 
+ 
 		
 		
 		for(Reservation R : reservations) {
@@ -581,7 +586,6 @@ public class Employee extends Customer {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3, 3));
 		format(panel);
-
 		panel.add(table.getTableHeader());
 		panel.add(table);
 		frame.add(panel);

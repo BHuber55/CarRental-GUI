@@ -370,6 +370,7 @@ public class Customer extends formatter{
 		panel.add(new JLabel(""));
 		panel.add(okButton);
 		frame.add(panel);
+		frame.pack();
 		
 		
 		okButton.addActionListener(new ActionListener() {
@@ -482,6 +483,7 @@ public class Customer extends formatter{
 		
 		JFrame frame = new JFrame("User Reservation History");
 		format(frame);
+		addHeader(frame);
 		frame.setVisible(false);
 		
 		for(Reservation R : reservations) {
@@ -535,6 +537,7 @@ public class Customer extends formatter{
 		panel.add(table.getTableHeader());
 		panel.add(table);
 		frame.add(panel);
+		frame.pack();
 	}
 	
 	/**

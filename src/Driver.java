@@ -543,10 +543,7 @@ public class Driver<T> extends formatter {
 		
 		JTextField username_text_field = new JTextField(10);
 		JTextField password_text_field = new JTextField(10);
-		username_text_field.setText("M_loro");
 		format(username_text_field);
-		
-		password_text_field.setText("abc123");
 		format(password_text_field);
 		
 		JButton login_button = new JButton("Login");
@@ -622,7 +619,7 @@ public class Driver<T> extends formatter {
 				} else {
 					JOptionPane pane = new JOptionPane(); 
 					format(pane);
-					JOptionPane.showMessageDialog(null, "Password is incorrect", "Error", JOptionPane.WARNING_MESSAGE);
+					pane.showMessageDialog(null, "Password is incorrect", "Error", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		}
@@ -630,7 +627,7 @@ public class Driver<T> extends formatter {
 		if(!found) {
 			JOptionPane pane = new JOptionPane(); 
 			format(pane);
-			JOptionPane.showMessageDialog(null, "Username was not found.", "Error", JOptionPane.WARNING_MESSAGE);
+			pane.showMessageDialog(null, "Username was not found.", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 		
 		return index;

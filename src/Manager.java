@@ -85,8 +85,8 @@ public class Manager extends Employee {
 	public void createCustomer(ArrayList<Customer> customers) {
 		
 		JFrame cust_frame = new JFrame("Create Customer");
-		addHeader(cust_frame); 
 		format(cust_frame); 
+		addHeader(cust_frame); 
 
 		JPanel cust_panel = new JPanel();
 		format(cust_panel); 
@@ -157,6 +157,7 @@ public class Manager extends Employee {
 		cust_panel.add(new JLabel(""));
 		cust_panel.add(okButton);
 		cust_frame.add(cust_panel);
+		cust_frame.pack();
 
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -200,9 +201,9 @@ public class Manager extends Employee {
 	 */
 	public void createEmployee(ArrayList<Employee> employees, ArrayList<Customer> customers) {
 		
-		JFrame emp_frame = new JFrame("Create Employee");
-		addHeader(emp_frame); 
+		JFrame emp_frame = new JFrame("Create Employee"); 
 		format(emp_frame); 
+		addHeader(emp_frame);
 
 		JPanel emp_panel = new JPanel();
 		format(emp_panel); 
@@ -288,6 +289,7 @@ public class Manager extends Employee {
 		emp_panel.add(new JLabel(""));
 		emp_panel.add(okButton);
 		emp_frame.add(emp_panel);
+		emp_frame.pack();
 
 
 		okButton.addActionListener(new ActionListener() {
@@ -347,10 +349,9 @@ public class Manager extends Employee {
 	public void changePassword(ArrayList<Customer> customers, ArrayList<Employee> employees, ArrayList<Manager> managers, String userName) {
 		
 
-		JFrame pass_frame = new JFrame("Change Password");
-		addHeader(pass_frame); 
+		JFrame pass_frame = new JFrame("Change Password"); 
 		format(pass_frame); 
-		pass_frame.setSize(400, 250);
+		addHeader(pass_frame);
 
 		
 		JPanel pass_panel = new JPanel();
@@ -381,6 +382,7 @@ public class Manager extends Employee {
 		pass_panel.add(passField1);
 		pass_panel.add(okButton);
 		pass_frame.add(pass_panel);
+		pass_frame.pack();
 
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent a) {
@@ -452,13 +454,13 @@ public class Manager extends Employee {
 		final int TEXT_FIELD_SIZE = 20;
 
 		JFrame cancel_frame = new JFrame("Cancel Reservation");
-		addHeader(cancel_frame); 
 		format(cancel_frame); 
+		addHeader(cancel_frame); 
 	
 
 		JPanel cancel_panel = new JPanel();
 		format(cancel_panel); 
-		cancel_panel.setLayout(new GridLayout(2, 2));
+		cancel_panel.setLayout(new GridLayout(1, 3));
 
 
 		JLabel confirmLabel = new JLabel("Confirmation Number to cancel:  ");
@@ -469,12 +471,11 @@ public class Manager extends Employee {
 
 		JButton okButton = new JButton("Submit");
 		format(okButton);
-
 		cancel_panel.add(confirmLabel);
 		cancel_panel.add(confirmField);
-		cancel_panel.add(new JLabel(""));
 		cancel_panel.add(okButton);
 		cancel_frame.add(cancel_panel);
+		cancel_frame.pack(); 
 
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -521,12 +522,12 @@ public class Manager extends Employee {
 
 		final int TEXT_FIELD_SIZE = 20;
     	
-    	JFrame update_frame = new JFrame("Update Reservation Info"); 
-    	addHeader(update_frame); 
+    	JFrame update_frame = new JFrame("Update Reservation Info");  
     	format(update_frame); 
+    	addHeader(update_frame);
     	
     	JPanel update_panel = new JPanel(); 
-		update_panel.setLayout(new GridLayout(2,2));
+		update_panel.setLayout(new GridLayout(1,3));
 		format(update_panel); 
 		
 		JLabel confirmLabel = new JLabel("Confirmation Number to update:  "); 
@@ -536,10 +537,8 @@ public class Manager extends Employee {
 		JButton okButton = new JButton("Submit");
 		format(okButton); 
 		
-		JLabel blank = new JLabel();
 		update_panel.add(confirmLabel);
 		update_panel.add(confirmField);
-		update_panel.add(blank);
 		update_panel.add(okButton);
 		update_frame.add(update_panel);
 		update_frame.pack();
